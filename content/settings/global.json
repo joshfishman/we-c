@@ -1,0 +1,22 @@
+{
+  "siteName": "Creative Agency",
+  "logoText": "WE",
+  "logoSub": "DIGITAL<br>agency",
+  "accent": "#E08A4E",
+  "header": {
+    "visible": true,
+    "links": [
+      { "label": "One Day Websites", "url": "/one-day" },
+      { "label": "Online Growth", "url": "/#framework" },
+      { "label": "Our Work", "url": "/#work" }
+    ],
+    "cta": { "label": "Let's Grow", "url": "/#contact" }
+  },
+  "footer": {
+    "visible": true,
+    "tagline": "Proven agency strategy & process, powered by AI.",
+    "addressLines": ["268 S. Orange Dr", "Los Angeles, CA 90036"],
+    "email": "hello@wecreativeagency.com",
+    "copyright": "© WE Creative Agency — Los Angeles"
+  }
+}

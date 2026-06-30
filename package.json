@@ -1,0 +1,35 @@
+{
+  "name": "wecreative",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "TINA_PUBLIC_IS_LOCAL=true tinacms dev -c \"next dev\"",
+    "dev:prod": "TINA_PUBLIC_IS_LOCAL=false tinacms dev -c \"next dev\"",
+    "build": "tinacms build --partial-reindex && next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@types/node": "^25.8.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "^16.2.6",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@next/third-parties": "^16.2.6",
+    "@tinacms/cli": "^2.3.1",
+    "@tinacms/datalayer": "^2.0.21",
+    "next": "^16.2.6",
+    "next-auth": "^4.24.14",
+    "react": "^19.2.6",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-dom": "^19.2.6",
+    "tinacms": "^3.8.1",
+    "tinacms-authjs": "^22.0.1",
+    "tinacms-gitprovider-github": "^4.1.8",
+    "upstash-redis-level": "^1.1.1"
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "title": "WE Creative Agency — We grow businesses online",
+  "description": "Proven agency strategy & process, powered by AI. We grow ecommerce and lifestyle brands across strategy, development and marketing.",
+  "blocks": [
+    {
+      "_template": "hero",
+      "visible": true,
+      "bgVideo": "/media/hero-video-4.mp4",
+      "bgVideoMobile": "",
+      "bgPoster": "/media/hero-poster.jpg",
+      "eyebrow": "For ecommerce and lifestyle brands",
+      "headlineLead": "We grow",
+      "headlineAccent": "businesses",
+      "headlineTail": "online.",
+      "subhead": "Proven Agency Strategy & Process, powered by AI. Optimize your funnel and unleash growth.",
+      "ctaPrimary": { "label": "Let's Grow", "url": "#contact" },
+      "ctaSecondary": { "label": "See Our Work", "url": "#work" },
+      "callout": {
+        "eyebrow": "AI-powered",
+        "text": "Built in one day",
+        "url": "#speed"
+      }
+    },
+    {
+      "_template": "proof",
+      "visible": true,
+      "intro": {
+        "title": "Since 2012",
+        "subtitle": "Strategy / Development / Marketing"
+      },
+      "stats": [
+        { "value": "77+", "label": "Sites launched" },
+        { "value": "$6.7M", "label": "Revenue earned for clients" }
+      ]
+    },
+    {
+      "_template": "caseStudy",
+      "visible": true,
+      "eyebrow": "Client Results",
+      "metricValue": "300%",
+      "metricLabel": "revenue growth in six months",
+      "brand": "Stoned Immaculate Clothing",
+      "quote": "WE rebuilt our store and dialed in our organic and paid channels — we tripled revenue in a single quarter. They move fast and actually get fashion.",
+      "personName": "Founder & Creative Director",
+      "personTitle": "Stoned Immaculate Clothing",
+      "image": "",
+      "imageAlt": "Stoned Immaculate Clothing brand photo",
+      "avatar": ""
+    },
+    {
+      "_template": "framework",
+      "visible": true,
+      "eyebrow": "Services Framework",
+      "heading": "Moving from first glance to lasting loyalty.",
+      "layers": [
+        {
+          "no": "01",
+          "title": "Attract",
+          "badge": "Organic & Paid",
+          "description": "Find & nurture your audience. Content that makes your brand stand out.",
+          "tags": ["Advertising", "Messaging", "Content"]
+        },
+        {
+          "no": "02",
+          "title": "Convert",
+          "badge": "Test & Improve",
+          "description": "Attention into action. Optimized sites, compelling offers, fast experiments and journeys tuned to guide visitors smoothly to yes.",
+          "tags": ["Design", "Development", "Conversion Optimization"]
+        },
+        {
+          "no": "03",
+          "title": "Retain",
+          "badge": "CRM & Automations",
+          "description": "Keep them coming back. Measure, learn and nurture — AI spots what to improve while humans decide what matters.",
+          "tags": ["Analytics", "Lifecycle", "Loyalty"]
+        }
+      ]
+    },
+    {
+      "_template": "ourWork",
+      "visible": true,
+      "eyebrow": "Our Work",
+      "heading": "Brands we've grown.",
+      "cta": { "label": "Start a project →", "url": "#contact" },
+      "projects": [
+        {
+          "title": "Stoned Immaculate Clothing",
+          "category": "Fashion · eCommerce",
+          "image": "",
+          "url": "#contact"
+        },
+        {
+          "title": "Lifestyle Label",
+          "category": "Apparel · eCommerce",
+          "image": "",
+          "url": "#contact"
+        }
+      ]
+    },
+    {
+      "_template": "approach",
+      "visible": true,
+      "leftEyebrow": "Guided by",
+      "leftHeading": "Human expertise",
+      "leftBody": "Strategists, designers and developers who've shaped lifestyle and wellness brands for over a decade. Taste, judgment and accountability you can't automate.",
+      "rightEyebrow": "Supercharged with",
+      "rightHeading": "AI horsepower",
+      "rightBody": "AI compresses the busywork — research, prototyping, build. Weeks become days, so more of the budget goes into craft, not grind."
+    },
+    {
+      "_template": "builtInADay",
+      "visible": true,
+      "eyebrow": "AI-Powered Development",
+      "heading": "This very site was designed, built and shipped in a single day.",
+      "stats": [
+        { "value": "1", "label": "day from brief to launch" },
+        { "value": "10×", "label": "faster than a typical build" }
+      ],
+      "cta": { "label": "See how we'd build yours →", "url": "/one-day" }
+    },
+    {
+      "_template": "ctaSection",
+      "visible": true,
+      "heading": "See what WE can do for your brand.",
+      "body": "Great work begins with great relationships. Let's set a time to talk about your brand and what success looks like.",
+      "cta": { "label": "Book a call →", "url": "#" },
+      "email": "hello@wecreativeagency.com",
+      "phone": "(323) 412-0544",
+      "studio": ["268 S. Orange Dr", "Los Angeles, CA 90036"]
+    }
+  ]
+}

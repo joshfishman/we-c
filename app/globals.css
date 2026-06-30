@@ -1,0 +1,235 @@
+@import "../styles/tokens.css";
+
+/* ---- Reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--page-gradient);
+  background-attachment: fixed;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #0c2a33;
+  color: #e7dcc4;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+/* ---- Layout primitives ---- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.section {
+  padding-block: var(--section-pad-y);
+}
+
+.eyebrow {
+  font-size: 0.81rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Serif display (Spectral) */
+.serif {
+  font-family: var(--font-serif);
+  font-weight: 400;
+}
+.serif--italic {
+  font-style: italic;
+}
+
+/* Animated gradient text (green by default) */
+.gradText {
+  background: var(--grad-green);
+  background-size: 220% 100%;
+  animation: gradShift 6s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.gradText--gold {
+  background: var(--grad-gold);
+  background-size: 300% 300%;
+  animation: logoWave 7s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---- Buttons (standardized) ----
+   Shared rules: bg + text-color transition on hover, a small downward nudge
+   (0.75px — a quarter of the old 3px), and the drop shadow removed on hover. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  transition: background-position 0.45s ease, background 0.35s ease,
+    color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+}
+.btn:hover {
+  transform: translateY(0.75px);
+  box-shadow: none;
+}
+
+/* Primary — sunset gradient ("Let's Grow"); shifts to a deeper sunset on hover */
+.btn--primary {
+  color: #2a1520;
+  background-image: var(--grad-sunset);
+  box-shadow: 0 16px 40px -16px rgba(224, 114, 142, 0.6);
+}
+.btn--primary:hover {
+  color: #fff7e9;
+  background-image: var(--grad-sunset-deep);
+}
+
+/* Secondary — green gradient like the "View case" pills, no border. */
+.btn--secondary {
+  color: #f3e7d6;
+  background-image: var(--grad-secondary);
+  background-size: 260% 100%;
+  box-shadow: 0 10px 24px -10px rgba(31, 110, 90, 0.75);
+}
+.btn--secondary:hover {
+  color: #fff7e9;
+  background-position: 100% 50%; /* gradient shifts on hover */
+}
+
+/* Cream — solid light pill (One Day primary) */
+.btn--cream {
+  color: #0c2a33;
+  background: #f3ebd9;
+  box-shadow: 0 16px 40px -16px rgba(8, 34, 42, 0.7);
+}
+.btn--cream:hover {
+  background: #fff4e2;
+}
+
+/* ---- Image placeholder (mirrors the "drop a photo" slots) ---- */
+.imgSlot {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(160deg, #7ba85a 0%, #2e6e48 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(243, 239, 230, 0.8);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  padding: 1rem;
+  min-height: 220px;
+}
+.imgSlot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Keyframes (from the WE Landing design) ---- */
+@keyframes gradShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes logoWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 100%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 0%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes heroSheen {
+  0% {
+    transform: translateX(-6%) translateY(-2%);
+  }
+  100% {
+    transform: translateX(6%) translateY(2%);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition: none !important;
+  }
+}

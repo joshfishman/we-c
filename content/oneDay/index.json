@@ -1,0 +1,88 @@
+{
+  "title": "Built in a Day — WE Creative Agency",
+  "description": "An enterprise-grade website — strategy, design and build, compressed by AI into the arc of a single day. Briefed at sunrise, live by sunset.",
+  "hero": {
+    "visible": true,
+    "bgVideo": "/media/hero-bg.mp4",
+    "bgVideoMobile": "",
+    "bgPoster": "/media/sky-bg.png",
+    "badge": "AI-Powered Development",
+    "headlineLine1": "Briefed at sunrise.",
+    "headlineLine2": "Live by sunset.",
+    "subhead": "An enterprise-grade website — strategy, design and build, compressed by AI into the arc of a single day.",
+    "ctaPrimary": { "label": "Start your build →", "url": "#start" },
+    "ctaSecondary": { "label": "See the process", "url": "#process" },
+    "pills": [
+      { "label": "Morning · Brief" },
+      { "label": "Midday · Build" },
+      { "label": "Sunset · Delivery" }
+    ]
+  },
+  "proof": {
+    "visible": true,
+    "stats": [
+      { "value": "10×", "label": "Faster than a typical build" },
+      { "value": "100/100", "label": "Performance scores, standard" },
+      { "value": "100%", "label": "Yours to own & edit" }
+    ]
+  },
+  "quality": {
+    "visible": true,
+    "eyebrow": "Fast, not flimsy",
+    "heading": "Speed is the headline. Enterprise quality is the standard.",
+    "cards": [
+      {
+        "icon": "⚡",
+        "title": "Built for speed",
+        "body": "Lightning page loads and clean code — engineered to score top marks on Core Web Vitals out of the box."
+      },
+      {
+        "icon": "⌕",
+        "title": "SEO & accessible",
+        "body": "Semantic structure, metadata and accessibility baked in, so you rank well and welcome every visitor."
+      },
+      {
+        "icon": "⛬",
+        "title": "Secure & scalable",
+        "body": "Hosted on rock-solid infrastructure that grows with you — and a stack you fully own and control."
+      }
+    ]
+  },
+  "process": {
+    "visible": true,
+    "eyebrow": "The Process",
+    "heading": "Three steps from brief to live.",
+    "steps": [
+      {
+        "no": "01",
+        "title": "Plan",
+        "tag": "Morning",
+        "body": "A guided questionnaire gets your goals, audience and brand on paper fast. We align on scope and direction together — no guesswork, no long discovery cycle."
+      },
+      {
+        "no": "02",
+        "title": "Design",
+        "tag": "Midday",
+        "body": "We lock in all content and structure — copy, imagery, sitemap and layout. With everything settled up front, AI turns the approved plan into a polished, on-brand build."
+      },
+      {
+        "no": "03",
+        "title": "Launch & Refine",
+        "tag": "Sunset",
+        "body": "Your site goes live the same day. Then we measure real behaviour and refine — tuning copy, layout and conversion paths so the site keeps getting sharper."
+      }
+    ]
+  },
+  "cta": {
+    "visible": true,
+    "eyebrow": "Ready when you are",
+    "heading": "Tell us about your brand. We'll build it tomorrow.",
+    "body": "Start with the questionnaire — it takes about ten minutes and kicks off your one-day build.",
+    "ctaPrimary": { "label": "Start the questionnaire →", "url": "#" },
+    "ctaSecondary": { "label": "See our work", "url": "/#work" }
+  },
+  "footer": {
+    "contact": "hello@wecreativeagency.com  ·  (323) 412-0544",
+    "copyright": "© WE Creative Agency — Los Angeles"
+  }
+}

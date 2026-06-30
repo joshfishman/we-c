@@ -1,0 +1,59 @@
+/* Overlaps the hero by pulling up. */
+.wrap {
+  max-width: 1180px;
+  margin: -70px auto 0;
+  position: relative;
+  z-index: 7;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+}
+
+.bar {
+  display: flex;
+  align-items: stretch;
+  background: linear-gradient(
+    100deg,
+    #6e8a38 0%,
+    #4e7c4a 28%,
+    #2e5e42 60%,
+    #163a2a 100%
+  );
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.cell {
+  flex: 1;
+  padding: 26px 32px;
+}
+.cellBordered {
+  border-left: 1px solid rgba(231, 220, 196, 0.18);
+}
+
+.introTitle,
+.value {
+  font-size: clamp(30px, 3.4vw, 40px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #eaf1de;
+  margin-bottom: 8px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #d8e6c8;
+}
+
+@media (max-width: 720px) {
+  .bar {
+    flex-direction: column;
+  }
+  .cellBordered {
+    border-left: none;
+    border-top: 1px solid rgba(231, 220, 196, 0.18);
+  }
+}

@@ -1,0 +1,61 @@
+/* ============================================================
+   Design tokens — edit these to retune the whole site.
+   Palette from the "WE Landing" design: sage→green page,
+   forest-green feature panels, warm editable accent.
+   ============================================================ */
+:root {
+  /* Page background (sage → green gradient) */
+  --color-bg: #eef6ea;
+  --page-gradient: linear-gradient(180deg, #eef6ea 0%, #d2e6ce 45%, #b4d2ac 100%);
+
+  /* Ink / text */
+  --color-ink: #16301f; /* deep forest — primary text */
+  --color-ink-soft: #4a5a44; /* muted body text */
+  --color-line: rgba(58, 34, 48, 0.12); /* hairline borders */
+  --color-surface: #ffffff;
+  --color-cream: #e7dcc4;
+
+  /* Dark / forest feature panels */
+  --color-dark: #13301f;
+  --on-dark: #f3e7d6;
+  --on-dark-soft: #a8c0a4;
+  --on-dark-faint: rgba(252, 239, 226, 0.3);
+
+  /* Accent — overridden at runtime from Site Settings (--accent).
+     Default orange; palette options: #E08A4E #E0708A #2F7D4F #E3A857 */
+  --accent: #e08a4e;
+  --accent-ink: #14271a; /* text on green CTA */
+
+  /* Signature gradients */
+  --grad-green: linear-gradient(90deg, #b7c96a, #4e9e6a, #2f7d4f, #b7c96a); /* gradient text */
+  --grad-gold: linear-gradient(90deg, #ffe7a0, #ffc24d, #ffb13c, #ffdd80, #ffe7a0); /* gold logo */
+  --grad-sunset: linear-gradient(90deg, #f4c06a, #ee9a55, #e0728e, #ee9a55, #f4c06a); /* primary btn */
+  --grad-sunset-deep: linear-gradient(90deg, #d8623f, #e0728e, #9a5e9e, #e0728e, #d8623f); /* primary hover */
+  --grad-secondary: linear-gradient(90deg, #1f6e5a, #3fa56e, #9fcb55, #3fa56e, #1f6e5a); /* secondary / view-case */
+
+  /* Typography (wired to next/font CSS variables in layout.tsx) */
+  --font-display: var(--font-bricolage), "Bricolage Grotesque", system-ui, sans-serif;
+  --font-serif: var(--font-spectral), "Spectral", Georgia, serif;
+
+  /* Spacing scale */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+  --section-pad-y: clamp(3.5rem, 7vw, 6rem);
+
+  /* Layout */
+  --container: 1280px;
+  --container-pad: clamp(1.25rem, 4vw, 3rem);
+
+  /* Radii & shadows */
+  --radius-sm: 12px;
+  --radius: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 40px;
+  --shadow-sm: 0 12px 30px -26px rgba(20, 10, 30, 0.55);
+  --shadow: 0 24px 60px -30px rgba(20, 10, 30, 0.5);
+  --shadow-lg: 0 30px 64px -34px rgba(20, 10, 30, 0.6);
+}

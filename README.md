@@ -1,0 +1,145 @@
+# WE Creative Agency
+
+A modular, editable marketing site built with **Next.js (App Router)** and a
+**self-hosted TinaCMS** backend, deployed to **Vercel**.
+
+- **Front-end visual editing** — every section is a Tina *block* with its own
+  fields plus a **Visible** toggle (uncheck to hide a section). Editors click
+  fields in a live preview at `/admin` and changes commit straight to GitHub.
+- **Modular sections** — one component + one CSS module per section under
+  `components/blocks/*`. Add/reorder/hide sections in the editor; build new
+  pages by reusing the same blocks.
+- **Separate, tweakable styles** — design tokens in `styles/tokens.css`, one
+  scoped CSS module per section. No Tailwind, no build magic.
+- **Conversion tracking** — Google Tag Manager `dataLayer` events
+  (`section_view`, `scroll_depth`, `cta_click`, `outbound_click`, `form_submit`,
+  and the primary `generate_lead` conversion). Wire GA4/Ads/Meta in the GTM UI.
+
+## Local development (zero setup)
+
+```bash
+npm install --legacy-peer-deps
+npm run dev
+```
+
+- Site: <http://localhost:3000>
+- Visual editor: <http://localhost:3000/admin>
+
+Local dev runs Tina in **local mode** (`TINA_PUBLIC_IS_LOCAL=true`, set in
+`.env.local`): content is read/written on the filesystem under `content/`, with
+no database, auth, or GitHub required. Edits save directly to the JSON files.
+
+> `--legacy-peer-deps` is required (and pinned in `.npmrc`): `tinacms-authjs`
+> declares a Next.js peer range that doesn't yet list Next 16.
+
+## Project structure
+
+```
+app/                  routes: / (home), /one-day, /particles (sandbox), /api/tina
+components/
+  site/               shared chrome — SiteRenderer, Header, Analytics
+  blocks/             home-page section blocks (one folder + .module.css each)
+  oneday/             the One Day page renderer + its styles
+  ui/                 primitives — Cta, Section, ImageSlot, ParticleField
+content/              Tina content (page blocks, oneDay, global settings)
+tina/collections/     schemas: page.ts, oneDay.ts, settings.ts
+styles/tokens.css     design tokens (colors, gradients, type, spacing)
+lib/track.ts          GTM dataLayer event layer
+```
+
+## Content model
+
+| File | What |
+| --- | --- |
+| `content/page/home.json` | Home page — an ordered list of section **blocks**. |
+| `content/oneDay/index.json` | The One Day page (structured sections). |
+| `content/settings/global.json` | Global header (nav + CTA) and footer. |
+| `tina/collections/page.ts` | Home block templates + per-block `visible` field. |
+| `tina/collections/oneDay.ts` | One Day page schema. |
+| `tina/collections/settings.ts` | Global settings schema. |
+
+Each home section lives in `components/blocks/<name>/` with its
+`<name>.module.css`. The dispatcher `components/blocks/Blocks.tsx` maps Tina's
+block `__typename` → component and **skips any block with `visible === false`**.
+
+## Design system
+
+- **Tokens** live in `styles/tokens.css` — edit colors, gradients, type and
+  spacing in one place. `--accent` is also overridable per-site from Settings.
+- **Buttons** (`.btn` in `app/globals.css`) have three variants:
+  `primary` (sunset), `secondary` (green pill, like the "View case" links),
+  `cream` (light pill). All share one hover behaviour: bg + text-color
+  transition, a 0.75px downward nudge, and the drop shadow removed.
+- **`ParticleField`** (`components/ui/ParticleField.tsx`) — a dependency-free,
+  prop-driven 3D particle background. See `/particles` for a tunable sandbox
+  (delete the route when done); drop `<ParticleField/>` behind any
+  `position: relative` section.
+
+## Editing & adding sections
+
+- **Edit copy / images / hide:** open `/admin`, pick *Pages → home*, edit fields
+  in the live preview. Uncheck **Visible** to hide a section.
+- **Add a new section type:** add a template in `tina/collections/page.ts`,
+  create `components/blocks/<name>/<Name>.tsx` + `.module.css`, and register it
+  in `components/blocks/Blocks.tsx` (key = `PageBlocks<Name>`).
+- **Add a second page:** create `content/page/<slug>.json`, add
+  `app/<slug>/page.tsx` (copy `app/page.tsx`, query that file). Header/footer
+  come from the shared `settings` collection automatically.
+
+### Hero background video
+
+The hero plays a full-bleed background video. Files live in `public/media/`
+and are referenced by path in the Hero block:
+
+- **Background video (desktop)** — `bgVideo`, e.g. `/media/hero-bg.mp4`.
+- **Background video (mobile)** — `bgVideoMobile`. Optional; under 768px the
+  hero swaps to this file, falling back to the desktop video when empty.
+- **Poster / fallback image** — `bgPoster`, shown while the video loads.
+
+To replace a video, drop a new `.mp4` into `public/media/` and update the path
+in `/admin` (Hero block) or in `content/page/home.json`. Keep clips short and
+compressed (the bundled one is ~2.5 MB); the video is muted, looped and
+autoplays with `playsInline`.
+
+## Conversion tracking
+
+Set `NEXT_PUBLIC_GTM_ID` (e.g. `GTM-XXXXXX`). The container loads via
+`@next/third-parties`. Events are pushed by `lib/track.ts`; configure tags in
+the GTM UI. Tracking is suppressed inside the Tina editor preview.
+
+## Deploy to Vercel (self-hosted Tina)
+
+1. **Push this repo to GitHub.**
+2. **Create a Vercel KV (Upstash Redis) store** and copy `KV_REST_API_URL` /
+   `KV_REST_API_TOKEN` (the Tina content index).
+3. **Create a GitHub Personal Access Token** with `contents: read/write` on this
+   repo → `GITHUB_PERSONAL_ACCESS_TOKEN`.
+4. **Import the repo into Vercel** and set Environment Variables:
+
+   | Variable | Value |
+   | --- | --- |
+   | `TINA_PUBLIC_IS_LOCAL` | `false` |
+   | `GITHUB_PERSONAL_ACCESS_TOKEN` | your PAT |
+   | `GITHUB_OWNER` | GitHub user/org |
+   | `GITHUB_REPO` | repo name |
+   | `GITHUB_BRANCH` | `main` |
+   | `NEXTAUTH_SECRET` | `openssl rand -base64 32` |
+   | `KV_REST_API_URL` / `KV_REST_API_TOKEN` | from Vercel KV |
+   | `NEXT_PUBLIC_GTM_ID` | your GTM id |
+
+   Build command is `npm run build` (`tinacms build --partial-reindex && next build`).
+5. **First editor login:** the default admin user is in
+   `content/users/index.json` (`tinauser` / `tinarocks`) — **change this before
+   going live.** Add real users there (passwords are managed by Tina's Auth.js
+   provider).
+6. Visit `https://your-app.vercel.app/admin` to edit. Changes commit to GitHub
+   and redeploy automatically.
+
+## Scripts
+
+| Script | Purpose |
+| --- | --- |
+| `npm run dev` | Local dev (Tina local mode + Next). |
+| `npm run dev:prod` | Dev against the production backend (needs prod env). |
+| `npm run build` | Production build (`tinacms build` + `next build`). |
+| `npm start` | Serve the production build. |
