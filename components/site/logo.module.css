@@ -1,0 +1,25 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.we {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: -0.03em;
+}
+.sub {
+  font-size: 12px;
+  line-height: 1.1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+/* sky-blue tone (overrides the gold gradient on dark imagery) */
+.sky {
+  color: #8fd0f0;
+  -webkit-text-fill-color: #8fd0f0;
+  background: none;
+  animation: none;
+}

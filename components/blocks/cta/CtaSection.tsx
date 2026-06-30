@@ -5,8 +5,7 @@ import { Section } from "../../ui/Section";
 import { Cta } from "../../ui/Cta";
 import styles from "./cta.module.css";
 
-export function CtaSection({ data, settings }: { data: any; settings?: any }) {
-  const footer = settings?.footer;
+export function CtaSection({ data }: { data: any }) {
   return (
     <Section name="contact" id="contact" className={styles.section}>
       <div className={styles.grid}>
@@ -65,21 +64,6 @@ export function CtaSection({ data, settings }: { data: any; settings?: any }) {
             </div>
           ) : null}
         </div>
-      </div>
-
-      <div className={styles.legal}>
-        <span className={`serif ${styles.legalBrand}`}>
-          {settings?.logoText || "WE"}{" "}
-          <span className={styles.legalBrandSub}>
-            {settings?.siteName || "Creative Agency"}
-          </span>
-        </span>
-        <span
-          className={styles.copyright}
-          data-tina-field={footer ? tinaField(footer, "copyright") : undefined}
-        >
-          {footer?.copyright || "© WE Creative Agency"}
-        </span>
       </div>
     </Section>
   );

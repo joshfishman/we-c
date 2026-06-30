@@ -1,9 +1,8 @@
 "use client";
 
 import { useTina } from "tinacms/dist/react";
-import { Header } from "./Header";
+import { SiteLayout } from "./SiteLayout";
 import { Blocks } from "../blocks/Blocks";
-import { Analytics } from "./Analytics";
 
 type TinaProps = { data: any; variables: any; query: string };
 
@@ -21,11 +20,9 @@ export function SiteRenderer(props: { page: TinaProps; settings: TinaProps }) {
 
   return (
     <div style={style}>
-      <Analytics />
-      <Header settings={settings} />
-      <main>
+      <SiteLayout settings={settings}>
         <Blocks blocks={page?.blocks ?? []} settings={settings} />
-      </main>
+      </SiteLayout>
     </div>
   );
 }

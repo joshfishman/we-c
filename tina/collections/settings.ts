@@ -71,6 +71,7 @@ export const SettingsCollection: Collection = {
           list: true,
         },
         { type: "string", name: "email", label: "Email" },
+        { type: "string", name: "phone", label: "Phone" },
         { type: "string", name: "copyright", label: "Copyright line" },
       ],
     },

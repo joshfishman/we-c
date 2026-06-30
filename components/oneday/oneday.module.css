@@ -409,43 +409,6 @@
   align-items: flex-start;
 }
 
-/* ---- Footer ---- */
-.footer {
-  background: linear-gradient(180deg, #3a2c48 0%, #241830 100%);
-  color: #f3e7d6;
-  padding: 64px clamp(1.25rem, 4vw, 3rem);
-}
-.footerInner {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-.footerBrand {
-  font-size: 20px;
-  font-weight: 600;
-}
-.footerBrandSub {
-  font-family: var(--font-display);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #9a7e8c;
-  font-weight: 600;
-}
-.footerContact {
-  font-size: 15px;
-  font-weight: 500;
-  color: #c2a9b0;
-}
-.footerCopy {
-  font-size: 13px;
-  color: #806676;
-}
-
 @media (max-width: 820px) {
   .qualityGrid {
     grid-template-columns: 1fr;

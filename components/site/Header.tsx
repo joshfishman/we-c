@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { tinaField } from "tinacms/dist/react";
 import { Cta } from "../ui/Cta";
+import { Logo } from "./Logo";
 import styles from "./header.module.css";
 
 export function Header({
@@ -14,9 +15,7 @@ export function Header({
 }) {
   const header = settings?.header;
   const ref = useRef<HTMLElement | null>(null);
-  const sky = tone === "sky";
-  const logoCls = sky ? styles.skyText : "gradText--gold";
-  const linkCls = sky ? styles.skyText : "gradText";
+  const linkCls = tone === "sky" ? styles.skyText : "gradText";
 
   // Transparent at the top → frosted dark on scroll (matches the design).
   useEffect(() => {
@@ -36,20 +35,8 @@ export function Header({
 
   return (
     <header ref={ref} className={styles.header} id="site-header">
-      <a href="#top" className={styles.brand}>
-        <span
-          className={`${styles.logo} ${logoCls}`}
-          data-tina-field={tinaField(settings, "logoText")}
-        >
-          {settings?.logoText || "WE"}
-        </span>
-        {settings?.logoSub ? (
-          <span
-            className={`${styles.logoSub} ${logoCls}`}
-            data-tina-field={tinaField(settings, "logoSub")}
-            dangerouslySetInnerHTML={{ __html: settings.logoSub }}
-          />
-        ) : null}
+      <a href="#top" aria-label="Home">
+        <Logo settings={settings} tone={tone} />
       </a>
 
       <nav className={styles.nav}>

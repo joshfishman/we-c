@@ -2,8 +2,7 @@
 
 import { useTina, tinaField } from "tinacms/dist/react";
 import { Cta } from "../ui/Cta";
-import { Analytics } from "../site/Analytics";
-import { Header } from "../site/Header";
+import { SiteLayout } from "../site/SiteLayout";
 import s from "./oneday.module.css";
 
 const PILL_DOTS = ["#F0A6BE", "#EAF6FA", "#F4943E"];
@@ -52,16 +51,11 @@ export function OneDay(props: {
   const quality = page?.quality;
   const process = page?.process;
   const cta = page?.cta;
-  const footer = page?.footer;
 
   return (
-    <div className={s.page}>
-      <Analytics />
-
-      {/* Shared site header — sky-blue text on this page */}
-      <Header settings={settings} tone="sky" />
-
-      {/* HERO */}
+    <SiteLayout settings={settings} headerTone="sky">
+      <div className={s.page}>
+        {/* HERO */}
       {hero?.visible !== false ? (
         <section className={s.hero} id="top" data-section="oneday_hero">
           <div className={s.heroBg} aria-hidden="true">
@@ -308,27 +302,7 @@ export function OneDay(props: {
           </div>
         </section>
       ) : null}
-
-      {/* FOOTER */}
-      <section className={s.footer} data-section="oneday_footer">
-        <div className={s.footerInner}>
-          <a href="/" className={`serif ${s.footerBrand}`}>
-            WE <span className={s.footerBrandSub}>Creative Agency</span>
-          </a>
-          <div
-            className={s.footerContact}
-            data-tina-field={footer ? tinaField(footer, "contact") : undefined}
-          >
-            {footer?.contact}
-          </div>
-          <span
-            className={s.footerCopy}
-            data-tina-field={footer ? tinaField(footer, "copyright") : undefined}
-          >
-            {footer?.copyright}
-          </span>
-        </div>
-      </section>
-    </div>
+      </div>
+    </SiteLayout>
   );
 }

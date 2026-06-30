@@ -44,6 +44,23 @@ export type ParticleFieldProps = {
   drift?: number;
   /** Gentle 3D sway amount (radians). 0 = none. */
   sway?: number;
+  /** Vortex swirl — differential rotation by depth/radius. 0 = none, ~0.4 = dramatic. */
+  swirl?: number;
+  /**
+   * Fly-through speed. When > 0 the camera travels forward through a deep
+   * volumetric field (particles barely move; you move past them) — the
+   * Shopify "moving through space" feel. ~0.3–0.8 reads well.
+   */
+  travel?: number;
+  /** Draw square particles (pixelated look) instead of round dots. */
+  pixel?: boolean;
+  /**
+   * Forest mode (fly-through only): cluster particles into vertical tree
+   * structures — thin trunks rising from the floor into wide canopies — so you
+   * fly through a forest rather than an even field. Pair with colorMode
+   * "gradientY" + a green→blue-green palette (floor → canopy).
+   */
+  forest?: boolean;
   /** Additive glow — luminous, soft particles (best on dark backgrounds). */
   glow?: boolean;
   className?: string;
@@ -91,6 +108,10 @@ export function ParticleField({
   opacity = 0.9,
   drift = 0.08,
   sway = 0.12,
+  swirl = 0,
+  travel = 0,
+  pixel = false,
+  forest = false,
   glow = false,
   className,
   style,
@@ -116,20 +137,68 @@ export function ParticleField({
     const pg = new Uint8Array(count);
     const pb = new Uint8Array(count);
     const pf = new Float32Array(count); // drift phase, per particle
+    const prad = new Float32Array(count); // base radius, for swirl differential
     const jitter = 0.07; // organic "loose" offset so it isn't a clean ball
+    const fly = travel > 0;
+    const Z_NEAR = 0.12,
+      Z_FAR = 5;
+
+    // Forest mode: pre-place trees (x position, depth, height), then hang each
+    // particle on a trunk or in a canopy.
+    const forestMode = fly && forest;
+    let treeX: Float32Array, treeZ: Float32Array, treeH: Float32Array, TREES = 0;
+    if (forestMode) {
+      TREES = Math.max(10, Math.round(count / 140));
+      treeX = new Float32Array(TREES);
+      treeZ = new Float32Array(TREES);
+      treeH = new Float32Array(TREES);
+      for (let t = 0; t < TREES; t++) {
+        treeX[t] = (Math.random() * 2 - 1) * 1.7;
+        treeZ[t] = Z_NEAR + Math.random() * (Z_FAR - Z_NEAR);
+        treeH[t] = 0.85 + Math.random() * 0.5;
+      }
+    }
+
     for (let i = 0; i < count; i++) {
-      // even direction on a sphere
-      const u = Math.random() * 2 - 1;
-      const theta = Math.random() * Math.PI * 2;
-      const s = Math.sqrt(1 - u * u);
-      const dir = [s * Math.cos(theta), s * Math.sin(theta), u];
-      const r =
-        distribution === "shell"
-          ? 0.82 + Math.random() * 0.18
-          : 0.2 + Math.cbrt(Math.random()) * 0.8;
-      px[i] = dir[0] * r + (Math.random() - 0.5) * jitter;
-      py[i] = dir[1] * r + (Math.random() - 0.5) * jitter;
-      pz[i] = dir[2] * r + (Math.random() - 0.5) * jitter;
+      if (forestMode) {
+        const t = i % TREES;
+        const tx = treeX![t],
+          tz = treeZ![t],
+          th = treeH![t];
+        if (Math.random() < 0.5) {
+          // canopy: wide cluster near the top (negative y = up)
+          const cr = 0.16 + Math.random() * 0.14;
+          const ang = Math.random() * 6.283;
+          const rr = Math.random() * cr;
+          px[i] = tx + Math.cos(ang) * rr;
+          py[i] = -th + (Math.random() - 0.5) * 0.5;
+          pz[i] = tz + Math.sin(ang) * rr;
+        } else {
+          // trunk: thin vertical column from the floor (+0.95) up toward the canopy
+          px[i] = tx + (Math.random() - 0.5) * 0.05;
+          py[i] = 0.95 - Math.random() * (0.95 + th * 0.5);
+          pz[i] = tz + (Math.random() - 0.5) * 0.05;
+        }
+      } else if (fly) {
+        // Box volume in front of the camera: x,y spread, z = depth.
+        px[i] = (Math.random() * 2 - 1) * 1.4;
+        py[i] = (Math.random() * 2 - 1) * 1.4;
+        pz[i] = Z_NEAR + Math.random() * (Z_FAR - Z_NEAR);
+      } else {
+        // even direction on a sphere
+        const u = Math.random() * 2 - 1;
+        const theta = Math.random() * Math.PI * 2;
+        const s = Math.sqrt(1 - u * u);
+        const dir = [s * Math.cos(theta), s * Math.sin(theta), u];
+        const r =
+          distribution === "shell"
+            ? 0.82 + Math.random() * 0.18
+            : 0.2 + Math.cbrt(Math.random()) * 0.8;
+        px[i] = dir[0] * r + (Math.random() - 0.5) * jitter;
+        py[i] = dir[1] * r + (Math.random() - 0.5) * jitter;
+        pz[i] = dir[2] * r + (Math.random() - 0.5) * jitter;
+        prad[i] = r;
+      }
       const [cr, cg, cb] =
         colorMode === "gradientY"
           ? // canvas Y is inverted, so (1-py)/2 puts stop[0] at the visual
@@ -207,12 +276,59 @@ export function ParticleField({
       const cxp = w / 2,
         cyp = h / 2;
 
+      // ---- Fly-through: camera travels forward through a deep field ----
+      if (fly) {
+        const dz = reduce ? 0 : travel * dt;
+        const proj = Math.min(w, h) * 0.5;
+        // Camera offset from the pointer → true depth parallax (near particles
+        // shift more than far ones, so it reads as looking around the space).
+        const camX = tiltY * 0.5;
+        const camY = tiltX * 0.5;
+        for (let i = 0; i < count; i++) {
+          pz[i] -= dz;
+          if (pz[i] <= Z_NEAR) pz[i] += Z_FAR - Z_NEAR; // recycle to the far plane
+          const z = pz[i];
+          // tiny per-particle wobble so it's alive but "barely moves"
+          const ph = pf[i];
+          const wx = Math.sin(elapsed * 0.4 + ph) * 0.02;
+          const wy = Math.cos(elapsed * 0.35 + ph) * 0.02;
+          const sxp = cxp + ((px[i] + wx - camX) / z) * proj;
+          const syp = cyp + ((py[i] + wy - camY) / z) * proj;
+          if (sxp < -12 || sxp > w + 12 || syp < -12 || syp > h + 12) continue;
+          // depth fog: fade in from the far plane, fade out as it passes the camera
+          const aFar = (Z_FAR - z) / (Z_FAR * 0.4);
+          const aNear = (z - Z_NEAR) / 0.6;
+          const a = opacity * Math.max(0, Math.min(1, aFar, aNear));
+          if (a <= 0.012) continue;
+          let rad = (size * 0.9) / z;
+          if (rad < 0.4) rad = 0.4;
+          ctx.fillStyle = `rgba(${pr[i]},${pg[i]},${pb[i]},${a})`;
+          if (pixel) ctx.fillRect(sxp - rad, syp - rad, rad * 2, rad * 2);
+          else {
+            ctx.beginPath();
+            ctx.arc(sxp, syp, rad, 0, 6.283185);
+            ctx.fill();
+          }
+        }
+        if (running) raf = requestAnimationFrame(frame);
+        return;
+      }
+
       for (let i = 0; i < count; i++) {
         const ph = pf[i];
         // organic drift — each particle floats on its own slow path
         let x = px[i] + Math.sin(elapsed * 0.6 + ph) * dft;
         let y = py[i] + Math.cos(elapsed * 0.5 + ph * 1.3) * dft;
         let z = pz[i] + Math.sin(elapsed * 0.45 + ph * 0.7) * dft;
+        // vortex swirl — inner vs outer particles rotate at different rates
+        if (swirl && !reduce) {
+          const za = elapsed * swirl * (0.4 + prad[i]);
+          const cz = Math.cos(za),
+            sz = Math.sin(za);
+          const nx = x * cz - y * sz;
+          y = x * sz + y * cz;
+          x = nx;
+        }
         // rotate Y then X
         let x1 = x * cy + z * sy;
         let z1 = -x * sy + z * cy;
@@ -256,7 +372,7 @@ export function ParticleField({
       io.disconnect();
       if (interactive) window.removeEventListener("pointermove", onMove);
     };
-  }, [count, color, colorMode, background, size, speed, radius, distribution, interactive, opacity, drift, sway, glow]);
+  }, [count, color, colorMode, background, size, speed, radius, distribution, interactive, opacity, drift, sway, swirl, travel, pixel, forest, glow]);
 
   return (
     <canvas

@@ -1,15 +1,18 @@
 "use client";
 
 import { ParticleField } from "../../components/ui/ParticleField";
+import { TextCircle } from "../../components/ui/TextCircle";
+import { AuroraBackground } from "../../components/ui/AuroraBackground";
 
 /**
- * Sandbox for the ParticleField component — preview and tune the effect, then
- * drop <ParticleField/> behind any real section. Safe to delete this route.
+ * Sandbox for the spatial hero — aurora background + fly-through particle
+ * field + standing 3D ring text. Tune here, then drop into a real section.
+ * Safe to delete this route.
  */
 export default function ParticlesSandbox() {
   return (
-    <main style={{ background: "#0a0a0f", color: "#fff" }}>
-      {/* SUNSET: gold → pink → blue gradient, loose structure */}
+    <main style={{ background: "#06121f", color: "#fff" }}>
+      {/* DEEP SEA — flying through a pixel field, standing ring text */}
       <section
         style={{
           position: "relative",
@@ -18,53 +21,59 @@ export default function ParticlesSandbox() {
           alignItems: "center",
           justifyContent: "center",
           overflow: "hidden",
-          background:
-            "linear-gradient(180deg,#0c1733 0%,#27305f 30%,#7a4a86 55%,#d76d7e 78%,#f0a35a 100%)",
         }}
       >
+        <AuroraBackground preset="forest" speed={26} pulse pulseSpeed={7} />
         <ParticleField
-          count={2400}
-          color={["#FFD86B", "#F4A65A", "#E0708A", "#9A5E9E", "#5A86C4"]}
+          count={4200}
+          color={["#2f4a2c", "#3f6e3a", "#4f8f6a", "#7fc0a8", "#bfe6dd"]}
           colorMode="gradientY"
           background="transparent"
-          radius={0.5}
-          speed={0.05}
-          size={2}
-          opacity={0.95}
-          drift={0.12}
-          sway={0.16}
+          travel={0.3}
+          forest
+          pixel
+          size={1.7}
+          opacity={0.9}
+          glow
+        />
+        <TextCircle
+          text="We grow everywhere"
+          radius={300}
+          fontSize={46}
+          speed={26}
+          lean={22}
+          color="#FCEFE2"
+          style={{ position: "relative" }}
+        />
+      </section>
+
+      {/* NORTHERN LIGHTS variant */}
+      <section
+        style={{
+          position: "relative",
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          overflow: "hidden",
+        }}
+      >
+        <AuroraBackground preset="aurora" speed={20} />
+        <ParticleField
+          count={1800}
+          color={["#d9ffe8", "#6fe0b0", "#9a5e9e", "#5a86c4"]}
+          background="transparent"
+          travel={0.7}
+          pixel
+          size={2.6}
           glow
         />
         <h2
           className="serif"
-          style={{
-            position: "relative",
-            fontSize: "clamp(34px,5vw,64px)",
-            textShadow: "0 2px 24px rgba(8,20,40,0.6)",
-          }}
+          style={{ position: "relative", fontSize: "clamp(34px,5vw,64px)", textShadow: "0 2px 24px rgba(0,0,0,0.5)" }}
         >
-          Sunset · gold → pink → blue
+          Northern lights · fly-through
         </h2>
-      </section>
-
-      {/* White cloud on near-black (Shopify-style) */}
-      <section
-        style={{
-          position: "relative",
-          height: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "hidden",
-        }}
-      >
-        <ParticleField count={1800} color="#ffffff" background="#0a0a0f" speed={0.1} />
-        <div style={{ position: "relative", textAlign: "center", maxWidth: 680, padding: "0 24px" }}>
-          <h1 className="serif" style={{ fontSize: "clamp(40px,7vw,92px)", lineHeight: 0.95 }}>
-            We grow <span className="serif--italic">businesses</span> online.
-          </h1>
-          <p style={{ marginTop: 18, opacity: 0.7 }}>Particle background — fully yours to restyle.</p>
-        </div>
       </section>
     </main>
   );

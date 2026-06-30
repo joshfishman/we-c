@@ -1,19 +1,14 @@
 import { SiteRenderer } from "../components/site/SiteRenderer";
-import { client } from "../tina/__generated__/databaseClient";
+import { getPage, getSettings } from "../lib/content";
 
-export const dynamic = "force-dynamic";
-
-export default async function Home() {
-  const page = await client.queries.page({ relativePath: "home.json" });
-  const settings = await client.queries.settings({
-    relativePath: "global.json",
-  });
+export default function Home() {
+  const page = getPage("home.json");
+  const settings = getSettings();
 
   return (
     <SiteRenderer
-      // https://github.com/vercel/next.js/issues/47447
-      page={JSON.parse(JSON.stringify(page))}
-      settings={JSON.parse(JSON.stringify(settings))}
+      page={{ data: { page }, query: "", variables: {} }}
+      settings={{ data: { settings }, query: "", variables: {} }}
     />
   );
 }

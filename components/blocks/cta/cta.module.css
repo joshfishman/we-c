@@ -55,34 +55,6 @@ a.detailValue:hover {
   text-decoration: underline;
 }
 
-.legal {
-  max-width: 1280px;
-  margin: 72px auto 0;
-  padding: 28px clamp(1.25rem, 4vw, 3rem) 0;
-  border-top: 1px solid rgba(252, 239, 226, 0.14);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-.legalBrand {
-  font-size: 20px;
-  font-weight: 600;
-}
-.legalBrandSub {
-  font-family: var(--font-display);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #7e947e;
-  font-weight: 600;
-}
-.copyright {
-  font-size: 13px;
-  color: #6a806a;
-}
-
 @media (max-width: 760px) {
   .grid {
     grid-template-columns: 1fr;
