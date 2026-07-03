@@ -137,6 +137,7 @@ const frameworkTemplate: Template = withVisible({
       label: "Heading",
       ui: { component: "textarea" },
     },
+    { type: "string", name: "flowIntro", label: "Flow intro label" },
     {
       type: "object",
       name: "layers",
@@ -181,7 +182,13 @@ const ourWorkTemplate: Template = withVisible({
         { type: "string", name: "title", label: "Title" },
         { type: "string", name: "badge", label: "Metric badge (e.g. 3× revenue · 6 mo)" },
         { type: "string", name: "services", label: "Services" },
-        { type: "image", name: "image", label: "Image" },
+        { type: "image", name: "image", label: "Image (single)" },
+        {
+          type: "image",
+          name: "images",
+          label: "Images (2+ to fan out, overrides single)",
+          list: true,
+        },
         { type: "string", name: "url", label: "URL (Read more)" },
       ],
     },
@@ -244,6 +251,12 @@ const ctaTemplate: Template = withVisible({
   label: "CTA / Contact",
   ui: { itemProps: () => ({ label: "● CTA / Contact" }) },
   fields: [
+    {
+      type: "string",
+      name: "theme",
+      label: "Footer theme",
+      options: ["dusk", "forest"],
+    },
     {
       type: "string",
       name: "heading",

@@ -18,6 +18,7 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
+    "@formspree/react": "^3.0.0",
     "@next/third-parties": "^16.2.6",
     "@tinacms/cli": "^2.3.1",
     "@tinacms/datalayer": "^2.0.21",

@@ -5,11 +5,70 @@ import { Cta } from "../ui/Cta";
 import { SiteLayout } from "../site/SiteLayout";
 import { CaseStudy } from "../blocks/caseStudy/CaseStudy";
 import { OurWork } from "../blocks/ourWork/OurWork";
+import { CtaSection } from "../blocks/cta/CtaSection";
 import s from "./oneday.module.css";
 
-const PILL_DOTS = ["#F0A6BE", "#EAF6FA", "#F4943E"];
-const STAT_COLORS = ["#F3C57E", "#F0A6BE", "#EFA065"];
 const STEP_BADGES = ["#E6849C", "#E8A44C", "#D8623F"];
+
+// Hero day-arc chips: fixed position/colors per index (0=morning,1=midday,2=sunset)
+const ARC_CHIPS = [
+  {
+    group: {
+      left: "8%",
+      bottom: 0,
+      transform: "translateX(-50%)",
+    } as React.CSSProperties,
+    dot: "#F0A6BE",
+    dotGlow: "rgba(240,166,190,0.7)",
+    belowSize: 11,
+    belowShadow:
+      "0 0 0 4px rgba(240,166,190,0.22),0 0 16px 3px rgba(240,166,190,0.7)",
+    accent: "#F0A6BE55",
+    twinkleDelay: "0s",
+  },
+  {
+    group: {
+      left: "50%",
+      top: "-12px",
+      transform: "translateX(-50%)",
+    } as React.CSSProperties,
+    dot: "#FFE08A",
+    dotGlow: "rgba(255,224,138,0.8)",
+    belowSize: 13,
+    belowShadow:
+      "0 0 0 5px rgba(255,224,138,0.22),0 0 20px 4px rgba(255,224,138,0.8)",
+    accent: "#FFE08A55",
+    twinkleDelay: ".6s",
+  },
+  {
+    group: {
+      right: "8%",
+      bottom: 0,
+      transform: "translateX(50%)",
+    } as React.CSSProperties,
+    dot: "#F4943E",
+    dotGlow: "rgba(244,148,62,0.7)",
+    belowSize: 11,
+    belowShadow:
+      "0 0 0 4px rgba(244,148,62,0.22),0 0 16px 3px rgba(244,148,62,0.7)",
+    accent: "#F4943E55",
+    twinkleDelay: "1.2s",
+  },
+] as const;
+
+// Process night-sky decorative stars: exact positions
+const PROCESS_STARS = [
+  { left: "8%", top: "14%", size: 3, dur: "3.4s", delay: "0s" },
+  { left: "18%", top: "32%", size: 2, dur: "2.8s", delay: ".5s" },
+  { left: "27%", top: "9%", size: 2.5, dur: "4.1s", delay: ".2s" },
+  { left: "39%", top: "24%", size: 2, dur: "3.1s", delay: "1.1s" },
+  { left: "52%", top: "12%", size: 3, dur: "3.7s", delay: ".8s" },
+  { left: "63%", top: "30%", size: 2, dur: "2.6s", delay: "1.4s" },
+  { left: "72%", top: "8%", size: 2.5, dur: "4.4s", delay: ".3s" },
+  { left: "83%", top: "26%", size: 2, dur: "3.3s", delay: ".9s" },
+  { left: "92%", top: "16%", size: 3, dur: "3.9s", delay: ".6s" },
+  { left: "46%", top: "5%", size: 2, dur: "2.9s", delay: "1.7s" },
+];
 
 function Squiggle({ flip, indent }: { flip?: boolean; indent: "left" | "right" }) {
   return (
@@ -55,6 +114,7 @@ export function OneDay(props: {
   const quality = page?.quality;
   const process = page?.process;
   const cta = page?.cta;
+  const contact = page?.contact;
 
   return (
     <SiteLayout settings={settings} headerTone="sky">
@@ -81,30 +141,63 @@ export function OneDay(props: {
           </div>
 
           <div className={s.heroContent}>
-            <div className={s.pills}>
-              {hero?.pills?.map((pill: any, i: number) => (
-                <span key={i} className={s.pill}>
-                  <span
-                    className={s.pillDot}
-                    style={{ background: PILL_DOTS[i % PILL_DOTS.length] }}
-                  />
-                  {pill?.label}
-                </span>
-              ))}
+            <div className={s.dayArc} aria-hidden="true">
+              <svg
+                className={s.dayArcSvg}
+                viewBox="0 0 760 96"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M 40 84 Q 380 -6 720 84"
+                  fill="none"
+                  stroke="rgba(255,241,218,0.55)"
+                  strokeWidth="2"
+                  strokeDasharray="2 9"
+                  strokeLinecap="round"
+                />
+              </svg>
+              {hero?.pills?.slice(0, 3).map((pill: any, i: number) => {
+                const chip = ARC_CHIPS[i];
+                if (!chip) return null;
+                return (
+                  <div key={i} className={s.arcGroup} style={chip.group}>
+                    <span className={s.arcPill}>
+                      <span
+                        className={s.arcPillGradient}
+                        style={{
+                          background: `linear-gradient(90deg, rgba(240,166,190,0), ${chip.accent}, rgba(240,166,190,0))`,
+                        }}
+                      />
+                      <span
+                        className={s.arcPillDot}
+                        style={{
+                          background: chip.dot,
+                          boxShadow: `0 0 12px 2px ${chip.dotGlow}`,
+                        }}
+                      />
+                      <span className={s.arcPillLabel}>{pill?.label}</span>
+                    </span>
+                    <span
+                      className={s.arcBelowDot}
+                      style={{
+                        width: chip.belowSize,
+                        height: chip.belowSize,
+                        background: chip.dot,
+                        boxShadow: chip.belowShadow,
+                        animationDelay: chip.twinkleDelay,
+                      }}
+                    />
+                  </div>
+                );
+              })}
             </div>
-            {hero?.badge ? (
-              <div className={s.badge} data-tina-field={tinaField(hero, "badge")}>
-                <span className={s.badgeDot} />
-                <span>{hero.badge}</span>
-              </div>
-            ) : null}
             <h1 className={`serif ${s.heroTitle}`}>
               <span data-tina-field={tinaField(hero, "headlineLine1")}>
                 {hero?.headlineLine1}
               </span>
               <br />
               <span
-                className="serif--italic"
+                className={s.heroTitleSunset}
                 data-tina-field={tinaField(hero, "headlineLine2")}
               >
                 {hero?.headlineLine2}
@@ -118,7 +211,7 @@ export function OneDay(props: {
                 label={hero?.ctaPrimary?.label}
                 url={hero?.ctaPrimary?.url}
                 location="oneday_hero"
-                variant="cream"
+                variant="primary"
                 tinaField={
                   hero?.ctaPrimary ? tinaField(hero.ctaPrimary, "label") : undefined
                 }
@@ -127,7 +220,7 @@ export function OneDay(props: {
                 label={hero?.ctaSecondary?.label}
                 url={hero?.ctaSecondary?.url}
                 location="oneday_hero"
-                variant="secondary"
+                variant="dusk"
                 tinaField={
                   hero?.ctaSecondary
                     ? tinaField(hero.ctaSecondary, "label")
@@ -147,7 +240,6 @@ export function OneDay(props: {
               <div key={i} className={s.proofCell}>
                 <div
                   className={`serif ${s.proofValue}`}
-                  style={{ color: STAT_COLORS[i % STAT_COLORS.length] }}
                   data-tina-field={tinaField(stat, "value")}
                 >
                   {stat.value}
@@ -166,7 +258,7 @@ export function OneDay(props: {
 
       {/* TESTIMONIAL */}
       {caseStudy && caseStudy.visible !== false ? (
-        <CaseStudy data={caseStudy} />
+        <CaseStudy data={caseStudy} theme="dusk" />
       ) : null}
 
       {/* ENTERPRISE QUALITY */}
@@ -202,6 +294,22 @@ export function OneDay(props: {
       {/* PROCESS */}
       {process?.visible !== false ? (
         <section className={s.process} id="process" data-section="oneday_process">
+          <div className={s.stars} aria-hidden="true">
+            {PROCESS_STARS.map((star, i) => (
+              <span
+                key={i}
+                className={s.star}
+                style={{
+                  left: star.left,
+                  top: star.top,
+                  width: star.size,
+                  height: star.size,
+                  animationDuration: star.dur,
+                  animationDelay: star.delay,
+                }}
+              />
+            ))}
+          </div>
           <div className={s.processInner}>
             <div className={s.processHead}>
               <p
@@ -271,10 +379,10 @@ export function OneDay(props: {
 
       {/* PAST WORK */}
       {ourWork && ourWork.visible !== false ? (
-        <OurWork data={ourWork} />
+        <OurWork data={ourWork} theme="sunset" />
       ) : null}
 
-      {/* START CTA */}
+      {/* START / CTA — questionnaire */}
       {cta?.visible !== false ? (
         <section className={s.startWrap} id="start" data-section="oneday_cta">
           <div className={s.startPanel}>
@@ -291,20 +399,37 @@ export function OneDay(props: {
               <p className={s.startBody} data-tina-field={tinaField(cta, "body")}>
                 {cta?.body}
               </p>
+              <div className={s.startActions}>
+                <Cta
+                  label={cta?.ctaPrimary?.label}
+                  url={cta?.ctaPrimary?.url}
+                  location="oneday_start"
+                  variant="cream"
+                  tinaField={
+                    cta?.ctaPrimary ? tinaField(cta.ctaPrimary, "label") : undefined
+                  }
+                />
+              </div>
             </div>
-            <div className={s.startActions}>
-              <Cta
-                label={cta?.ctaPrimary?.label}
-                url={cta?.ctaPrimary?.url}
-                location="oneday_cta"
-                variant="cream"
-                tinaField={
-                  cta?.ctaPrimary ? tinaField(cta.ctaPrimary, "label") : undefined
-                }
-              />
-            </div>
+            <div
+              className={s.startImage}
+              style={cta?.image ? { backgroundImage: `url(${cta.image})` } : undefined}
+              aria-hidden="true"
+            />
           </div>
         </section>
+      ) : null}
+
+      {/* CONTACT + FOOTER — shared block */}
+      {contact?.visible !== false ? (
+        <CtaSection
+          id="contact"
+          data={{
+            heading: contact?.heading,
+            body: contact?.body,
+            cta: contact?.cta,
+          }}
+        />
       ) : null}
       </div>
     </SiteLayout>

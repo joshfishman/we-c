@@ -54,13 +54,37 @@
 /* Dark variant (on the dark contact panels) */
 .dark .input,
 .dark .textarea {
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%);
+  background: linear-gradient(
+    120deg,
+    rgba(255, 196, 77, 0.16) 0%,
+    rgba(224, 112, 138, 0.16) 55%,
+    rgba(142, 94, 158, 0.16) 100%
+  );
   border: none;
+  border-radius: 14px;
+  padding: 18px 20px;
   color: #f3e7d6;
+  font-size: 16px;
+}
+.dark .textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+.dark .input:focus,
+.dark .textarea:focus {
+  outline: none;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 196, 77, 0.28) 0%,
+    rgba(224, 112, 138, 0.28) 55%,
+    rgba(142, 94, 158, 0.28) 100%
+  );
+  box-shadow: 0 0 0 3px rgba(224, 112, 138, 0.35);
 }
 .dark .input::placeholder,
 .dark .textarea::placeholder {
-  color: rgba(243, 231, 214, 0.5);
+  color: #f3c7b8;
+  font-weight: 600;
 }
 .dark .thanks {
   color: #fcefe2;

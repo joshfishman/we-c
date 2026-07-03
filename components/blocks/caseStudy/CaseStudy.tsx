@@ -5,10 +5,20 @@ import { Section } from "../../ui/Section";
 import { ImageSlot } from "../../ui/ImageSlot";
 import styles from "./caseStudy.module.css";
 
-export function CaseStudy({ data }: { data: any }) {
+export function CaseStudy({
+  data,
+  theme = "default",
+}: {
+  data: any;
+  theme?: "default" | "dusk";
+}) {
   return (
     <Section name="case_study" className={styles.wrap}>
-      <div className={styles.grid}>
+      <div
+        className={
+          theme === "dusk" ? `${styles.grid} ${styles.dusk}` : styles.grid
+        }
+      >
         <div className={styles.photo}>
           <ImageSlot
             src={data.image}

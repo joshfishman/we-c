@@ -131,7 +131,19 @@ export const OneDayCollection: Collection = {
             { type: "string", name: "title", label: "Title" },
             { type: "string", name: "badge", label: "Metric badge" },
             { type: "string", name: "services", label: "Services" },
-            { type: "image", name: "image", label: "Image" },
+            { type: "image", name: "image", label: "Image (single)" },
+            {
+              type: "image",
+              name: "images",
+              label: "Images (2+ to fan out, overrides single)",
+              list: true,
+            },
+            {
+              type: "string",
+              name: "logos",
+              label: "Tech logos (shopify/meta/google/instagram/webflow/wordpress)",
+              list: true,
+            },
             { type: "string", name: "url", label: "URL (Read more)" },
           ],
         },
@@ -209,7 +221,7 @@ export const OneDayCollection: Collection = {
     {
       type: "object",
       name: "cta",
-      label: "Start CTA",
+      label: "Start CTA (questionnaire)",
       fields: [
         visible,
         { type: "string", name: "eyebrow", label: "Eyebrow" },
@@ -225,8 +237,30 @@ export const OneDayCollection: Collection = {
           label: "Body",
           ui: { component: "textarea" },
         },
+        { type: "image", name: "image", label: "Team / dev photo" },
         cta("ctaPrimary", "Primary button"),
         cta("ctaSecondary", "Secondary button"),
+      ],
+    },
+    {
+      type: "object",
+      name: "contact",
+      label: "Contact + Footer",
+      fields: [
+        visible,
+        {
+          type: "string",
+          name: "heading",
+          label: "Heading",
+          ui: { component: "textarea" },
+        },
+        {
+          type: "string",
+          name: "body",
+          label: "Body",
+          ui: { component: "textarea" },
+        },
+        cta("cta", "Button"),
       ],
     },
     {

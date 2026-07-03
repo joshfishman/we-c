@@ -4,38 +4,105 @@ import { tinaField } from "tinacms/dist/react";
 import { Section } from "../../ui/Section";
 import styles from "./framework.module.css";
 
-const BADGE_GRADIENTS = [
-  "linear-gradient(145deg,#A7D8A0 0%,#6FB060 46%,#3E7C4E 100%)",
-  "linear-gradient(145deg,#CBD98A 0%,#9FB85C 46%,#6E8A38 100%)",
-  "linear-gradient(145deg,#8FB07A 0%,#4E7C4A 46%,#2E5A30 100%)",
-];
-
-function Squiggle({ flip }: { flip?: boolean }) {
+function DownArrow() {
   return (
     <svg
-      width="92"
-      height="84"
-      viewBox="0 0 92 84"
+      width="14"
+      height="18"
+      viewBox="0 0 14 18"
       fill="none"
       className={styles.arrow}
-      style={flip ? { transform: "scaleX(-1)" } : undefined}
       aria-hidden="true"
     >
       <path
-        d="M22 8 C 78 26, 14 50, 46 74"
-        stroke="#F2C078"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        strokeDasharray="1 11"
-      />
-      <path
-        d="M33 62 L47 76 L60 60"
-        stroke="#F2C078"
-        strokeWidth="3.5"
+        d="M7 1 V15 M2 10 L7 15 L12 10"
+        stroke="#cbe0c4"
+        strokeOpacity="0.7"
+        strokeWidth="1.6"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
     </svg>
+  );
+}
+
+function LeafGlyph() {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M20 4c-9 0-14 4-14 11 0 2 .6 3.6 1.6 4.9C10 16 13 13 18 11c-4 3-7 6-8.4 10.4 1.2.4 2.5.6 3.9.6 7 0 8.5-9 6.5-18Z"
+        stroke="#ffffff"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function OuterCard({ layer }: { layer: any }) {
+  return (
+    <div className={styles.card}>
+      <div className={styles.badgeCol}>
+        <span className={styles.badge}>
+          <LeafGlyph />
+        </span>
+        {layer.badge ? (
+          <span
+            className={styles.badgeLabel}
+            data-tina-field={tinaField(layer, "badge")}
+          >
+            {layer.badge}
+          </span>
+        ) : null}
+        <h3
+          className={styles.cardTitle}
+          data-tina-field={tinaField(layer, "title")}
+        >
+          {layer.title}
+        </h3>
+      </div>
+      <ul className={styles.tagList}>
+        {layer.tags?.map((tag: string, j: number) => (
+          <li key={j} className={styles.tagRow}>
+            {tag}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function ConvertCircle({ layer }: { layer: any }) {
+  return (
+    <div className={styles.circleWrap}>
+      <div className={styles.orbit} aria-hidden="true">
+        <span className={`${styles.orbitDot} ${styles.orbitDot1}`} />
+        <span className={`${styles.orbitDot} ${styles.orbitDot2}`} />
+        <span className={`${styles.orbitDot} ${styles.orbitDot3}`} />
+      </div>
+      <div className={styles.circle}>
+        <h3
+          className={styles.circleTitle}
+          data-tina-field={tinaField(layer, "title")}
+        >
+          {layer.title}
+        </h3>
+        <div className={styles.circleTags}>
+          {layer.tags?.map((tag: string, j: number) => (
+            <span key={j} className={styles.circleTag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -58,59 +125,22 @@ export function Framework({ data }: { data: any }) {
             >
               {data.heading}
             </h2>
+            {data.flowIntro ? (
+              <p
+                className={styles.flowIntro}
+                data-tina-field={tinaField(data, "flowIntro")}
+              >
+                {data.flowIntro}
+              </p>
+            ) : null}
           </div>
 
-          <div className={styles.steps}>
-            {layers.map((layer: any, i: number) => (
-              <div key={i} className={styles.step}>
-                <div
-                  className={styles.card}
-                  data-align={i % 2 === 0 ? "start" : "end"}
-                >
-                  <span
-                    className={styles.badge}
-                    style={{
-                      background: BADGE_GRADIENTS[i % BADGE_GRADIENTS.length],
-                    }}
-                    data-tina-field={tinaField(layer, "no")}
-                  >
-                    {layer.no}
-                  </span>
-                  <div className={styles.body}>
-                    <div className={styles.titleRow}>
-                      <h3
-                        className={styles.title}
-                        data-tina-field={tinaField(layer, "title")}
-                      >
-                        {layer.title}
-                      </h3>
-                      {layer.badge ? (
-                        <span
-                          className={styles.chip}
-                          data-tina-field={tinaField(layer, "badge")}
-                        >
-                          {layer.badge}
-                        </span>
-                      ) : null}
-                    </div>
-                    <p
-                      className={styles.desc}
-                      data-tina-field={tinaField(layer, "description")}
-                    >
-                      {layer.description}
-                    </p>
-                    <div className={styles.tags}>
-                      {layer.tags?.map((tag: string, j: number) => (
-                        <span key={j} className={styles.tag}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                {i < layers.length - 1 ? <Squiggle flip={i % 2 === 1} /> : null}
-              </div>
-            ))}
+          <div className={styles.flow}>
+            {layers[0] ? <OuterCard layer={layers[0]} /> : null}
+            {layers[1] ? <DownArrow /> : null}
+            {layers[1] ? <ConvertCircle layer={layers[1]} /> : null}
+            {layers[2] ? <DownArrow /> : null}
+            {layers[2] ? <OuterCard layer={layers[2]} /> : null}
           </div>
         </div>
       </div>

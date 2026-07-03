@@ -6,8 +6,8 @@ type Props = {
   label?: string | null;
   url?: string | null;
   location: string;
-  /** primary = sunset CTA · secondary = green pill · cream = light pill */
-  variant?: "primary" | "secondary" | "cream";
+  /** primary = sunset CTA · secondary = green pill · cream = light pill · dusk = purple→orange pill */
+  variant?: "primary" | "secondary" | "cream" | "dusk";
   /** Tina field reference for inline editing of the label. */
   tinaField?: string;
   className?: string;

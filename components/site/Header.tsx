@@ -1,10 +1,18 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { tinaField } from "tinacms/dist/react";
 import { Cta } from "../ui/Cta";
 import { Logo } from "./Logo";
 import styles from "./header.module.css";
+
+/** The path a nav link ultimately targets (ignoring any #anchor). */
+function linkPath(url?: string) {
+  if (!url) return "";
+  const path = url.split("#")[0];
+  return path || "/";
+}
 
 export function Header({
   settings,
@@ -15,7 +23,14 @@ export function Header({
 }) {
   const header = settings?.header;
   const ref = useRef<HTMLElement | null>(null);
-  const linkCls = tone === "sky" ? styles.skyText : "gradText";
+  const pathname = usePathname();
+  const linkCls = tone === "sky" ? styles.skyText : styles.sunText;
+
+  // Show only cross-page links: hide any nav item that points at the page
+  // you're already on (so Home shows "One Day Website" and vice-versa).
+  const links = (header?.links ?? []).filter(
+    (link: any) => linkPath(link?.url) !== pathname
+  );
 
   // Transparent at the top → frosted dark on scroll (matches the design).
   useEffect(() => {
@@ -35,12 +50,12 @@ export function Header({
 
   return (
     <header ref={ref} className={styles.header} id="site-header">
-      <a href="#top" aria-label="Home">
+      <a href="/" aria-label="Ecommerce Marketing — Home">
         <Logo settings={settings} tone={tone} />
       </a>
 
       <nav className={styles.nav}>
-        {header?.links?.map((link: any, i: number) => (
+        {links.map((link: any, i: number) => (
           <a
             key={i}
             href={link?.url || "#"}

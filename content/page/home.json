@@ -5,9 +5,9 @@
     {
       "_template": "hero",
       "visible": true,
-      "bgVideo": "/media/hero-video-4.mp4",
+      "bgVideo": "",
       "bgVideoMobile": "",
-      "bgPoster": "/media/hero-poster.jpg",
+      "bgPoster": "/media/hero-trees.jpg",
       "eyebrow": "For ecommerce and lifestyle brands",
       "headlineLead": "We grow",
       "headlineAccent": "businesses",
@@ -29,7 +29,7 @@
         "subtitle": "Strategy / Development / Marketing"
       },
       "stats": [
-        { "value": "77", "label": "Sites launched" },
+        { "value": "77+", "label": "Sites launched" },
         { "value": "$6.7M", "label": "Revenue earned for clients" }
       ]
     },
@@ -43,27 +43,28 @@
       "quote": "WE rebuilt our store and dialed in our organic and paid channels — we tripled revenue in a single quarter. They move fast and actually get fashion.",
       "personName": "Founder & Creative Director",
       "personTitle": "Stoned Immaculate Clothing",
-      "image": "",
+      "image": "/media/stoned-immaculate.jpg",
       "imageAlt": "Stoned Immaculate Clothing brand photo",
-      "avatar": ""
+      "avatar": "/media/avatar-founder.jpg"
     },
     {
       "_template": "framework",
       "visible": true,
       "eyebrow": "Service Offering",
       "heading": "eCommerce growth framework",
+      "flowIntro": "From Attraction",
       "layers": [
         {
           "no": "01",
           "title": "Attract",
-          "badge": "From Attraction",
+          "badge": "Flows in",
           "description": "Get found by the right people.",
           "tags": ["Content Creation", "Paid Social & Search", "Ambassador Marketing", "SEO"]
         },
         {
           "no": "02",
           "title": "Convert",
-          "badge": "Flows in",
+          "badge": "Converts",
           "description": "Turn visitors into customers.",
           "tags": ["Web Development", "Conversion Rate Optimization", "Customer Funnel Creation", "Analytics"]
         },
@@ -87,35 +88,36 @@
           "title": "Stoned Immaculate Clothing",
           "badge": "3× revenue · 6 mo",
           "services": "Shopify Development · Social & Search Ads",
-          "image": "",
+          "image": "/media/work-stoned-immaculate.jpg",
           "url": "#contact"
         },
         {
           "title": "California Chicken Cafe",
           "badge": "WordPress · Store Locator",
           "services": "Site Development",
-          "image": "",
+          "image": "/media/work-california-chicken-cafe.png",
           "url": "#contact"
         },
         {
           "title": "11 Honoré",
           "badge": "Idea → Exit",
           "services": "Shopify Development · Digital Marketing",
-          "image": "",
+          "image": "/media/work-11-honore.png",
           "url": "#contact"
         },
         {
           "title": "Hudson Jeans",
           "badge": "6× ROI",
           "services": "Social Ad Management",
-          "image": "",
+          "image": "/media/work-hudson-jeans.png",
           "url": "#contact"
         },
         {
           "title": "Ovando",
           "badge": "Seasonal Collections",
           "services": "Site Development",
-          "image": "",
+          "image": "/media/work-ovando.jpg",
+          "images": ["/media/ovando-1.png", "/media/ovando-2.png"],
           "url": "#contact"
         }
       ]
@@ -144,6 +146,7 @@
     {
       "_template": "ctaSection",
       "visible": true,
+      "theme": "forest",
       "heading": "See what WE can do for your brand.",
       "body": "Great work begins with a great fit. Let's talk about your brand, where you're headed, and how we can help you get there.",
       "cta": { "label": "Book a call →", "url": "#" },

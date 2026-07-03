@@ -71,28 +71,6 @@
   max-width: 940px;
   margin: 0 auto;
 }
-.badge {
-  margin: 0 auto 26px;
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  background: rgba(12, 42, 51, 0.34);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #fcf2dd;
-}
-.badgeDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #fbc56b;
-}
 .heroTitle {
   font-weight: 400;
   font-size: clamp(46px, 8vw, 84px);
@@ -100,6 +78,15 @@
   letter-spacing: -0.025em;
   color: #fff7e9;
   text-shadow: 0 4px 34px rgba(8, 26, 36, 0.6);
+}
+.heroTitleSunset {
+  font-weight: 400;
+  background: var(--grad-sunset-bright);
+  background-size: 220% 100%;
+  animation: gradShift 6s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .heroSub {
   font-size: clamp(17px, 2vw, 21px);
@@ -117,14 +104,31 @@
   margin-top: 34px;
   flex-wrap: wrap;
 }
-.pills {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 26px;
+/* ---- Hero day-arc chips ---- */
+.dayArc {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  height: 96px;
+  margin: 0 auto 30px;
+  pointer-events: none;
 }
-.pill {
+.dayArcSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.arcGroup {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.arcPill {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -132,17 +136,39 @@
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
-  padding: 9px 16px;
+  padding: 8px 15px;
   color: #fff1da;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
 }
-.pillDot {
+.arcPillGradient {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-size: 220% 100%;
+  animation: gradShift 6s ease infinite;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.arcPillDot {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
   width: 8px;
   height: 8px;
   border-radius: 50%;
+}
+.arcPillLabel {
+  position: relative;
+  z-index: 1;
+}
+.arcBelowDot {
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite;
 }
 
 /* ---- Proof strip ---- */
@@ -156,7 +182,13 @@
 .proofBar {
   display: flex;
   align-items: stretch;
-  background: linear-gradient(120deg, #3a2a46 0%, #2a2540 100%);
+  background: linear-gradient(
+    120deg,
+    #e8975a 0%,
+    #d9614b 34%,
+    #c2607e 66%,
+    #8e5e9e 100%
+  );
   border: 1px solid rgba(231, 220, 196, 0.14);
   border-radius: 20px;
   overflow: hidden;
@@ -174,13 +206,15 @@
   font-weight: 500;
   line-height: 1;
   margin-bottom: 7px;
+  color: #fff3e0;
 }
 .proofLabel {
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #c2a9b0;
+  color: #fce7d4;
+  opacity: 0.85;
 }
 
 /* ---- Shared headings ---- */
@@ -241,6 +275,7 @@
 
 /* ---- Process ---- */
 .process {
+  position: relative;
   background: linear-gradient(
     180deg,
     #1a2244 0%,
@@ -253,8 +288,24 @@
   );
   color: #f3e7d6;
   padding: 96px clamp(1.25rem, 4vw, 3rem);
+  overflow: hidden;
+}
+.stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.8);
+  animation: twinkle 3s ease-in-out infinite;
 }
 .processInner {
+  position: relative;
+  z-index: 1;
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -402,6 +453,17 @@
   flex-direction: column;
   gap: 14px;
   align-items: flex-start;
+  margin-top: 28px;
+}
+.startImage {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border-radius: 22px;
+  background: linear-gradient(160deg, #e0728e 0%, #4f5c92 100%);
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 26px 60px -30px rgba(10, 10, 30, 0.7);
 }
 
 @media (max-width: 820px) {

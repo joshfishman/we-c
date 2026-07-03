@@ -1,7 +1,6 @@
 "use client";
 
 import { Header } from "./Header";
-import { Footer } from "./Footer";
 import { Analytics } from "./Analytics";
 
 /**
@@ -26,7 +25,6 @@ export function SiteLayout({
       <Analytics />
       <Header settings={settings} tone={headerTone} />
       <main>{children}</main>
-      <Footer settings={settings} />
     </>
   );
 }

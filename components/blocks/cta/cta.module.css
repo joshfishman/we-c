@@ -1,7 +1,23 @@
 .section {
-  background: linear-gradient(180deg, #22382a 0%, #13241a 100%);
-  color: #f3e7d6;
+  background: linear-gradient(180deg, #2a1e3e 0%, #15102a 100%);
+  color: #fcefe2;
   padding-block: 96px;
+}
+/* Forest theme (home / ecommerce-marketing page) */
+.section.forest {
+  background: linear-gradient(180deg, #1c3a29 0%, #0c1f15 100%);
+}
+
+.we {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: var(--grad-gold);
+  background-size: 300% 300%;
+  animation: logoWave 7s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .grid {
@@ -62,5 +78,94 @@ a.detail:hover {
   }
   .formCol {
     justify-content: flex-start;
+  }
+}
+
+/* Footer bar */
+.footerBar {
+  max-width: 1280px;
+  margin: 72px auto 0;
+  padding-inline: clamp(1.25rem, 4vw, 3rem);
+  padding-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footerBrand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.weMark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  background: var(--grad-gold);
+  background-size: 300% 300%;
+  animation: logoWave 7s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.weSub {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.05;
+  background: var(--grad-gold);
+  background-size: 300% 300%;
+  animation: logoWave 7s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footerNav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.footerNav a {
+  font-size: 14px;
+  font-weight: 600;
+  color: #d8c8e4;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.footerNav a:hover {
+  color: #ffe7a0;
+}
+
+.copyright {
+  color: #8a7a9e;
+  font-size: 13px;
+}
+
+/* Forest theme: recolor footer links + copyright to match the green panel */
+.forest .footerNav a {
+  color: #c3d9a6;
+}
+.forest .footerNav a:hover {
+  color: #ffe7a0;
+}
+.forest .copyright {
+  color: #7f9a72;
+}
+
+@media (max-width: 640px) {
+  .footerBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
 }

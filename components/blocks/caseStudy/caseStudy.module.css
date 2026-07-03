@@ -109,3 +109,111 @@
     padding: 36px 28px;
   }
 }
+
+/* ---------- Dusk theme (warm -> purple) ---------- */
+.dusk {
+  grid-template-columns: 0.82fr 1.18fr;
+  border: none;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 30px 64px -34px rgba(20, 10, 30, 0.6);
+  background: linear-gradient(135deg, #f4c77e 0%, #e8975a 48%, #d9614b 100%);
+}
+
+.dusk .photo {
+  min-height: 420px;
+  background: linear-gradient(160deg, #e88e5c, #8e5e9e);
+}
+.dusk .photo :global(.imgSlot) {
+  min-height: 420px;
+  object-fit: cover;
+}
+
+.dusk .story {
+  padding: 48px 52px;
+  color: #f3e7d6;
+  background:
+    radial-gradient(120% 90% at 100% 0%, #e88e5c 0%, rgba(232, 142, 92, 0) 52%),
+    radial-gradient(110% 100% at 0% 100%, #2b3766 0%, rgba(43, 55, 102, 0) 55%),
+    linear-gradient(135deg, #241a38 0%, #4f3c6a 48%, #8e5e9e 100%);
+}
+
+.dusk .eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 28px;
+  background: linear-gradient(90deg, #ffe7a0, #ffc24d, #f2955a, #ffe7a0);
+  background-size: 220% 100%;
+  animation: gradShift 6s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.dusk .brand {
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #f0b8a2;
+  margin-bottom: 28px;
+}
+
+.dusk .metricRow {
+  align-items: flex-end;
+  gap: 18px;
+}
+.dusk .metric {
+  font-weight: 500;
+  font-size: 84px;
+  line-height: 0.85;
+  background: linear-gradient(90deg, #ffd98a, #f2955a, #e0708a, #ffd98a);
+  background-size: 220% 100%;
+  animation: gradShift 6s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.dusk .metricLabel {
+  font-size: 17px;
+  font-weight: 600;
+  color: #fcefe2;
+  max-width: 150px;
+}
+
+.dusk .quote {
+  font-size: 25px;
+  line-height: 1.45;
+  color: #f6ecdd;
+  margin-bottom: 30px;
+}
+
+.dusk .person {
+  margin-top: auto;
+}
+.dusk .avatar {
+  width: 52px;
+  height: 52px;
+}
+.dusk .avatar :global(.imgSlot) {
+  object-fit: cover;
+}
+.dusk .personName {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fcefe2;
+}
+.dusk .personTitle {
+  font-size: 13px;
+  color: #e4b7c0;
+}
+
+@media (max-width: 760px) {
+  .dusk {
+    grid-template-columns: 1fr;
+  }
+}

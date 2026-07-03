@@ -129,6 +129,7 @@ h4 {
   color: #2a1520;
   background-image: var(--grad-sunset);
   box-shadow: 0 16px 40px -16px rgba(224, 114, 142, 0.6);
+  animation: gradShift 6s ease infinite; /* continuous sunset drift */
 }
 .btn--primary:hover {
   color: #fff7e9;
@@ -145,6 +146,19 @@ h4 {
 .btn--secondary:hover {
   color: #fff7e9;
   background-position: 100% 50%; /* gradient shifts on hover */
+}
+
+/* Dusk — purple→orange gradient pill with a light border (One Day secondary) */
+.btn--dusk {
+  color: #fff1e6;
+  background-image: var(--grad-dusk);
+  border: 1px solid rgba(255, 247, 233, 0.35);
+  box-shadow: 0 12px 30px -14px rgba(90, 40, 60, 0.6);
+  animation: gradShift 6s ease infinite;
+}
+.btn--dusk:hover {
+  color: #fff7e9;
+  background-image: var(--grad-dusk-deep);
 }
 
 /* Cream — solid light pill (One Day primary) */
@@ -209,6 +223,37 @@ h4 {
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+/* Star pulse (process night sky) */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+/* Case-study popover entrance */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 @keyframes spin {

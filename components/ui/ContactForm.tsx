@@ -1,78 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import { trackLead, trackFormSubmit } from "../../lib/track";
 import styles from "./contactForm.module.css";
 
 /**
- * Contact form. Posts to Formspree (env NEXT_PUBLIC_FORMSPREE_ENDPOINT) so it
- * works on the static/serverless deploy with no backend. Until an endpoint is
- * configured it falls back to a mailto: to the destination address.
- *
- * To wire it up: create a free form at formspree.io whose notifications go to
- * josh@wecreativeagency.com, then set NEXT_PUBLIC_FORMSPREE_ENDPOINT to its URL
- * (https://formspree.io/f/xxxxxxx). (Resend is an alternative — see README.)
+ * Contact form — posts to Formspree via the official @formspree/react SDK, so it
+ * works on the static/serverless deploy with no backend and no secret key (the
+ * form id is public). Notifications are routed to josh@wecreativeagency.com from
+ * the Formspree dashboard. Override the form id with NEXT_PUBLIC_FORMSPREE_ID.
  */
+const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID || "mdarygor";
+
 export function ContactForm({
   buttonLabel = "Send message →",
   messageLabel = "How can we help?",
   messagePlaceholder = "Tell us about your brand and goals…",
-  to = "josh@wecreativeagency.com",
   location = "contact",
   dark = true,
 }: {
   buttonLabel?: string;
   messageLabel?: string;
   messagePlaceholder?: string;
-  to?: string;
   location?: string;
   dark?: boolean;
 }) {
-  const endpoint =
-    process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT ||
-    "https://formspree.io/f/mdarygor";
-  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
+  const [state, handleSubmit] = useForm(FORMSPREE_ID);
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    const payload = Object.fromEntries(data.entries());
-
-    // No endpoint yet → open the visitor's mail client to the destination.
-    if (!endpoint) {
-      const subject = encodeURIComponent(`New enquiry from ${payload.name || "the WE site"}`);
-      const body = encodeURIComponent(
-        `Name: ${payload.name}\nEmail: ${payload.email}\n\n${payload.message}`
-      );
-      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+  // Fire the GTM conversion events once the submission succeeds.
+  useEffect(() => {
+    if (state.succeeded) {
       trackFormSubmit(location);
-      trackLead(String(payload.email || "form"), location);
-      setStatus("ok");
-      return;
+      trackLead("form", location);
     }
+  }, [state.succeeded, location]);
 
-    setStatus("sending");
-    try {
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: data,
-      });
-      if (res.ok) {
-        setStatus("ok");
-        form.reset();
-        trackFormSubmit(location);
-        trackLead(String(payload.email || "form"), location);
-      } else {
-        setStatus("error");
-      }
-    } catch {
-      setStatus("error");
-    }
-  };
-
-  if (status === "ok") {
+  if (state.succeeded) {
     return (
       <div className={`${styles.form} ${dark ? styles.dark : ""} ${styles.done}`}>
         <p className={styles.thanks}>Thanks — we&apos;ll be in touch shortly.</p>
@@ -81,12 +45,38 @@ export function ContactForm({
   }
 
   return (
-    <form className={`${styles.form} ${dark ? styles.dark : ""}`} onSubmit={onSubmit}>
+    <form
+      className={`${styles.form} ${dark ? styles.dark : ""}`}
+      onSubmit={handleSubmit}
+    >
+      <input type="hidden" name="_subject" value="New enquiry — WE Creative Agency" />
       <div className={styles.row}>
-        <input className={styles.input} name="name" placeholder="Your name" required autoComplete="name" />
-        <input className={styles.input} name="email" type="email" placeholder="Email" required autoComplete="email" />
+        <input
+          className={styles.input}
+          name="name"
+          placeholder="Your name"
+          required
+          autoComplete="name"
+        />
+        <input
+          className={styles.input}
+          id="email"
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+          autoComplete="email"
+        />
       </div>
-      <label className={styles.srOnly} htmlFor="cf-msg">{messageLabel}</label>
+      <ValidationError
+        prefix="Email"
+        field="email"
+        errors={state.errors}
+        className={styles.error}
+      />
+      <label className={styles.srOnly} htmlFor="cf-msg">
+        {messageLabel}
+      </label>
       <textarea
         id="cf-msg"
         className={styles.textarea}
@@ -95,12 +85,20 @@ export function ContactForm({
         placeholder={messagePlaceholder}
         required
       />
-      <button className={`btn btn--primary ${styles.submit}`} type="submit" disabled={status === "sending"}>
-        {status === "sending" ? "Sending…" : buttonLabel}
+      <ValidationError
+        prefix="Message"
+        field="message"
+        errors={state.errors}
+        className={styles.error}
+      />
+      <button
+        className={`btn btn--primary ${styles.submit}`}
+        type="submit"
+        disabled={state.submitting}
+      >
+        {state.submitting ? "Sending…" : buttonLabel}
       </button>
-      {status === "error" ? (
-        <p className={styles.error}>Something went wrong — email us directly at {to}.</p>
-      ) : null}
+      <ValidationError errors={state.errors} className={styles.error} />
     </form>
   );
 }
