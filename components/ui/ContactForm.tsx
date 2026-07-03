@@ -28,7 +28,9 @@ export function ContactForm({
   location?: string;
   dark?: boolean;
 }) {
-  const endpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
+  const endpoint =
+    process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT ||
+    "https://formspree.io/f/mdarygor";
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
