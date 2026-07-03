@@ -42,10 +42,11 @@
   align-items: baseline;
   gap: 18px;
   margin-bottom: 8px;
+  flex-wrap: wrap;
 }
 .metric {
   font-weight: 500;
-  font-size: clamp(54px, 7vw, 84px);
+  font-size: clamp(46px, 10vw, 84px);
   line-height: 0.85;
   letter-spacing: -0.02em;
 }
@@ -170,10 +171,11 @@
 .dusk .metricRow {
   align-items: flex-end;
   gap: 18px;
+  flex-wrap: wrap;
 }
 .dusk .metric {
   font-weight: 500;
-  font-size: 84px;
+  font-size: clamp(46px, 12vw, 84px);
   line-height: 0.85;
   background: linear-gradient(90deg, #ffd98a, #f2955a, #e0708a, #ffd98a);
   background-size: 220% 100%;
@@ -191,7 +193,7 @@
 }
 
 .dusk .quote {
-  font-size: 25px;
+  font-size: clamp(18px, 4.4vw, 25px);
   line-height: 1.45;
   color: #f6ecdd;
   margin-bottom: 30px;
@@ -225,5 +227,11 @@
   .dusk .photo :global(.imgSlot) {
     min-height: 200px;
     max-height: 260px;
+  }
+  .dusk .story {
+    padding: 30px 24px;
+  }
+  .dusk .metricRow {
+    gap: 12px;
   }
 }
