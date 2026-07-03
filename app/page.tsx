@@ -1,14 +1,13 @@
 import { SiteRenderer } from "../components/site/SiteRenderer";
-import { getPage, getSettings } from "../lib/content";
+import { loadPage, loadSettings } from "../lib/loadContent";
 
-export default function Home() {
-  const page = getPage("home.json");
-  const settings = getSettings();
+/**
+ * Home page. In dev it queries Tina's datalayer (real query → visual editing);
+ * in production it renders from committed JSON statically (no runtime backend).
+ */
+export default async function Home() {
+  const page = await loadPage();
+  const settings = await loadSettings();
 
-  return (
-    <SiteRenderer
-      page={{ data: { page }, query: "", variables: {} }}
-      settings={{ data: { settings }, query: "", variables: {} }}
-    />
-  );
+  return <SiteRenderer page={page} settings={settings} />;
 }
