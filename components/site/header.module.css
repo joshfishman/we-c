@@ -68,9 +68,14 @@
 
 @media (max-width: 720px) {
   .nav {
-    gap: 18px;
+    gap: 12px;
   }
+  /* Keep the cross-page link visible on mobile, stacked onto 2 lines so it fits. */
   .link {
-    display: none;
+    white-space: normal;
+    max-width: 4.5em;
+    line-height: 1.05;
+    text-align: center;
+    font-size: 12px;
   }
 }
