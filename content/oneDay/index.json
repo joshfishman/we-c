@@ -7,23 +7,44 @@
     "bgVideoMobile": "",
     "bgPoster": "/media/sky-bg.png",
     "badge": "AI-Powered Development",
-    "headlineLine1": "Planned in the morning.",
-    "headlineLine2": "Live by sunset.",
+    "headlineLine1": "Plan in the morning.",
+    "headlineLine2": "Go Live by Sunset.",
     "subhead": "Enterprise level websites. From Strategy to Design & Development, all in one day.",
-    "ctaPrimary": { "label": "Let's Build Together →", "url": "#start" },
-    "ctaSecondary": { "label": "See our work", "url": "/#work" },
+    "ctaPrimary": {
+      "label": "Let's Build Together →",
+      "url": "#start"
+    },
+    "ctaSecondary": {
+      "label": "See our work",
+      "url": "/#work"
+    },
     "pills": [
-      { "label": "Morning · Brief" },
-      { "label": "Midday · Build" },
-      { "label": "Sunset · Delivery" }
+      {
+        "label": "Morning · Brief"
+      },
+      {
+        "label": "Midday · Build"
+      },
+      {
+        "label": "Sunset · Delivery"
+      }
     ]
   },
   "proof": {
     "visible": true,
     "stats": [
-      { "value": "10×", "label": "Faster than typical development" },
-      { "value": "98+", "label": "Performance scores" },
-      { "value": "100%", "label": "Yours to own & edit" }
+      {
+        "value": "10×",
+        "label": "Faster than typical development"
+      },
+      {
+        "value": "98+",
+        "label": "Performance scores"
+      },
+      {
+        "value": "100%",
+        "label": "Yours to own & edit"
+      }
     ]
   },
   "caseStudy": {
@@ -43,14 +64,21 @@
     "visible": true,
     "eyebrow": "Our Work",
     "heading": "Brands we've grown.",
-    "cta": { "label": "Start a project →", "url": "#start" },
+    "cta": {
+      "label": "Start a project →",
+      "url": "#start"
+    },
     "projects": [
       {
         "title": "Stoned Immaculate Clothing",
         "badge": "3× revenue · 6 mo",
         "services": "Shopify Development · Social & Search Ads",
         "image": "/media/work-stoned-immaculate.jpg",
-        "logos": ["shopify", "meta", "google"],
+        "logos": [
+          "shopify",
+          "meta",
+          "google"
+        ],
         "url": "#start"
       },
       {
@@ -58,7 +86,10 @@
         "badge": "Custom Webflow",
         "services": "Site Development",
         "image": "/media/work-california-chicken-cafe.png",
-        "logos": ["webflow", "wordpress"],
+        "logos": [
+          "webflow",
+          "wordpress"
+        ],
         "url": "#start"
       },
       {
@@ -66,7 +97,10 @@
         "badge": "Idea → Exit",
         "services": "Shopify Development · Digital Marketing",
         "image": "/media/work-11-honore.png",
-        "logos": ["shopify", "meta"],
+        "logos": [
+          "shopify",
+          "meta"
+        ],
         "url": "#start"
       },
       {
@@ -74,7 +108,10 @@
         "badge": "6× ROI",
         "services": "Social Ad Management",
         "image": "/media/work-hudson-jeans.png",
-        "logos": ["meta", "instagram"],
+        "logos": [
+          "meta",
+          "instagram"
+        ],
         "url": "#start"
       },
       {
@@ -82,8 +119,13 @@
         "badge": "Seasonal Collections",
         "services": "Site Development",
         "image": "/media/work-ovando.jpg",
-        "images": ["/media/ovando-1.png", "/media/ovando-2.png"],
-        "logos": ["shopify"],
+        "images": [
+          "/media/ovando-1.png",
+          "/media/ovando-2.png"
+        ],
+        "logos": [
+          "shopify"
+        ],
         "url": "#start"
       }
     ]
@@ -141,14 +183,23 @@
     "heading": "Tell us about your site. We'll build it tomorrow.",
     "body": "Start with the questionnaire — it takes about 5 minutes and starts your one-day build process.",
     "image": "",
-    "ctaPrimary": { "label": "What are you planning?", "url": "#" },
-    "ctaSecondary": { "label": "See our work", "url": "/#work" }
+    "ctaPrimary": {
+      "label": "What are you planning?",
+      "url": "#"
+    },
+    "ctaSecondary": {
+      "label": "See our work",
+      "url": "/#work"
+    }
   },
   "contact": {
     "visible": true,
     "heading": "See what WE can do for your brand.",
     "body": "Great work begins with a great fit. Let's talk about your brand, where you're headed, and how we can help you get there.",
-    "cta": { "label": "Book a call →", "url": "#" }
+    "cta": {
+      "label": "Book a call →",
+      "url": "#"
+    }
   },
   "footer": {
     "contact": "hello@wecreativeagency.com  ·  (323) 412-0544",

@@ -3,7 +3,6 @@
   "description": "Proven agency strategy & process, powered by AI. We grow ecommerce and lifestyle brands across strategy, development and marketing.",
   "blocks": [
     {
-      "_template": "hero",
       "visible": true,
       "bgVideo": "",
       "bgVideoMobile": "",
@@ -13,28 +12,40 @@
       "headlineAccent": "businesses",
       "headlineTail": "online.",
       "subhead": "Proven Agency Strategy & Process, powered by AI. Optimize your funnel and unleash growth.",
-      "ctaPrimary": { "label": "Let's Grow", "url": "#contact" },
-      "ctaSecondary": { "label": "See Our Work", "url": "#work" },
+      "ctaPrimary": {
+        "label": "Let's Grow",
+        "url": "#contact"
+      },
+      "ctaSecondary": {
+        "label": "See Our Work",
+        "url": "#work"
+      },
       "callout": {
         "eyebrow": "AI-optimized development",
         "text": "Enterprise-grade websites in one day",
         "url": "/one-day"
-      }
+      },
+      "_template": "hero"
     },
     {
-      "_template": "proof",
       "visible": true,
       "intro": {
         "title": "Founded 2011",
         "subtitle": "Strategy / Development / Marketing"
       },
       "stats": [
-        { "value": "77+", "label": "Sites launched" },
-        { "value": "$6.7M", "label": "Revenue earned for clients" }
-      ]
+        {
+          "value": "77+",
+          "label": "Sites launched"
+        },
+        {
+          "value": "$6.7M",
+          "label": "Revenue earned for clients"
+        }
+      ],
+      "_template": "proof"
     },
     {
-      "_template": "caseStudy",
       "visible": true,
       "eyebrow": "Client Results",
       "metricValue": "300+%",
@@ -45,44 +56,61 @@
       "personTitle": "Stoned Immaculate Clothing",
       "image": "/media/stoned-immaculate.jpg",
       "imageAlt": "Stoned Immaculate Clothing brand photo",
-      "avatar": "/media/avatar-founder.jpg"
+      "avatar": "/media/avatar-founder.jpg",
+      "_template": "caseStudy"
     },
     {
-      "_template": "framework",
       "visible": true,
-      "eyebrow": "Service Offering",
-      "heading": "eCommerce growth framework",
-      "flowIntro": "From Attraction",
+      "eyebrow": "",
+      "heading": "eCommerce Growth Services",
+      "flowIntro": "",
       "layers": [
         {
           "no": "01",
           "title": "Attract",
-          "badge": "Flows in",
+          "badge": "",
           "description": "Get found by the right people.",
-          "tags": ["Content Creation", "Paid Social & Search", "Ambassador Marketing", "SEO"]
+          "tags": [
+            "Content Creation",
+            "Paid Social & Search",
+            "AI & Search Optimization",
+            "Audience & Testing "
+          ]
         },
         {
           "no": "02",
           "title": "Convert",
           "badge": "Converts",
           "description": "Turn visitors into customers.",
-          "tags": ["Web Development", "Conversion Rate Optimization", "Customer Funnel Creation", "Analytics"]
+          "tags": [
+            "Web Development",
+            "Conversion Rate Optimization",
+            "Customer Funnel Creation",
+            "Analytics"
+          ]
         },
         {
           "no": "03",
           "title": "Retain",
-          "badge": "Loops back",
+          "badge": "",
           "description": "Keep them coming back for more.",
-          "tags": ["Post-Purchase Flow", "Personalized Offers", "Reviews"]
+          "tags": [
+            "Post-Purchase Flows",
+            "Personalized Offering",
+            "Reviews"
+          ]
         }
-      ]
+      ],
+      "_template": "framework"
     },
     {
-      "_template": "ourWork",
       "visible": true,
       "eyebrow": "Our Work",
       "heading": "Brands we've grown.",
-      "cta": { "label": "Start a project →", "url": "#contact" },
+      "cta": {
+        "label": "Start a project →",
+        "url": "#contact"
+      },
       "projects": [
         {
           "title": "Stoned Immaculate Clothing",
@@ -117,42 +145,61 @@
           "badge": "Seasonal Collections",
           "services": "Site Development",
           "image": "/media/work-ovando.jpg",
-          "images": ["/media/ovando-1.png", "/media/ovando-2.png"],
+          "images": [
+            "/media/ovando-1.png",
+            "/media/ovando-2.png"
+          ],
           "url": "#contact"
         }
-      ]
+      ],
+      "_template": "ourWork"
     },
     {
-      "_template": "approach",
       "visible": true,
       "leftEyebrow": "Guided by",
       "leftHeading": "Human expertise",
       "leftBody": "Strategy, process and skill earned from building brands online for over a decade. Taste, judgment and accountability you can't automate.",
       "rightEyebrow": "Supercharged with",
       "rightHeading": "Specialized AI",
-      "rightBody": "AI is our supercharged intern — research, prototyping, build. Weeks become days, and more of the budget goes into craft, not grind."
+      "rightBody": "AI is our supercharged intern — research, prototyping, build. Weeks become days, and more of the budget goes into craft, not grind.",
+      "_template": "approach"
     },
     {
-      "_template": "builtInADay",
       "visible": true,
       "eyebrow": "AI Optimized Development",
       "heading": "Build a site like this in one day.",
       "stats": [
-        { "value": "1", "label": "day from brief to launch" },
-        { "value": "10×", "label": "faster than a typical build" }
+        {
+          "value": "1",
+          "label": "day from brief to launch"
+        },
+        {
+          "value": "10×",
+          "label": "faster than a typical build"
+        }
       ],
-      "cta": { "label": "See how we'd build yours →", "url": "/one-day" }
+      "cta": {
+        "label": "See how we'd build yours →",
+        "url": "/one-day"
+      },
+      "_template": "builtInADay"
     },
     {
-      "_template": "ctaSection",
       "visible": true,
       "theme": "forest",
       "heading": "See what WE can do for your brand.",
       "body": "Great work begins with a great fit. Let's talk about your brand, where you're headed, and how we can help you get there.",
-      "cta": { "label": "Book a call →", "url": "#" },
+      "cta": {
+        "label": "Book a call →",
+        "url": "#"
+      },
       "email": "hello@wecreativeagency.com",
       "phone": "(323) 412-0544",
-      "studio": ["268 S. Orange Dr", "Los Angeles, CA 90036"]
+      "studio": [
+        "268 S. Orange Dr",
+        "Los Angeles, CA 90036"
+      ],
+      "_template": "ctaSection"
     }
   ]
 }

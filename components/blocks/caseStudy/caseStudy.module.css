@@ -108,6 +108,11 @@
   .story {
     padding: 36px 28px;
   }
+  .photo,
+  .photo :global(.imgSlot) {
+    min-height: 200px;
+    max-height: 260px;
+  }
 }
 
 /* ---------- Dusk theme (warm -> purple) ---------- */
@@ -215,5 +220,10 @@
 @media (max-width: 760px) {
   .dusk {
     grid-template-columns: 1fr;
+  }
+  .dusk .photo,
+  .dusk .photo :global(.imgSlot) {
+    min-height: 200px;
+    max-height: 260px;
   }
 }

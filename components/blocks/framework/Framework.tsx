@@ -49,24 +49,26 @@ function LeafGlyph() {
 function OuterCard({ layer }: { layer: any }) {
   return (
     <div className={styles.card}>
-      <div className={styles.badgeCol}>
-        <span className={styles.badge}>
+      <div className={styles.cardHead}>
+        <div className={styles.cardHeadText}>
+          {layer.badge ? (
+            <span
+              className={styles.badgeLabel}
+              data-tina-field={tinaField(layer, "badge")}
+            >
+              {layer.badge}
+            </span>
+          ) : null}
+          <h3
+            className={styles.cardTitle}
+            data-tina-field={tinaField(layer, "title")}
+          >
+            {layer.title}
+          </h3>
+        </div>
+        <span className={styles.iconBadge}>
           <LeafGlyph />
         </span>
-        {layer.badge ? (
-          <span
-            className={styles.badgeLabel}
-            data-tina-field={tinaField(layer, "badge")}
-          >
-            {layer.badge}
-          </span>
-        ) : null}
-        <h3
-          className={styles.cardTitle}
-          data-tina-field={tinaField(layer, "title")}
-        >
-          {layer.title}
-        </h3>
       </div>
       <ul className={styles.tagList}>
         {layer.tags?.map((tag: string, j: number) => (

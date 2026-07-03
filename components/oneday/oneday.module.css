@@ -15,6 +15,9 @@
   min-height: 600px;
   max-height: 820px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .heroBg {
   position: absolute;
@@ -62,12 +65,12 @@
 .heroContent {
   position: relative;
   z-index: 6;
-  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  padding: 40px 24px 96px;
+  padding: 40px 24px;
   max-width: 940px;
   margin: 0 auto;
 }
@@ -492,6 +495,26 @@
   .hero {
     aspect-ratio: auto;
     min-height: 86vh;
+  }
+  /* Vertically center the hero content on mobile (like the home hero):
+     symmetric padding + smaller arc/title so it fits within the viewport. */
+  .heroContent {
+    padding: 24px 20px;
+  }
+  .dayArc {
+    height: 74px;
+    max-width: 92%;
+    margin-bottom: 18px;
+  }
+  .heroTitle {
+    font-size: clamp(40px, 11vw, 60px);
+  }
+  .heroSub {
+    font-size: 16px;
+    margin-top: 18px;
+  }
+  .heroActions {
+    margin-top: 26px;
   }
   .stepCard {
     width: 100%;
