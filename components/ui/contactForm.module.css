@@ -16,10 +16,10 @@
   font-size: 1rem;
   padding: 0.85rem 1rem;
   border-radius: 14px;
-  border: 1px solid var(--color-line);
-  background: var(--color-surface);
+  border: none;
+  background: linear-gradient(150deg, #fbf4ea 0%, #f1e4d4 100%);
   color: var(--color-ink);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, filter 0.2s ease;
 }
 .textarea {
   resize: vertical;
@@ -54,8 +54,8 @@
 /* Dark variant (on the dark contact panels) */
 .dark .input,
 .dark .textarea {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%);
+  border: none;
   color: #f3e7d6;
 }
 .dark .input::placeholder,

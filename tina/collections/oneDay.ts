@@ -88,6 +88,57 @@ export const OneDayCollection: Collection = {
     },
     {
       type: "object",
+      name: "caseStudy",
+      label: "Testimonial",
+      fields: [
+        visible,
+        { type: "string", name: "eyebrow", label: "Eyebrow" },
+        { type: "string", name: "metricValue", label: "Metric value (e.g. 300+%)" },
+        { type: "string", name: "metricLabel", label: "Metric label" },
+        { type: "string", name: "brand", label: "Brand / client" },
+        { type: "string", name: "quote", label: "Quote", ui: { component: "textarea" } },
+        { type: "string", name: "personName", label: "Attribution name" },
+        { type: "string", name: "personTitle", label: "Attribution title" },
+        { type: "image", name: "image", label: "Brand photo" },
+        { type: "string", name: "imageAlt", label: "Brand photo alt" },
+        { type: "image", name: "avatar", label: "Avatar photo" },
+      ],
+    },
+    {
+      type: "object",
+      name: "ourWork",
+      label: "Past Work",
+      fields: [
+        visible,
+        { type: "string", name: "eyebrow", label: "Eyebrow" },
+        { type: "string", name: "heading", label: "Heading" },
+        {
+          type: "object",
+          name: "cta",
+          label: "Header button",
+          fields: [
+            { type: "string", name: "label", label: "Label" },
+            { type: "string", name: "url", label: "URL" },
+          ],
+        },
+        {
+          type: "object",
+          name: "projects",
+          label: "Projects",
+          list: true,
+          ui: { itemProps: (i: any) => ({ label: i?.title || "Project" }) },
+          fields: [
+            { type: "string", name: "title", label: "Title" },
+            { type: "string", name: "badge", label: "Metric badge" },
+            { type: "string", name: "services", label: "Services" },
+            { type: "image", name: "image", label: "Image" },
+            { type: "string", name: "url", label: "URL (Read more)" },
+          ],
+        },
+      ],
+    },
+    {
+      type: "object",
       name: "quality",
       label: "Enterprise Quality",
       fields: [

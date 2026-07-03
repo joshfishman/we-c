@@ -2,8 +2,9 @@
 
 import { useTina, tinaField } from "tinacms/dist/react";
 import { Cta } from "../ui/Cta";
-import { ContactForm } from "../ui/ContactForm";
 import { SiteLayout } from "../site/SiteLayout";
+import { CaseStudy } from "../blocks/caseStudy/CaseStudy";
+import { OurWork } from "../blocks/ourWork/OurWork";
 import s from "./oneday.module.css";
 
 const PILL_DOTS = ["#F0A6BE", "#EAF6FA", "#F4943E"];
@@ -49,6 +50,8 @@ export function OneDay(props: {
   const page = data.oneDay;
   const hero = page?.hero;
   const proof = page?.proof;
+  const caseStudy = page?.caseStudy;
+  const ourWork = page?.ourWork;
   const quality = page?.quality;
   const process = page?.process;
   const cta = page?.cta;
@@ -78,6 +81,17 @@ export function OneDay(props: {
           </div>
 
           <div className={s.heroContent}>
+            <div className={s.pills}>
+              {hero?.pills?.map((pill: any, i: number) => (
+                <span key={i} className={s.pill}>
+                  <span
+                    className={s.pillDot}
+                    style={{ background: PILL_DOTS[i % PILL_DOTS.length] }}
+                  />
+                  {pill?.label}
+                </span>
+              ))}
+            </div>
             {hero?.badge ? (
               <div className={s.badge} data-tina-field={tinaField(hero, "badge")}>
                 <span className={s.badgeDot} />
@@ -122,18 +136,6 @@ export function OneDay(props: {
               />
             </div>
           </div>
-
-          <div className={s.pills}>
-            {hero?.pills?.map((pill: any, i: number) => (
-              <span key={i} className={s.pill}>
-                <span
-                  className={s.pillDot}
-                  style={{ background: PILL_DOTS[i % PILL_DOTS.length] }}
-                />
-                {pill?.label}
-              </span>
-            ))}
-          </div>
         </section>
       ) : null}
 
@@ -160,6 +162,11 @@ export function OneDay(props: {
             ))}
           </div>
         </section>
+      ) : null}
+
+      {/* TESTIMONIAL */}
+      {caseStudy && caseStudy.visible !== false ? (
+        <CaseStudy data={caseStudy} />
       ) : null}
 
       {/* ENTERPRISE QUALITY */}
@@ -262,6 +269,11 @@ export function OneDay(props: {
         </section>
       ) : null}
 
+      {/* PAST WORK */}
+      {ourWork && ourWork.visible !== false ? (
+        <OurWork data={ourWork} />
+      ) : null}
+
       {/* START CTA */}
       {cta?.visible !== false ? (
         <section className={s.startWrap} id="start" data-section="oneday_cta">
@@ -281,19 +293,13 @@ export function OneDay(props: {
               </p>
             </div>
             <div className={s.startActions}>
-              <ContactForm
-                buttonLabel={cta?.ctaPrimary?.label || "Start the build →"}
-                messagePlaceholder="What are you building?"
-                location="oneday_questionnaire"
-                dark
-              />
               <Cta
-                label={cta?.ctaSecondary?.label}
-                url={cta?.ctaSecondary?.url}
+                label={cta?.ctaPrimary?.label}
+                url={cta?.ctaPrimary?.url}
                 location="oneday_cta"
-                variant="secondary"
+                variant="cream"
                 tinaField={
-                  cta?.ctaSecondary ? tinaField(cta.ctaSecondary, "label") : undefined
+                  cta?.ctaPrimary ? tinaField(cta.ctaPrimary, "label") : undefined
                 }
               />
             </div>
