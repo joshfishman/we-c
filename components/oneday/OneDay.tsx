@@ -14,7 +14,7 @@ const STEP_BADGES = ["#E6849C", "#E8A44C", "#D8623F"];
 const ARC_CHIPS = [
   {
     group: {
-      left: "8%",
+      left: "10%",
       bottom: 0,
       transform: "translateX(-50%)",
     } as React.CSSProperties,
@@ -42,7 +42,7 @@ const ARC_CHIPS = [
   },
   {
     group: {
-      right: "8%",
+      right: "10%",
       bottom: 0,
       transform: "translateX(50%)",
     } as React.CSSProperties,
@@ -175,7 +175,15 @@ export function OneDay(props: {
                           boxShadow: `0 0 12px 2px ${chip.dotGlow}`,
                         }}
                       />
-                      <span className={s.arcPillLabel}>{pill?.label}</span>
+                      <span className={s.arcPillLabel}>
+                        {String(pill?.label || "")
+                          .split("·")
+                          .map((word: string, k: number) => (
+                            <span key={k} className={s.arcWord}>
+                              {word.trim()}
+                            </span>
+                          ))}
+                      </span>
                     </span>
                     <span
                       className={s.arcBelowDot}
