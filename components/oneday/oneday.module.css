@@ -70,7 +70,9 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  padding: 40px 24px;
+  /* Extra bottom padding keeps the content clear of the proof strip, which
+     floats up over the hero (margin-top:-70px) — same as the home hero. */
+  padding: 40px 24px 96px;
   max-width: 940px;
   margin: 0 auto;
 }
@@ -507,7 +509,7 @@
   /* Vertically center the hero content on mobile (like the home hero):
      symmetric padding + smaller arc/title so it fits within the viewport. */
   .heroContent {
-    padding: 24px 20px;
+    padding: 24px 20px 92px;
   }
   /* Taller arc + stacked chip words so they're readable on mobile */
   .dayArc {
