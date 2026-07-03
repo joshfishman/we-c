@@ -3,6 +3,7 @@
 import { tinaField } from "tinacms/dist/react";
 import { Section } from "../../ui/Section";
 import { Cta } from "../../ui/Cta";
+import { ContactForm } from "../../ui/ContactForm";
 import styles from "./cta.module.css";
 
 export function CtaSection({ data }: { data: any }) {
@@ -27,42 +28,22 @@ export function CtaSection({ data }: { data: any }) {
             className={styles.cta}
             tinaField={data.cta ? tinaField(data.cta, "label") : undefined}
           />
-        </div>
 
-        <div className={styles.details}>
-          {data.email ? (
-            <div className={styles.detail}>
-              <div className={styles.detailLabel}>Email</div>
-              <a
-                className={styles.detailValue}
-                href={`mailto:${data.email}`}
-                data-tina-field={tinaField(data, "email")}
-              >
+          <div className={styles.details}>
+            {data.email ? (
+              <a className={styles.detail} href={`mailto:${data.email}`}>
                 {data.email}
               </a>
-            </div>
-          ) : null}
-          {data.phone ? (
-            <div className={styles.detail}>
-              <div className={styles.detailLabel}>Phone</div>
-              <div
-                className={styles.detailValue}
-                data-tina-field={tinaField(data, "phone")}
-              >
-                {data.phone}
-              </div>
-            </div>
-          ) : null}
-          {data.studio?.length ? (
-            <div className={styles.detail}>
-              <div className={styles.detailLabel}>Studio</div>
-              <div className={styles.detailValue}>
-                {data.studio.map((line: string, i: number) => (
-                  <div key={i}>{line}</div>
-                ))}
-              </div>
-            </div>
-          ) : null}
+            ) : null}
+            {data.phone ? <span className={styles.detail}>{data.phone}</span> : null}
+            {data.studio?.length ? (
+              <span className={styles.detail}>{data.studio.join(", ")}</span>
+            ) : null}
+          </div>
+        </div>
+
+        <div className={styles.formCol}>
+          <ContactForm buttonLabel="Send message →" location="contact" dark />
         </div>
       </div>
     </Section>

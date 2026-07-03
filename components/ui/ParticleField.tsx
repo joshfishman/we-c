@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { createNoise2D } from "simplex-noise";
 
 /**
  * ParticleField — a self-contained, dependency-free 3D particle cloud rendered
@@ -61,6 +62,12 @@ export type ParticleFieldProps = {
    * "gradientY" + a green→blue-green palette (floor → canopy).
    */
   forest?: boolean;
+  /**
+   * Pillars mode (fly-through only): dense, blocky vertical rock columns /
+   * mesas rising from the floor — a canyon you fly through. Pair with
+   * colorMode "gradientY" + a rock palette (dark base → warm top).
+   */
+  pillars?: boolean;
   /** Additive glow — luminous, soft particles (best on dark backgrounds). */
   glow?: boolean;
   className?: string;
@@ -112,6 +119,7 @@ export function ParticleField({
   travel = 0,
   pixel = false,
   forest = false,
+  pillars = false,
   glow = false,
   className,
   style,
@@ -125,6 +133,7 @@ export function ParticleField({
     if (!ctx) return;
 
     const palette = (Array.isArray(color) ? color : [color]).map(hexToRgb);
+    const floorNoise = createNoise2D(); // bumpy ground heightfield
     const reduce =
       typeof window !== "undefined" &&
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
@@ -143,24 +152,57 @@ export function ParticleField({
     const Z_NEAR = 0.12,
       Z_FAR = 5;
 
-    // Forest mode: pre-place trees (x position, depth, height), then hang each
-    // particle on a trunk or in a canopy.
+    // Structures (fly-through): pre-place columns, then fill them.
     const forestMode = fly && forest;
-    let treeX: Float32Array, treeZ: Float32Array, treeH: Float32Array, TREES = 0;
-    if (forestMode) {
-      TREES = Math.max(10, Math.round(count / 140));
-      treeX = new Float32Array(TREES);
-      treeZ = new Float32Array(TREES);
-      treeH = new Float32Array(TREES);
-      for (let t = 0; t < TREES; t++) {
-        treeX[t] = (Math.random() * 2 - 1) * 1.7;
-        treeZ[t] = Z_NEAR + Math.random() * (Z_FAR - Z_NEAR);
-        treeH[t] = 0.85 + Math.random() * 0.5;
+    const pillarMode = fly && pillars;
+    const structured = forestMode || pillarMode;
+    let colX: Float32Array, colZ: Float32Array, colH: Float32Array, colW: Float32Array;
+    let COLS = 0;
+    if (structured) {
+      // pillars = fewer, fatter columns with more particles each (denser/solid)
+      COLS = pillarMode
+        ? Math.max(7, Math.round(count / 380))
+        : Math.max(10, Math.round(count / 140));
+      colX = new Float32Array(COLS);
+      colZ = new Float32Array(COLS);
+      colH = new Float32Array(COLS);
+      colW = new Float32Array(COLS);
+      for (let t = 0; t < COLS; t++) {
+        colX[t] = (Math.random() * 2 - 1) * 1.8;
+        colZ[t] = Z_NEAR + Math.random() * (Z_FAR - Z_NEAR);
+        colH[t] = pillarMode ? 0.7 + Math.random() * 0.9 : 0.85 + Math.random() * 0.5;
+        colW[t] = pillarMode ? 0.1 + Math.random() * 0.14 : 0;
       }
     }
 
     for (let i = 0; i < count; i++) {
-      if (forestMode) {
+      if (pillarMode) {
+        if (i < count * 0.34) {
+          // bumpy particle floor — undulating ground heightfield
+          const fx = (Math.random() * 2 - 1) * 2.4;
+          const fz = Z_NEAR + Math.random() * (Z_FAR - Z_NEAR);
+          const bump = floorNoise(fx * 1.4, fz * 1.4) * 0.13;
+          px[i] = fx;
+          py[i] = 0.98 - bump + (Math.random() - 0.5) * 0.03;
+          pz[i] = fz;
+        } else if (i < count * 0.82) {
+          // solid square-ish rock column, floor up to a flat mesa top
+          const t = i % COLS;
+          const w = colW![t];
+          px[i] = colX![t] + (Math.random() - 0.5) * 2 * w;
+          py[i] = 0.95 - Math.random() * (0.95 + colH![t]);
+          pz[i] = colZ![t] + (Math.random() - 0.5) * 2 * w;
+        } else {
+          // ambient dust through the whole volume
+          px[i] = (Math.random() * 2 - 1) * 2.2;
+          py[i] = (Math.random() * 2 - 1) * 1.3;
+          pz[i] = Z_NEAR + Math.random() * (Z_FAR - Z_NEAR);
+        }
+      } else if (forestMode) {
+        const treeX = colX!,
+          treeZ = colZ!,
+          treeH = colH!,
+          TREES = COLS;
         const t = i % TREES;
         const tx = treeX![t],
           tz = treeZ![t],
@@ -215,30 +257,46 @@ export function ParticleField({
       h = 0,
       dpr = 1,
       cloudR = 1;
+    // Reusable pixel buffer for the fly-through (handles 100k+ particles).
+    let frameBuf: ImageData | null = null;
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Fly-through renders into a pixel buffer — keep it at 1x so the per-frame
+      // buffer fill + putImageData stays cheap (huge particle counts).
+      dpr = travel > 0 ? 1 : Math.min(window.devicePixelRatio || 1, 2);
       w = Math.max(1, rect.width);
       h = Math.max(1, rect.height);
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       cloudR = Math.min(w, h) * radius;
+      if (travel > 0) frameBuf = ctx.createImageData(canvas.width, canvas.height);
     };
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
 
-    // Pointer parallax (eased toward target).
+    // Pointer parallax (eased toward target) + raw position for the smash force.
     let tiltX = 0,
       tiltY = 0,
       targX = 0,
-      targY = 0;
+      targY = 0,
+      mpx = -9999,
+      mpy = -9999; // pointer in CSS px relative to canvas
     const onMove = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
-      targY = ((e.clientX - rect.left) / rect.width - 0.5) * 0.6;
-      targX = ((e.clientY - rect.top) / rect.height - 0.5) * 0.6;
+      mpx = e.clientX - rect.left;
+      mpy = e.clientY - rect.top;
+      targY = (mpx / rect.width - 0.5) * 0.6;
+      targX = (mpy / rect.height - 0.5) * 0.6;
     };
-    if (interactive) window.addEventListener("pointermove", onMove);
+    const onLeave = () => {
+      mpx = -9999;
+      mpy = -9999;
+    };
+    if (interactive) {
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerout", onLeave);
+    }
 
     let rotY = 0,
       elapsed = 0,
@@ -249,6 +307,11 @@ export function ParticleField({
     const camZ = 2.4; // camera distance (in cloud-radius units)
 
     const frame = (now: number) => {
+      // self-heal if the canvas wasn't laid out when resize first ran
+      if (canvas.width <= 4) {
+        const r = canvas.getBoundingClientRect();
+        if (r.width > 4) resize();
+      }
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
       if (!reduce) {
@@ -277,39 +340,78 @@ export function ParticleField({
         cyp = h / 2;
 
       // ---- Fly-through: camera travels forward through a deep field ----
+      // Rendered into an ImageData buffer (device px) so it scales to 100k+
+      // particles, additively blended for a luminous, dense look.
       if (fly) {
-        const dz = reduce ? 0 : travel * dt;
-        const proj = Math.min(w, h) * 0.5;
-        // Camera offset from the pointer → true depth parallax (near particles
-        // shift more than far ones, so it reads as looking around the space).
-        const camX = tiltY * 0.5;
-        const camY = tiltX * 0.5;
-        for (let i = 0; i < count; i++) {
-          pz[i] -= dz;
-          if (pz[i] <= Z_NEAR) pz[i] += Z_FAR - Z_NEAR; // recycle to the far plane
-          const z = pz[i];
-          // tiny per-particle wobble so it's alive but "barely moves"
-          const ph = pf[i];
-          const wx = Math.sin(elapsed * 0.4 + ph) * 0.02;
-          const wy = Math.cos(elapsed * 0.35 + ph) * 0.02;
-          const sxp = cxp + ((px[i] + wx - camX) / z) * proj;
-          const syp = cyp + ((py[i] + wy - camY) / z) * proj;
-          if (sxp < -12 || sxp > w + 12 || syp < -12 || syp > h + 12) continue;
-          // depth fog: fade in from the far plane, fade out as it passes the camera
-          const aFar = (Z_FAR - z) / (Z_FAR * 0.4);
-          const aNear = (z - Z_NEAR) / 0.6;
-          const a = opacity * Math.max(0, Math.min(1, aFar, aNear));
-          if (a <= 0.012) continue;
-          let rad = (size * 0.9) / z;
-          if (rad < 0.4) rad = 0.4;
-          ctx.fillStyle = `rgba(${pr[i]},${pg[i]},${pb[i]},${a})`;
-          if (pixel) ctx.fillRect(sxp - rad, syp - rad, rad * 2, rad * 2);
-          else {
-            ctx.beginPath();
-            ctx.arc(sxp, syp, rad, 0, 6.283185);
-            ctx.fill();
+        if (!frameBuf) frameBuf = ctx.createImageData(canvas.width, canvas.height);
+        const data = frameBuf.data;
+        // clear / fill background
+        if (background === "transparent") {
+          data.fill(0);
+        } else {
+          const [br, bg2, bb] = hexToRgb(background);
+          for (let p = 0; p < data.length; p += 4) {
+            data[p] = br;
+            data[p + 1] = bg2;
+            data[p + 2] = bb;
+            data[p + 3] = 255;
           }
         }
+        const W = canvas.width,
+          H = canvas.height;
+        const dz = reduce ? 0 : travel * dt;
+        const proj = Math.min(W, H) * 0.5;
+        const ccx = W / 2,
+          ccy = H / 2;
+        const camX = tiltY * 0.35; // gentler look-around (smash is the main effect)
+        const camY = tiltX * 0.35;
+        // Mouse "smash" force, in device px.
+        const mx = mpx * dpr,
+          my = mpy * dpr;
+        const hasM = mpx > -9000;
+        const R = Math.min(W, H) * 0.22; // smash radius
+        const R2 = R * R;
+
+        const farK = 1 / (Z_FAR * 0.45);
+        const nearK = 1 / 0.55;
+        for (let i = 0; i < count; i++) {
+          let z = pz[i] - dz;
+          if (z <= Z_NEAR) z += Z_FAR - Z_NEAR;
+          pz[i] = z;
+          const inv = proj / z;
+          let sx = ccx + (px[i] - camX) * inv;
+          let sy = ccy + (py[i] - camY) * inv;
+          if (hasM) {
+            const dx = sx - mx,
+              dy = sy - my;
+            const d2 = dx * dx + dy * dy;
+            if (d2 < R2) {
+              const d = Math.sqrt(d2) || 1;
+              const f = ((R - d) / d) * (R * 0.55) * (1.4 - z / Z_FAR);
+              sx += dx * f;
+              sy += dy * f;
+            }
+          }
+          const xi = sx | 0,
+            yi = sy | 0;
+          if (xi < 0 || yi < 0 || xi >= W || yi >= H) continue;
+          let aFar = (Z_FAR - z) * farK;
+          if (aFar > 1) aFar = 1;
+          let aNear = (z - Z_NEAR) * nearK;
+          const a = opacity * (aFar < aNear ? aFar : aNear);
+          if (a <= 0) continue;
+          const idx = (yi * W + xi) * 4;
+          let v = data[idx] + pr[i] * a;
+          data[idx] = v > 255 ? 255 : v;
+          v = data[idx + 1] + pg[i] * a;
+          data[idx + 1] = v > 255 ? 255 : v;
+          v = data[idx + 2] + pb[i] * a;
+          data[idx + 2] = v > 255 ? 255 : v;
+          v = data[idx + 3] + a * 255;
+          data[idx + 3] = v > 255 ? 255 : v;
+        }
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.putImageData(frameBuf, 0, 0);
         if (running) raf = requestAnimationFrame(frame);
         return;
       }
@@ -370,9 +472,12 @@ export function ParticleField({
       cancelAnimationFrame(raf);
       ro.disconnect();
       io.disconnect();
-      if (interactive) window.removeEventListener("pointermove", onMove);
+      if (interactive) {
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerout", onLeave);
+      }
     };
-  }, [count, color, colorMode, background, size, speed, radius, distribution, interactive, opacity, drift, sway, swirl, travel, pixel, forest, glow]);
+  }, [count, color, colorMode, background, size, speed, radius, distribution, interactive, opacity, drift, sway, swirl, travel, pixel, forest, pillars, glow]);
 
   return (
     <canvas

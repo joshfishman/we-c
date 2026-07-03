@@ -1,14 +1,13 @@
 {
   "siteName": "Creative Agency",
   "logoText": "WE",
-  "logoSub": "DIGITAL<br>agency",
+  "logoSub": "Digital<br>Agency",
   "accent": "#E08A4E",
   "header": {
     "visible": true,
     "links": [
-      { "label": "One Day Websites", "url": "/one-day" },
-      { "label": "Online Growth", "url": "/#framework" },
-      { "label": "Our Work", "url": "/#work" }
+      { "label": "One Day Website", "url": "/one-day" },
+      { "label": "Ecommerce Marketing", "url": "/#framework" }
     ],
     "cta": { "label": "Let's Grow", "url": "/#contact" }
   },

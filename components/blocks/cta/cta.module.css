@@ -32,32 +32,35 @@
   margin-top: 36px;
 }
 
+/* compact contact line under the copy */
 .details {
   display: flex;
-  flex-direction: column;
-  gap: 26px;
-  padding-top: 8px;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(252, 239, 226, 0.14);
+  font-size: 15px;
 }
-.detailLabel {
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #7e947e;
-  margin-bottom: 7px;
+.detail {
+  color: #c9b9a6;
 }
-.detailValue {
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: #f3e7d6;
-}
-a.detailValue:hover {
+a.detail:hover {
   text-decoration: underline;
+  color: #fcefe2;
+}
+
+.formCol {
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media (max-width: 760px) {
   .grid {
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 40px;
+  }
+  .formCol {
+    justify-content: flex-start;
   }
 }

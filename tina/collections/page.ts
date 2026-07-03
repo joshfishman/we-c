@@ -179,9 +179,10 @@ const ourWorkTemplate: Template = withVisible({
       ui: { itemProps: (i: any) => ({ label: i?.title || "Project" }) },
       fields: [
         { type: "string", name: "title", label: "Title" },
-        { type: "string", name: "category", label: "Category" },
+        { type: "string", name: "badge", label: "Metric badge (e.g. 3× revenue · 6 mo)" },
+        { type: "string", name: "services", label: "Services" },
         { type: "image", name: "image", label: "Image" },
-        { type: "string", name: "url", label: "URL" },
+        { type: "string", name: "url", label: "URL (Read more)" },
       ],
     },
   ],

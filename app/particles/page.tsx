@@ -1,8 +1,10 @@
 "use client";
 
 import { ParticleField } from "../../components/ui/ParticleField";
+import { ParticleFieldGL } from "../../components/ui/ParticleFieldGL";
 import { TextCircle } from "../../components/ui/TextCircle";
 import { AuroraBackground } from "../../components/ui/AuroraBackground";
+import { NoiseBackdrop } from "../../components/ui/NoiseBackdrop";
 
 /**
  * Sandbox for the spatial hero — aurora background + fly-through particle
@@ -23,26 +25,26 @@ export default function ParticlesSandbox() {
           overflow: "hidden",
         }}
       >
-        <AuroraBackground preset="forest" speed={26} pulse pulseSpeed={7} />
-        <ParticleField
-          count={4200}
-          color={["#2f4a2c", "#3f6e3a", "#4f8f6a", "#7fc0a8", "#bfe6dd"]}
-          colorMode="gradientY"
-          background="transparent"
-          travel={0.3}
-          forest
-          pixel
-          size={1.7}
-          opacity={0.9}
-          glow
+        <NoiseBackdrop
+          colors={["#f3ddab", "#e6c27f", "#c49a5c", "#7d6236", "#43331f", "#241a10"]}
+          scale={2.2}
+          speed={0.08}
+          turbulence={0.5}
+        />
+        <ParticleFieldGL
+          image="/media/tree.jpg"
+          count={42000}
+          travel={0.045}
+          size={0.22}
+          opacity={0.95}
+          smashRadius={0.05}
         />
         <TextCircle
           text="We grow everywhere"
           radius={300}
-          fontSize={46}
+          fontSize={58}
           speed={26}
-          lean={22}
-          color="#FCEFE2"
+          color="#FFF2DE"
           style={{ position: "relative" }}
         />
       </section>

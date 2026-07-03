@@ -2,45 +2,60 @@
 
 /**
  * TextCircle — text standing on an upright 3D cylinder that rotates around the
- * vertical axis (front glyphs face you and read large; back glyphs curve away,
- * mirrored and dim). Pure CSS 3D, dependency-free.
+ * vertical axis. Glyphs are tall + condensed and the phrase auto-repeats to
+ * fill the ring (no big gaps). Pure CSS 3D.
  *
- *   <TextCircle text="We grow everywhere" radius={260} fontSize={42} />
+ *   <TextCircle text="We grow everywhere" radius={300} fontSize={64} />
  */
 export type TextCircleProps = {
   text?: string;
   /** Separator between repeats of the phrase. */
   separator?: string;
-  /** Cylinder radius in px (how wide the ring is). */
+  /** Cylinder radius in px. */
   radius?: number;
   fontSize?: number;
   /** Seconds per full rotation. */
   speed?: number;
   reverse?: boolean;
-  /** Slight forward lean in degrees (0 = perfectly upright). */
+  /** Slight forward lean in degrees. */
   lean?: number;
   color?: string;
-  /** Letter-spacing in em. */
+  /** Letter-spacing in em (negative = tighter). */
   tracking?: number;
+  /** Vertical stretch (taller letters). */
+  stretchY?: number;
+  /** Horizontal squeeze (condensed). */
+  condense?: number;
+  /** Override auto-fill: fixed number of phrase repeats. */
+  repeat?: number;
   className?: string;
   style?: React.CSSProperties;
 };
 
 export function TextCircle({
   text = "We grow everywhere",
-  separator = "  •  ",
-  radius = 260,
-  fontSize = 42,
-  speed = 22,
+  separator = "   ",
+  radius = 300,
+  fontSize = 64,
+  speed = 24,
   reverse = false,
-  lean = 0,
+  lean = 18,
   color = "currentColor",
-  tracking = 0.02,
+  tracking = -0.04,
+  stretchY = 1.55,
+  condense = 0.82,
+  repeat,
   className,
   style,
 }: TextCircleProps) {
   const phrase = text + separator;
-  const chars = Array.from(phrase);
+  // Fill the ring: enough glyphs that they sit close together.
+  const circumference = 2 * Math.PI * radius;
+  // ~real glyph advance for tall condensed caps → letters almost touch (no overlap)
+  const advance = fontSize * condense * 0.72;
+  const targetChars = Math.max(phrase.length, Math.ceil(circumference / Math.max(6, advance)));
+  const reps = repeat ?? Math.max(1, Math.ceil(targetChars / phrase.length));
+  const chars = Array.from(phrase.repeat(reps));
   const step = 360 / chars.length;
 
   return (
@@ -51,7 +66,7 @@ export function TextCircle({
       style={{
         perspective: `${radius * 4}px`,
         width: radius * 2,
-        height: fontSize * 1.8,
+        height: fontSize * stretchY * 1.4,
         ...style,
       }}
     >
@@ -80,13 +95,13 @@ export function TextCircle({
                 left: "50%",
                 top: "50%",
                 fontFamily: "var(--font-display)",
-                fontWeight: 600,
+                fontWeight: 700,
                 fontSize,
                 lineHeight: 1,
                 letterSpacing: `${tracking}em`,
                 textTransform: "uppercase",
                 color,
-                transform: `translate(-50%,-50%) rotateY(${i * step}deg) translateZ(${radius}px)`,
+                transform: `translate(-50%,-50%) rotateY(${i * step}deg) translateZ(${radius}px) scale(${condense}, ${stretchY})`,
                 transformStyle: "preserve-3d",
                 whiteSpace: "pre",
               }}

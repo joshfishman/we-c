@@ -101,6 +101,26 @@ in `/admin` (Hero block) or in `content/page/home.json`. Keep clips short and
 compressed (the bundled one is ~2.5 MB); the video is muted, looped and
 autoplays with `playsInline`.
 
+## Contact form
+
+The contact form ([components/ui/ContactForm.tsx](components/ui/ContactForm.tsx)) is
+used on the homepage contact section and the One Day questionnaire. It works on
+the static deploy with **no backend** via **Formspree**:
+
+1. Create a free form at [formspree.io](https://formspree.io) whose email
+   notifications go to **josh@wecreativeagency.com**.
+2. Set `NEXT_PUBLIC_FORMSPREE_ENDPOINT` (in `.env.local` / Vercel) to that form's
+   URL, e.g. `https://formspree.io/f/xxxxxxx`.
+
+Until the endpoint is set, the form falls back to opening the visitor's mail
+client to `josh@wecreativeagency.com`. Submissions also fire a `generate_lead`
+GTM event.
+
+**Resend alternative:** if you'd rather send via the Resend API, add an
+`app/api/contact/route.ts` server route that calls Resend with `RESEND_API_KEY`
+and `to: "josh@wecreativeagency.com"` (needs a verified sending domain), and
+point the form at `/api/contact`. Ask and I'll wire it.
+
 ## Conversion tracking
 
 Set `NEXT_PUBLIC_GTM_ID` (e.g. `GTM-XXXXXX`). The container loads via

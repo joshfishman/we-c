@@ -49,14 +49,17 @@ export function OurWork({ data }: { data: any }) {
                     alt={project?.title}
                     placeholder="Drop a project image"
                   />
+                  {project?.badge ? (
+                    <span className={styles.badge}>{project.badge}</span>
+                  ) : null}
                 </div>
                 <div className={styles.meta}>
                   <div>
                     <div className={styles.projTitle}>{project?.title}</div>
-                    <div className={styles.projCat}>{project?.category}</div>
+                    <div className={styles.projCat}>{project?.services}</div>
                   </div>
                   <span className={styles.viewCase}>
-                    View case <span aria-hidden="true">→</span>
+                    Read more <span aria-hidden="true">→</span>
                   </span>
                 </div>
               </a>

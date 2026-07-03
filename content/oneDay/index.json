@@ -1,17 +1,17 @@
 {
-  "title": "Built in a Day — WE Creative Agency",
-  "description": "An enterprise-grade website — strategy, design and build, compressed by AI into the arc of a single day. Briefed at sunrise, live by sunset.",
+  "title": "Website & Ecommerce Development in a Day — WE Creative Agency",
+  "description": "Enterprise-level websites — strategy, design and development, all in one day. Planned in the morning, live by sunset.",
   "hero": {
     "visible": true,
     "bgVideo": "/media/hero-bg.mp4",
     "bgVideoMobile": "",
     "bgPoster": "/media/sky-bg.png",
     "badge": "AI-Powered Development",
-    "headlineLine1": "Briefed at sunrise.",
+    "headlineLine1": "Planned in the morning.",
     "headlineLine2": "Live by sunset.",
-    "subhead": "An enterprise-grade website — strategy, design and build, compressed by AI into the arc of a single day.",
-    "ctaPrimary": { "label": "Start your build →", "url": "#start" },
-    "ctaSecondary": { "label": "See the process", "url": "#process" },
+    "subhead": "Enterprise level websites. From Strategy to Design & Development, all in one day.",
+    "ctaPrimary": { "label": "Let's Build Together →", "url": "#start" },
+    "ctaSecondary": { "label": "See our work", "url": "/#work" },
     "pills": [
       { "label": "Morning · Brief" },
       { "label": "Midday · Build" },
@@ -21,15 +21,15 @@
   "proof": {
     "visible": true,
     "stats": [
-      { "value": "10×", "label": "Faster than a typical build" },
-      { "value": "100/100", "label": "Performance scores, standard" },
+      { "value": "10×", "label": "Faster than typical development" },
+      { "value": "98", "label": "Performance scores" },
       { "value": "100%", "label": "Yours to own & edit" }
     ]
   },
   "quality": {
     "visible": true,
-    "eyebrow": "Fast, not flimsy",
-    "heading": "Speed is the headline. Enterprise quality is the standard.",
+    "eyebrow": "Built for growth",
+    "heading": "Quality is the headline. Speed is the bonus.",
     "cards": [
       {
         "icon": "⚡",
@@ -38,7 +38,7 @@
       },
       {
         "icon": "⌕",
-        "title": "SEO & accessible",
+        "title": "AI & Search Engine Optimized",
         "body": "Semantic structure, metadata and accessibility baked in, so you rank well and welcome every visitor."
       },
       {
@@ -75,9 +75,9 @@
   },
   "cta": {
     "visible": true,
-    "eyebrow": "Ready when you are",
-    "heading": "Tell us about your brand. We'll build it tomorrow.",
-    "body": "Start with the questionnaire — it takes about ten minutes and kicks off your one-day build.",
+    "eyebrow": "Website & Ecommerce Development",
+    "heading": "Tell us about your site. We'll build it tomorrow.",
+    "body": "Start with the questionnaire — it takes about 5 minutes and starts your one-day build process.",
     "ctaPrimary": { "label": "Start the questionnaire →", "url": "#" },
     "ctaSecondary": { "label": "See our work", "url": "/#work" }
   },

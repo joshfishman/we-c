@@ -2,6 +2,7 @@
 
 import { useTina, tinaField } from "tinacms/dist/react";
 import { Cta } from "../ui/Cta";
+import { ContactForm } from "../ui/ContactForm";
 import { SiteLayout } from "../site/SiteLayout";
 import s from "./oneday.module.css";
 
@@ -280,14 +281,11 @@ export function OneDay(props: {
               </p>
             </div>
             <div className={s.startActions}>
-              <Cta
-                label={cta?.ctaPrimary?.label}
-                url={cta?.ctaPrimary?.url}
-                location="oneday_cta"
-                variant="cream"
-                tinaField={
-                  cta?.ctaPrimary ? tinaField(cta.ctaPrimary, "label") : undefined
-                }
+              <ContactForm
+                buttonLabel={cta?.ctaPrimary?.label || "Start the build →"}
+                messagePlaceholder="What are you building?"
+                location="oneday_questionnaire"
+                dark
               />
               <Cta
                 label={cta?.ctaSecondary?.label}
