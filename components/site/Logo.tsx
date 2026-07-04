@@ -4,26 +4,25 @@ import { tinaField } from "tinacms/dist/react";
 import styles from "./logo.module.css";
 
 /**
- * Shared brand lockup ("WE" + sub-label). Used by both the Header and Footer
- * so they always match. `tone="sky"` swaps the gold gradient for sky-blue.
+ * Shared brand lockup ("WE" + sub-label). Always uses the gold gradient so the
+ * header wordmark matches the footer wordmark. A soft shadow keeps it legible
+ * over the photo/sky heroes. (`tone` is kept for the caller API but the gold
+ * treatment is used regardless.)
  */
 export function Logo({
   settings,
-  tone = "default",
 }: {
   settings: any;
   tone?: "default" | "sky";
 }) {
-  const sky = tone === "sky";
-  const toneCls = sky ? styles.sky : "gradText--gold";
-  const toneStyle = sky
-    ? ({ textShadow: "0 1px 14px rgba(8,26,36,0.55)" } as React.CSSProperties)
-    : undefined;
+  const toneStyle = {
+    textShadow: "0 1px 14px rgba(8,26,36,0.55)",
+  } as React.CSSProperties;
 
   return (
     <span className={styles.brand}>
       <span
-        className={`${styles.we} ${toneCls}`}
+        className={`${styles.we} gradText--gold`}
         style={toneStyle}
         data-tina-field={tinaField(settings, "logoText")}
       >
@@ -31,7 +30,7 @@ export function Logo({
       </span>
       {settings?.logoSub ? (
         <span
-          className={`${styles.sub} ${toneCls}`}
+          className={`${styles.sub} gradText--gold`}
           style={toneStyle}
           data-tina-field={tinaField(settings, "logoSub")}
           dangerouslySetInnerHTML={{ __html: settings.logoSub }}
