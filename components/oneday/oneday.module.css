@@ -503,11 +503,13 @@
   .hero {
     aspect-ratio: auto;
     min-height: 86vh;
+    /* Reserve space for the fixed header so the day-arc (esp. the raised
+       Midday chip) never sits behind it on tight/short screens. The hero grows
+       to fit its content, so this padding can't be centered away. */
+    padding-top: 92px;
   }
-  /* Vertically center the hero content on mobile (like the home hero):
-     symmetric padding + smaller arc/title so it fits within the viewport. */
   .heroContent {
-    padding: 24px 20px 92px;
+    padding: 24px 20px 84px;
   }
   /* Taller arc + stacked chip words so they're readable on mobile */
   .dayArc {
@@ -551,5 +553,13 @@
   .arrowRight {
     margin-left: 0;
     margin-right: 0;
+  }
+}
+
+/* Very narrow screens (e.g. 320px) wrap the header taller (~108px) — reserve
+   extra room so the day-arc still clears it. */
+@media (max-width: 336px) {
+  .hero {
+    padding-top: 118px;
   }
 }
