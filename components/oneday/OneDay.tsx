@@ -15,7 +15,7 @@ const ARC_CHIPS = [
   {
     group: {
       left: "10%",
-      bottom: 0,
+      bottom: "18px",
       transform: "translateX(-50%)",
     } as React.CSSProperties,
     dot: "#F0A6BE",
@@ -43,7 +43,7 @@ const ARC_CHIPS = [
   {
     group: {
       right: "10%",
-      bottom: 0,
+      bottom: "18px",
       transform: "translateX(50%)",
     } as React.CSSProperties,
     dot: "#F4943E",
