@@ -26,30 +26,83 @@ function DownArrow() {
   );
 }
 
-function LeafGlyph() {
+/** Horseshoe magnet — "Attract". */
+function MagnetGlyph() {
   return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
+    <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
       <path
-        d="M20 4c-9 0-14 4-14 11 0 2 .6 3.6 1.6 4.9C10 16 13 13 18 11c-4 3-7 6-8.4 10.4 1.2.4 2.5.6 3.9.6 7 0 8.5-9 6.5-18Z"
-        stroke="#ffffff"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M4 3h4v8a4 4 0 0 0 8 0V3h4v8a8 8 0 0 1-16 0Z"
+        fill="#ffffff"
       />
+      <rect x="4" y="3" width="4" height="2.6" fill="#d9614b" />
+      <rect x="16" y="3" width="4" height="2.6" fill="#d9614b" />
     </svg>
   );
 }
 
-function OuterCard({ layer }: { layer: any }) {
+/** Circular arrows — "Retain" (recycle / loop). */
+function RecycleGlyph() {
   return (
-    <div className={styles.card}>
+    <svg
+      width="25"
+      height="25"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      stroke="#ffffff"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+      <path d="M21 3v5h-5" />
+      <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+      <path d="M3 21v-5h5" />
+    </svg>
+  );
+}
+
+/** Bullseye — "Convert" (hit the goal). */
+function TargetGlyph() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      stroke="#ffffff"
+      strokeWidth="2"
+    >
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="4.5" />
+      <circle cx="12" cy="12" r="1" fill="#ffffff" stroke="none" />
+    </svg>
+  );
+}
+
+type CardIcon = "magnet" | "convert" | "recycle";
+function CardGlyph({ icon }: { icon: CardIcon }) {
+  if (icon === "magnet") return <MagnetGlyph />;
+  if (icon === "convert") return <TargetGlyph />;
+  return <RecycleGlyph />;
+}
+
+function OuterCard({
+  layer,
+  icon,
+  pos,
+}: {
+  layer: any;
+  icon: CardIcon;
+  pos: "left" | "center" | "right";
+}) {
+  return (
+    <div className={styles.card} data-pos={pos}>
       <div className={styles.cardHead}>
+        <span className={styles.iconBadge}>
+          <CardGlyph icon={icon} />
+        </span>
         <div className={styles.cardHeadText}>
           {layer.badge ? (
             <span
@@ -66,9 +119,6 @@ function OuterCard({ layer }: { layer: any }) {
             {layer.title}
           </h3>
         </div>
-        <span className={styles.iconBadge}>
-          <LeafGlyph />
-        </span>
       </div>
       <ul className={styles.tagList}>
         {layer.tags?.map((tag: string, j: number) => (
@@ -77,33 +127,6 @@ function OuterCard({ layer }: { layer: any }) {
           </li>
         ))}
       </ul>
-    </div>
-  );
-}
-
-function ConvertCircle({ layer }: { layer: any }) {
-  return (
-    <div className={styles.circleWrap}>
-      <div className={styles.orbit} aria-hidden="true">
-        <span className={`${styles.orbitDot} ${styles.orbitDot1}`} />
-        <span className={`${styles.orbitDot} ${styles.orbitDot2}`} />
-        <span className={`${styles.orbitDot} ${styles.orbitDot3}`} />
-      </div>
-      <div className={styles.circle}>
-        <h3
-          className={styles.circleTitle}
-          data-tina-field={tinaField(layer, "title")}
-        >
-          {layer.title}
-        </h3>
-        <div className={styles.circleTags}>
-          {layer.tags?.map((tag: string, j: number) => (
-            <span key={j} className={styles.circleTag}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
@@ -138,11 +161,17 @@ export function Framework({ data }: { data: any }) {
           </div>
 
           <div className={styles.flow}>
-            {layers[0] ? <OuterCard layer={layers[0]} /> : null}
+            {layers[0] ? (
+              <OuterCard layer={layers[0]} icon="magnet" pos="left" />
+            ) : null}
             {layers[1] ? <DownArrow /> : null}
-            {layers[1] ? <ConvertCircle layer={layers[1]} /> : null}
+            {layers[1] ? (
+              <OuterCard layer={layers[1]} icon="convert" pos="center" />
+            ) : null}
             {layers[2] ? <DownArrow /> : null}
-            {layers[2] ? <OuterCard layer={layers[2]} /> : null}
+            {layers[2] ? (
+              <OuterCard layer={layers[2]} icon="recycle" pos="right" />
+            ) : null}
           </div>
         </div>
       </div>

@@ -7,19 +7,30 @@
     "dev:prod": "TINA_PUBLIC_IS_LOCAL=false tinacms dev -c \"next dev\"",
     "build": "tinacms build && next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
+    "@playwright/test": "^1.61.1",
     "@types/node": "^25.8.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.2.6",
-    "typescript": "^6.0.3"
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "jsdom": "^29.1.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
   },
   "dependencies": {
     "@formspree/react": "^3.0.0",
     "@next/third-parties": "^16.2.6",
+    "@radix-ui/react-popover": "^1.1.19",
     "@tinacms/cli": "^2.3.1",
     "@tinacms/datalayer": "^2.0.21",
     "next": "^16.2.6",

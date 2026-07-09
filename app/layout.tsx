@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Spectral } from "next/font/google";
 import { GoogleTagManager } from "@next/third-parties/google";
+import { Clarity } from "../components/site/Clarity";
 
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
 };
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
 
 export default function RootLayout({
   children,
@@ -34,6 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${bricolage.variable} ${spectral.variable}`}>
       {GTM_ID ? <GoogleTagManager gtmId={GTM_ID} /> : null}
+      <Clarity id={CLARITY_ID} />
       <body>{children}</body>
     </html>
   );

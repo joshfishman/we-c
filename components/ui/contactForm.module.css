@@ -90,6 +90,33 @@
   color: #fcefe2;
 }
 
+/* Forest variant — green-tinted fields on the green (home) footer */
+.forest .input,
+.forest .textarea {
+  background: linear-gradient(
+    120deg,
+    rgba(159, 203, 85, 0.16) 0%,
+    rgba(63, 165, 110, 0.16) 55%,
+    rgba(31, 110, 90, 0.16) 100%
+  );
+  color: #eaf3e2;
+}
+.forest .input:focus,
+.forest .textarea:focus {
+  background: linear-gradient(
+    120deg,
+    rgba(159, 203, 85, 0.28) 0%,
+    rgba(63, 165, 110, 0.28) 55%,
+    rgba(31, 110, 90, 0.28) 100%
+  );
+  box-shadow: 0 0 0 3px rgba(63, 165, 110, 0.4);
+}
+.forest .input::placeholder,
+.forest .textarea::placeholder {
+  color: #a9c39a;
+  font-weight: 600;
+}
+
 @media (max-width: 520px) {
   .row {
     flex-direction: column;

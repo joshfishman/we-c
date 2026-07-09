@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { tinaField } from "tinacms/dist/react";
 import { Logo } from "./Logo";
 import styles from "./footer.module.css";
@@ -15,9 +16,9 @@ export function Footer({ settings }: { settings: any }) {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <a href="/" aria-label="Home" className={styles.brandLink}>
+        <Link href="/" aria-label="Home" className={styles.brandLink}>
           <Logo settings={settings} />
-        </a>
+        </Link>
         <span
           className={styles.copyright}
           data-tina-field={footer ? tinaField(footer, "copyright") : undefined}

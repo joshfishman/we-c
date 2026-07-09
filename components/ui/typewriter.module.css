@@ -1,0 +1,55 @@
+.tw {
+  position: relative;
+  display: inline-block;
+}
+
+/* Reserves the final size so typing never reflows the line. */
+.sizer {
+  visibility: hidden;
+}
+
+/* The animated text sits over the sizer. */
+.type {
+  position: absolute;
+  inset: 0;
+}
+
+.caret {
+  display: inline-block;
+  width: 0.07em;
+  height: 0.86em;
+  margin-left: 0.06em;
+  transform: translateY(0.06em);
+  background: currentColor;
+  border-radius: 2px;
+  animation: twBlink 1s steps(1) infinite;
+}
+
+@keyframes twBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    display: none;
+  }
+}

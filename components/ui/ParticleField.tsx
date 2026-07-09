@@ -397,7 +397,7 @@ export function ParticleField({
           if (xi < 0 || yi < 0 || xi >= W || yi >= H) continue;
           let aFar = (Z_FAR - z) * farK;
           if (aFar > 1) aFar = 1;
-          let aNear = (z - Z_NEAR) * nearK;
+          const aNear = (z - Z_NEAR) * nearK;
           const a = opacity * (aFar < aNear ? aFar : aNear);
           if (a <= 0) continue;
           const idx = (yi * W + xi) * 4;
@@ -421,7 +421,7 @@ export function ParticleField({
         // organic drift — each particle floats on its own slow path
         let x = px[i] + Math.sin(elapsed * 0.6 + ph) * dft;
         let y = py[i] + Math.cos(elapsed * 0.5 + ph * 1.3) * dft;
-        let z = pz[i] + Math.sin(elapsed * 0.45 + ph * 0.7) * dft;
+        const z = pz[i] + Math.sin(elapsed * 0.45 + ph * 0.7) * dft;
         // vortex swirl — inner vs outer particles rotate at different rates
         if (swirl && !reduce) {
           const za = elapsed * swirl * (0.4 + prad[i]);
@@ -432,10 +432,10 @@ export function ParticleField({
           x = nx;
         }
         // rotate Y then X
-        let x1 = x * cy + z * sy;
-        let z1 = -x * sy + z * cy;
-        let y1 = y * cx - z1 * sx;
-        let z2 = y * sx + z1 * cx;
+        const x1 = x * cy + z * sy;
+        const z1 = -x * sy + z * cy;
+        const y1 = y * cx - z1 * sx;
+        const z2 = y * sx + z1 * cx;
         // perspective project
         const depth = camZ + z2;
         if (depth <= 0.1) continue;

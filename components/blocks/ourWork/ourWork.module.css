@@ -96,19 +96,25 @@
   color: #4a5a44;
 }
 .readMore {
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   margin-top: 6px;
+  /* button reset (it's a <button> that opens the case tooltip) */
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #2f6e5a;
-  transition: transform 0.3s ease;
 }
-.row:hover .readMore {
-  transform: translateX(4px);
+.imgRight .readMore {
+  align-self: flex-end;
 }
 
 /* ---- Media half ---- */
@@ -205,7 +211,7 @@
 }
 .sunset .row {
   display: flex;
-  width: 84%;
+  width: 66%;
   min-height: 320px;
   border-radius: 24px;
   background: linear-gradient(165deg, #ffffff 0%, #fbeedf 60%, #f6dfcb 100%);
@@ -286,9 +292,14 @@
   .sunset .row,
   .sunset .imgLeft,
   .sunset .imgRight {
-    width: 100%;
+    width: 80%;
     flex-direction: column;
-    align-self: stretch;
+  }
+  .sunset .imgLeft {
+    align-self: flex-start;
+  }
+  .sunset .imgRight {
+    align-self: flex-end;
   }
   .sunset .imgRight .textPanel {
     align-items: flex-start;
@@ -303,4 +314,100 @@
   .imgRight .logos {
     justify-content: flex-start;
   }
+}
+
+/* ---- Case-study popover (Radix Popover off "Read more") ---- */
+.casePop {
+  position: relative;
+  max-width: 360px;
+  background: #fffdf8;
+  color: #3a2230;
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 26px 60px -22px rgba(20, 10, 20, 0.5);
+  z-index: 400;
+}
+.casePopKicker {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #c2683e;
+  margin-bottom: 6px;
+}
+.casePopTitle {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.15;
+  color: #2b1626;
+  margin: 0 0 12px;
+  padding-right: 26px;
+}
+.casePopBody {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #3a2230;
+}
+.casePopBody p {
+  margin: 0 0 10px;
+}
+.casePopBody p:last-child {
+  margin-bottom: 0;
+}
+.casePopClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: #f1e7d8;
+  color: #3a2230;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.casePopArrow {
+  fill: #fffdf8;
+}
+
+/* ============================================================
+   GREEN color scheme (home) — same staggered layout as sunset,
+   just recolored to the home green palette.
+   ============================================================ */
+.panel.green {
+  background: linear-gradient(165deg, #cfe0b4 0%, #c3d9a6 55%, #b8d29c 100%);
+}
+.green .eyebrow {
+  background: linear-gradient(90deg, #b7c96a, #4e9e6a, #2f7d4f, #b7c96a);
+  background-size: 220% 100%;
+  animation: gradShift 6s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.green .heading {
+  color: #16301f;
+}
+.green .row {
+  background: linear-gradient(165deg, #ffffff 0%, #f1f6ea 60%, #e3eccf 100%);
+}
+.green .badge {
+  background: linear-gradient(90deg, #1f6e5a, #3fa56e, #9fcb55);
+  color: #f3e7d6;
+}
+.green .projTitle {
+  color: #16301f;
+}
+.green .projCat {
+  color: #4a5a44;
+}
+.green .readMore {
+  color: #2f6e5a;
 }

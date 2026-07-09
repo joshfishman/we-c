@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { tinaField } from "tinacms/dist/react";
 import { Cta } from "../ui/Cta";
@@ -46,13 +47,45 @@ export function Header({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Publish the header's height as --header-h so heroes can reserve space for
+  // the fixed bar (measured at the top / unscrolled height, updated on resize
+  // and when the bar wraps at narrow widths).
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const setH = () => {
+      if (window.scrollY <= 40) {
+        document.documentElement.style.setProperty(
+          "--header-h",
+          `${el.offsetHeight}px`
+        );
+      }
+    };
+    setH();
+    // Web-font swap can reflow the bar (nav wrap) after first paint — re-measure
+    // once fonts are ready so the reserved space matches the settled height.
+    const fonts = (document as any).fonts;
+    if (fonts?.ready) fonts.ready.then(setH);
+    const ro = new ResizeObserver(setH);
+    ro.observe(el);
+    window.addEventListener("resize", setH);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", setH);
+    };
+  }, []);
+
   if (header?.visible === false) return null;
 
   return (
-    <header ref={ref} className={styles.header} id="site-header">
-      <a href="/" aria-label="Ecommerce Marketing — Home">
+    <header
+      ref={ref}
+      className={`${styles.header} ${tone === "sky" ? styles.skyHeader : ""}`}
+      id="site-header"
+    >
+      <Link href="/" aria-label="Ecommerce Marketing — Home">
         <Logo settings={settings} tone={tone} />
-      </a>
+      </Link>
 
       <nav className={styles.nav}>
         {links.map((link: any, i: number) => (

@@ -8,10 +8,10 @@
       "bgVideoMobile": "",
       "bgPoster": "/media/hero-trees.jpg",
       "eyebrow": "For ecommerce and lifestyle brands",
-      "headlineLead": "We grow",
-      "headlineAccent": "businesses",
-      "headlineTail": "online.",
-      "subhead": "Proven Agency Strategy & Process, powered by AI. Optimize your funnel and unleash growth.",
+      "headlineLead": "Grow",
+      "headlineAccent": "your\nBrand",
+      "headlineTail": "Online",
+      "subhead": "Proven Agency Strategy & Process,\npowered by AI. Optimize your funnel and unleash growth.",
       "ctaPrimary": {
         "label": "Let's Grow",
         "url": "#contact"
@@ -80,7 +80,7 @@
         {
           "no": "02",
           "title": "Convert",
-          "badge": "Converts",
+          "badge": "",
           "description": "Turn visitors into customers.",
           "tags": [
             "Web Development",
@@ -117,6 +117,11 @@
           "badge": "3× revenue · 6 mo",
           "services": "Shopify Development · Social & Search Ads",
           "image": "/media/work-stoned-immaculate.jpg",
+          "images": [
+            "/media/stoned-immaculate-1.jpg",
+            "/media/stoned-immaculate-2.jpg",
+            "/media/stoned-immaculate-3.jpg"
+          ],
           "url": "#contact"
         },
         {

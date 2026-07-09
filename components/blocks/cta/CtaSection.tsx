@@ -1,8 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { tinaField } from "tinacms/dist/react";
 import { Section } from "../../ui/Section";
-import { Cta } from "../../ui/Cta";
 import { ContactForm } from "../../ui/ContactForm";
 import styles from "./cta.module.css";
 
@@ -38,35 +38,34 @@ export function CtaSection({ data, id = "contact" }: { data: any; id?: string })
           <p className={styles.body} data-tina-field={tinaField(data, "body")}>
             {data.body}
           </p>
-          <Cta
-            label={data.cta?.label}
-            url={data.cta?.url}
-            location="contact"
-            variant="primary"
-            className={styles.cta}
-            tinaField={data.cta ? tinaField(data.cta, "label") : undefined}
-          />
         </div>
 
         <div className={styles.formCol}>
-          <ContactForm buttonLabel="Send message →" location="contact" dark />
+          <ContactForm
+            buttonLabel="Send message →"
+            location="contact"
+            dark
+            forest={data?.theme === "forest"}
+          />
         </div>
       </div>
 
       <div className={styles.footerBar}>
-        <a href="/" className={styles.footerBrand} aria-label="WE Creative Agency home">
-          <span className={styles.weMark}>WE</span>
-          <span className={styles.weSub}>
-            Digital
-            <br />
-            agency
-          </span>
-        </a>
+        <div className={styles.footerTop}>
+          <Link href="/" className={styles.footerBrand} aria-label="WE Creative Agency home">
+            <span className={styles.weMark}>WE</span>
+            <span className={styles.weSub}>
+              Digital
+              <br />
+              agency
+            </span>
+          </Link>
 
-        <nav className={styles.footerNav}>
-          <a href="/one-day">One-Day Websites</a>
-          <a href="/#framework">Ecommerce Marketing</a>
-        </nav>
+          <nav className={styles.footerNav}>
+            <Link href="/one-day">One-Day Websites</Link>
+            <Link href="/#framework">Ecommerce Marketing</Link>
+          </nav>
+        </div>
 
         <p className={styles.copyright}>
           © {year} WE Creative Agency — Los Angeles

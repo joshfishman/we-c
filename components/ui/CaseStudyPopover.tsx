@@ -23,14 +23,25 @@ function slugify(s: string) {
     .replace(/^-+|-+$/g, "");
 }
 
-/** Resolve the popover body for a project: explicit override → default map → generic. */
-export function getCaseCopy(project: any): { title: string; bodyHtml: string } {
+/**
+ * Resolve the popover body for a project.
+ * - If the editor filled the WYSIWYG `caseBody` (Tina rich-text), return it as
+ *   `rich` (rendered with <TinaMarkdown>).
+ * - Otherwise fall back to the default per-case HTML (or a generic line).
+ */
+export function getCaseCopy(project: any): {
+  title: string;
+  rich: any | null;
+  bodyHtml: string;
+} {
   const title = project?.title || "";
+  const rich = project?.caseBody;
+  const hasRich =
+    rich && typeof rich === "object" && Array.isArray(rich.children) && rich.children.length > 0;
   const bodyHtml =
-    project?.caseBody ||
     CASE_COPY[slugify(title)] ||
     `<p>${project?.services || "A project we're proud of."}</p>`;
-  return { title, bodyHtml };
+  return { title, rich: hasRich ? rich : null, bodyHtml };
 }
 
 export function CaseStudyPopover({

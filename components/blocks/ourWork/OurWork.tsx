@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import * as Popover from "@radix-ui/react-popover";
+import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { tinaField } from "tinacms/dist/react";
 import { Section } from "../../ui/Section";
 import { Cta } from "../../ui/Cta";
-import { CaseStudyPopover, getCaseCopy } from "../../ui/CaseStudyPopover";
+import { getCaseCopy } from "../../ui/CaseStudyPopover";
 import styles from "./ourWork.module.css";
 
 /** Inline brand marks for the sunset "tech logo" row. */
@@ -100,32 +101,26 @@ const LOGO_SVGS: Record<string, { label: string; svg: React.ReactNode }> = {
 
 export function OurWork({
   data,
-  theme = "sage",
+  theme = "green",
 }: {
   data: any;
-  theme?: "sage" | "sunset";
+  theme?: "sage" | "sunset" | "green";
 }) {
-  const sunset = theme === "sunset";
-  const [openCase, setOpenCase] = useState<{
-    title: string;
-    bodyHtml: string;
-    anchor: { x: number; y: number };
-  } | null>(null);
-
-  const openPopover = (project: any) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const { title, bodyHtml } = getCaseCopy(project);
-    setOpenCase({ title, bodyHtml, anchor: { x: e.clientX, y: e.clientY } });
-  };
+  // sunset + green share the staggered layout; they differ only in color.
+  const staggered = theme === "sunset" || theme === "green";
+  const green = theme === "green";
 
   return (
     <Section name="our_work" id="work" className={styles.wrap}>
-      <div className={`${styles.panel} ${sunset ? styles.sunset : ""}`}>
+      <div
+        className={`${styles.panel} ${staggered ? styles.sunset : ""} ${
+          green ? styles.green : ""
+        }`}
+      >
         <div className={styles.head}>
           <div>
             <p
-              className={`${styles.eyebrow} ${sunset ? "" : "gradText"}`}
+              className={`${styles.eyebrow} ${staggered ? "" : "gradText"}`}
               data-tina-field={tinaField(data, "eyebrow")}
             >
               {data.eyebrow}
@@ -141,7 +136,7 @@ export function OurWork({
             label={data.cta?.label}
             url={data.cta?.url}
             location="our_work"
-            variant={sunset ? "dusk" : "primary"}
+            variant={green ? "secondary" : staggered ? "dusk" : "primary"}
             tinaField={data.cta ? tinaField(data.cta, "label") : undefined}
           />
         </div>
@@ -161,6 +156,7 @@ export function OurWork({
             const logos: string[] = Array.isArray(project?.logos)
               ? project.logos
               : [];
+            const caseCopy = getCaseCopy(project);
 
             return (
               <div
@@ -180,7 +176,7 @@ export function OurWork({
                   {project?.services ? (
                     <div className={styles.projCat}>{project.services}</div>
                   ) : null}
-                  {sunset && logos.length ? (
+                  {staggered && logos.length ? (
                     <div className={styles.logos}>
                       {logos.map((key) => {
                         const logo = LOGO_SVGS[key?.toLowerCase()];
@@ -194,13 +190,46 @@ export function OurWork({
                       })}
                     </div>
                   ) : null}
-                  <a
-                    href={project?.url || "#"}
-                    className={styles.readMore}
-                    onClick={openPopover(project)}
-                  >
-                    Read more <span aria-hidden="true">→</span>
-                  </a>
+                  <Popover.Root>
+                    <Popover.Trigger asChild>
+                      <button type="button" className={styles.readMore}>
+                        Read more <span aria-hidden="true">→</span>
+                      </button>
+                    </Popover.Trigger>
+                    <Popover.Portal>
+                      <Popover.Content
+                        className={styles.casePop}
+                        sideOffset={10}
+                        collisionPadding={14}
+                      >
+                        <span className={styles.casePopKicker}>
+                          Project Details
+                        </span>
+                        <h3 className={`serif ${styles.casePopTitle}`}>
+                          {caseCopy.title}
+                        </h3>
+                        {caseCopy.rich ? (
+                          <div className={styles.casePopBody}>
+                            <TinaMarkdown content={caseCopy.rich} />
+                          </div>
+                        ) : (
+                          <div
+                            className={styles.casePopBody}
+                            dangerouslySetInnerHTML={{
+                              __html: caseCopy.bodyHtml,
+                            }}
+                          />
+                        )}
+                        <Popover.Close
+                          className={styles.casePopClose}
+                          aria-label="Close"
+                        >
+                          ×
+                        </Popover.Close>
+                        <Popover.Arrow className={styles.casePopArrow} />
+                      </Popover.Content>
+                    </Popover.Portal>
+                  </Popover.Root>
                 </div>
 
                 {isFan ? (
@@ -231,13 +260,6 @@ export function OurWork({
         </div>
       </div>
 
-      <CaseStudyPopover
-        open={!!openCase}
-        title={openCase?.title || ""}
-        bodyHtml={openCase?.bodyHtml || ""}
-        anchor={openCase?.anchor || null}
-        onClose={() => setOpenCase(null)}
-      />
     </Section>
   );
 }

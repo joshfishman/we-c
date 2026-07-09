@@ -127,6 +127,24 @@ Set `NEXT_PUBLIC_GTM_ID` (e.g. `GTM-XXXXXX`). The container loads via
 `@next/third-parties`. Events are pushed by `lib/track.ts`; configure tags in
 the GTM UI. Tracking is suppressed inside the Tina editor preview.
 
+Events: `cta_click`, `generate_lead` (primary conversion), `section_view`,
+`scroll_depth`, `outbound_click`, `form_submit`.
+
+## Behaviour tracking (Microsoft Clarity)
+
+Set `NEXT_PUBLIC_CLARITY_ID` (from [clarity.microsoft.com](https://clarity.microsoft.com),
+free) for session replay + heatmaps. The tag loads via `components/site/Clarity.tsx`
+and is suppressed inside the Tina editor. Clarity is additive to the GTM/GA4
+funnel — qualitative behaviour on top of the quantitative conversion events.
+
+## Accessibility & testing
+
+- **Lint:** `npm run lint` (Next + `eslint-plugin-jsx-a11y`).
+- **Unit:** `npm test` (Vitest — `lib/` tracking + helpers).
+- **E2E + a11y:** `npm run test:e2e` (Playwright — both pages render, header
+  clearance, CTAs, contact form, read-more popover, responsive, plus `axe-core`
+  scans asserting no serious/critical WCAG violations).
+
 ## Deploy to Vercel (self-hosted Tina)
 
 1. **Push this repo to GitHub.**

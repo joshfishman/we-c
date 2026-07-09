@@ -189,6 +189,11 @@ const ourWorkTemplate: Template = withVisible({
           label: "Images (2+ to fan out, overrides single)",
           list: true,
         },
+        {
+          type: "rich-text",
+          name: "caseBody",
+          label: "Read more (case study — WYSIWYG)",
+        },
         { type: "string", name: "url", label: "URL (Read more)" },
       ],
     },

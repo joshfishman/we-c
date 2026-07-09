@@ -2,13 +2,16 @@
 
 import { useTina, tinaField } from "tinacms/dist/react";
 import { Cta } from "../ui/Cta";
+import { BgVideo } from "../ui/BgVideo";
+import { Typewriter, type TWSegment } from "../ui/Typewriter";
 import { SiteLayout } from "../site/SiteLayout";
 import { CaseStudy } from "../blocks/caseStudy/CaseStudy";
 import { OurWork } from "../blocks/ourWork/OurWork";
 import { CtaSection } from "../blocks/cta/CtaSection";
 import s from "./oneday.module.css";
 
-const STEP_BADGES = ["#E6849C", "#E8A44C", "#D8623F"];
+// Deepened just enough that the white numeral meets WCAG AA contrast (large text).
+const STEP_BADGES = ["#D45E7A", "#C8792E", "#C9542F"];
 
 // Hero day-arc chips: fixed position/colors per index (0=morning,1=midday,2=sunset)
 const ARC_CHIPS = [
@@ -89,7 +92,7 @@ function Squiggle({ flip, indent }: { flip?: boolean; indent: "left" | "right" }
         strokeDasharray="1 11"
       />
       <path
-        d="M33 62 L47 76 L60 60"
+        d="M45 62 L59 76 L72 60"
         stroke="#E9A94C"
         strokeWidth="3.5"
         strokeLinecap="round"
@@ -116,6 +119,14 @@ export function OneDay(props: {
   const cta = page?.cta;
   const contact = page?.contact;
 
+  // Typed hero headline: line 1 (cream) then line 2 (sunset gradient).
+  const titleSegments: TWSegment[] = [];
+  if (hero?.headlineLine1) titleSegments.push({ text: hero.headlineLine1 });
+  if (hero?.headlineLine2) {
+    titleSegments.push({ break: true });
+    titleSegments.push({ text: hero.headlineLine2, className: s.heroTitleSunset });
+  }
+
   return (
     <SiteLayout settings={settings} headerTone="sky">
       <div className={s.page}>
@@ -123,18 +134,12 @@ export function OneDay(props: {
       {hero?.visible !== false ? (
         <section className={s.hero} id="top" data-section="oneday_hero">
           <div className={s.heroBg} aria-hidden="true">
-            {hero?.bgVideo ? (
-              <video
-                className={s.heroMedia}
-                autoPlay
-                muted
-                loop
-                playsInline
-                poster={hero?.bgPoster || undefined}
-              >
-                <source src={hero.bgVideo} type="video/mp4" />
-              </video>
-            ) : null}
+            <BgVideo
+              src={hero?.bgVideo}
+              mobileSrc={hero?.bgVideoMobile}
+              poster={hero?.bgPoster}
+              className={s.heroMedia}
+            />
             <div className={s.scrimTop} />
             <div className={s.scrimCenter} />
             <div className={s.scrimVignette} />
@@ -168,13 +173,6 @@ export function OneDay(props: {
                           background: `linear-gradient(90deg, rgba(240,166,190,0), ${chip.accent}, rgba(240,166,190,0))`,
                         }}
                       />
-                      <span
-                        className={s.arcPillDot}
-                        style={{
-                          background: chip.dot,
-                          boxShadow: `0 0 12px 2px ${chip.dotGlow}`,
-                        }}
-                      />
                       <span className={s.arcPillLabel}>
                         {String(pill?.label || "")
                           .split("·")
@@ -200,16 +198,7 @@ export function OneDay(props: {
               })}
             </div>
             <h1 className={`serif ${s.heroTitle}`}>
-              <span data-tina-field={tinaField(hero, "headlineLine1")}>
-                {hero?.headlineLine1}
-              </span>
-              <br />
-              <span
-                className={s.heroTitleSunset}
-                data-tina-field={tinaField(hero, "headlineLine2")}
-              >
-                {hero?.headlineLine2}
-              </span>
+              <Typewriter segments={titleSegments} />
             </h1>
             <p className={s.heroSub} data-tina-field={tinaField(hero, "subhead")}>
               {hero?.subhead}

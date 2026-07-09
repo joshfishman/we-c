@@ -46,23 +46,28 @@
   color: #cbe0c4;
 }
 
-/* ---- Flow column ---- */
+/* ---- Flow column (staggered diagonal of 3 identical cards) ---- */
 .flow {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  max-width: 560px;
+  align-items: stretch;
+  gap: 20px;
+  max-width: 860px;
   margin: 0 auto;
 }
 
 .arrow {
   display: block;
-  margin: 18px auto;
+  margin: 2px auto;
 }
 
-/* ---- Outer card (Attract / Retain): title+icon header over the bullets ---- */
+/* ---- Card (Attract / Convert / Retain — all the same shape) ----
+   Width follows the content (Convert's list is the widest) so all three
+   cards share one width; they just step left→center→right. */
 .card {
-  width: 86%;
+  width: fit-content;
+  min-width: 19rem;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -71,10 +76,20 @@
   padding: 24px 30px;
   box-shadow: 0 20px 50px -34px rgba(0, 0, 0, 0.6);
 }
+/* Stagger left → center → right for a diagonal step-down. */
+.card[data-pos="left"] {
+  align-self: flex-start;
+}
+.card[data-pos="center"] {
+  align-self: center;
+}
+.card[data-pos="right"] {
+  align-self: flex-end;
+}
 .cardHead {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 16px;
 }
 .cardHeadText {

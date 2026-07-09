@@ -74,6 +74,11 @@
         "badge": "3× revenue · 6 mo",
         "services": "Shopify Development · Social & Search Ads",
         "image": "/media/work-stoned-immaculate.jpg",
+        "images": [
+          "/media/stoned-immaculate-1.jpg",
+          "/media/stoned-immaculate-2.jpg",
+          "/media/stoned-immaculate-3.jpg"
+        ],
         "logos": [
           "shopify",
           "meta",

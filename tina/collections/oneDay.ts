@@ -144,6 +144,11 @@ export const OneDayCollection: Collection = {
               label: "Tech logos (shopify/meta/google/instagram/webflow/wordpress)",
               list: true,
             },
+            {
+              type: "rich-text",
+              name: "caseBody",
+              label: "Read more (case study — WYSIWYG)",
+            },
             { type: "string", name: "url", label: "URL (Read more)" },
           ],
         },

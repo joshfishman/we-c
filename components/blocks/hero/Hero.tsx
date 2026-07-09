@@ -1,53 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { tinaField } from "tinacms/dist/react";
 import { Section } from "../../ui/Section";
 import { Cta } from "../../ui/Cta";
+import { BgVideo } from "../../ui/BgVideo";
+import { Typewriter, type TWSegment } from "../../ui/Typewriter";
 import styles from "./hero.module.css";
 
-function useResponsiveSrc(desktop?: string, mobile?: string) {
-  const [src, setSrc] = useState(desktop || mobile || "");
-  useEffect(() => {
-    if (!mobile) {
-      setSrc(desktop || "");
-      return;
-    }
-    const mq = window.matchMedia("(max-width: 768px)");
-    const apply = () => setSrc(mq.matches ? mobile : desktop || mobile);
-    apply();
-    mq.addEventListener("change", apply);
-    return () => mq.removeEventListener("change", apply);
-  }, [desktop, mobile]);
-  return src;
-}
-
 export function Hero({ data }: { data: any }) {
-  const videoSrc = useResponsiveSrc(data.bgVideo, data.bgVideoMobile);
+  // Build the typed headline: gradient lead + italic accent + gradient tail.
+  const headline: TWSegment[] = [];
+  if (data.headlineLead)
+    headline.push({ text: data.headlineLead, className: styles.gradWord });
+  if (data.headlineAccent) {
+    headline.push({ text: " " });
+    // A newline in the accent becomes a line break in the headline (e.g.
+    // "your\nBrand" → "Grow your" / "Brand Online").
+    String(data.headlineAccent)
+      .split("\n")
+      .forEach((part: string, i: number) => {
+        if (i > 0) headline.push({ break: true });
+        headline.push({ text: part, className: "serif--italic" });
+      });
+  }
+  if (data.headlineTail) {
+    headline.push({ text: " " });
+    headline.push({ text: data.headlineTail, className: styles.gradWord });
+  }
 
   return (
     <Section name="hero" id="top" className={styles.hero}>
-      <div
-        className={styles.bg}
-        aria-hidden="true"
-        data-tina-field={data.bgVideo ? tinaField(data, "bgVideo") : undefined}
-      >
-        {videoSrc ? (
-          <video
-            key={videoSrc}
-            className={styles.media}
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster={data.bgPoster || undefined}
-          >
-            <source src={videoSrc} type="video/mp4" />
-          </video>
-        ) : data.bgPoster ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img className={styles.media} src={data.bgPoster} alt="" />
-        ) : null}
+      <div className={styles.bg} aria-hidden="true">
+        <BgVideo
+          src={data.bgVideo}
+          mobileSrc={data.bgVideoMobile}
+          poster={data.bgPoster}
+          className={styles.media}
+        />
         {/* legibility scrims */}
         <div className={styles.scrimTop} />
         <div className={styles.scrimCenter} />
@@ -58,7 +47,7 @@ export function Hero({ data }: { data: any }) {
       <div className={styles.content}>
         {data.eyebrow ? (
           <p
-            className={`${styles.eyebrow} gradText`}
+            className={styles.eyebrow}
             data-tina-field={tinaField(data, "eyebrow")}
           >
             {data.eyebrow}
@@ -66,18 +55,7 @@ export function Hero({ data }: { data: any }) {
         ) : null}
 
         <h1 className={`serif ${styles.headline}`}>
-          <span data-tina-field={tinaField(data, "headlineLead")}>
-            {data.headlineLead}{" "}
-          </span>
-          <span
-            className="serif--italic"
-            data-tina-field={tinaField(data, "headlineAccent")}
-          >
-            {data.headlineAccent}
-          </span>{" "}
-          <span data-tina-field={tinaField(data, "headlineTail")}>
-            {data.headlineTail}
-          </span>
+          <Typewriter segments={headline} />
         </h1>
 
         <p className={styles.subhead} data-tina-field={tinaField(data, "subhead")}>
