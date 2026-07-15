@@ -106,8 +106,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 6px;
-  /* button reset (it's a <button> that opens the case tooltip) */
+  /* No margin-top: .textPanel's gap sets the rhythm so every row is evenly spaced. */
   background: none;
   border: none;
   padding: 0;
@@ -133,10 +132,13 @@
   overflow: hidden;
 }
 /* photos fill their half */
+/* Anchored left: a wide site capture loses ~half its width to the crop here,
+   and the brand's logo/nav live on the left edge. */
 .mediaFill img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: left center;
   display: block;
 }
 /* website screenshots fill their half, edge to edge */
@@ -258,12 +260,9 @@
 .sunset .readMore {
   color: #c2683e;
 }
-/* screenshots float on the cream card */
-.sunset .mediaShot {
-  padding: 10px;
-}
-.sunset .mediaShot img {
-  filter: drop-shadow(0 16px 26px rgba(40, 20, 30, 0.25));
+/* Flush top and bottom, a little room at the sides — every brand card. */
+.sunset .media {
+  padding: 0 10px;
 }
 
 /* tech-logo row */
@@ -271,7 +270,6 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-top: 14px;
   flex-wrap: wrap;
 }
 .imgRight .logos {
