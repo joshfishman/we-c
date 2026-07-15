@@ -4,10 +4,11 @@ import styles from "./squiggle.module.css";
  * The dashed hand-drawn connector arrow. Shared by the One Day process steps
  * and the home Attract → Convert → Retain flow so both read as one design.
  *
- * The arrowhead tip sits off-centre inside the 92px box (x=59, or x=33 when
- * flipped), so `.left` / `.right` add a compensating margin that puts the tip
- * on the column's centre line. Stroke is currentColor ← --t-connector, so it
- * re-skins with the theme.
+ * The dashed line lands exactly on the caret's vertex (59,76) so the caret
+ * reads as the line's arrowhead rather than a V floating beside it.
+ * `.left` / `.right` then nudge the whole arrow off the centre line so the
+ * two arrows don't stack in a column. Stroke is currentColor ← --t-connector,
+ * so it re-skins with the theme.
  */
 export function Squiggle({
   flip,
@@ -30,8 +31,9 @@ export function Squiggle({
       style={flip ? { transform: "scaleX(-1)" } : undefined}
       aria-hidden="true"
     >
+      {/* ends on the caret's vertex so the caret is this line's arrowhead */}
       <path
-        d="M22 8 C 78 26, 14 50, 46 74"
+        d="M22 8 C 80 28, 20 54, 59 76"
         stroke="currentColor"
         strokeWidth="3.5"
         strokeLinecap="round"

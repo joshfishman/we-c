@@ -31,7 +31,8 @@
     {
       "visible": true,
       "intro": {
-        "title": "Founded 2011",
+        "eyebrow": "Founded",
+        "title": "2011",
         "subtitle": "Strategy / Development / Marketing"
       },
       "stats": [

@@ -12,8 +12,9 @@ import { OurWork } from "../blocks/ourWork/OurWork";
 import { CtaSection } from "../blocks/cta/CtaSection";
 import s from "./oneday.module.css";
 
-// Deepened just enough that the white numeral meets WCAG AA contrast (large text).
-const STEP_BADGES = ["#D45E7A", "#C8792E", "#C9542F"];
+// Animated gradient badges. Every stop stays dark enough that the white
+// numeral keeps WCAG AA contrast (large text) right through the animation.
+const STEP_BADGES = [s.badge1, s.badge2, s.badge3];
 
 // Hero day-arc chips: fixed position/colors per index (0=morning,1=midday,2=sunset)
 const ARC_CHIPS = [
@@ -29,7 +30,7 @@ const ARC_CHIPS = [
     belowShadow:
       "0 0 0 4px rgba(240,166,190,0.22),0 0 16px 3px rgba(240,166,190,0.7)",
     accent: "#F0A6BE55",
-    twinkleDelay: "0s",
+    pulseDelay: "0s",
   },
   {
     group: {
@@ -43,7 +44,7 @@ const ARC_CHIPS = [
     belowShadow:
       "0 0 0 5px rgba(255,224,138,0.22),0 0 20px 4px rgba(255,224,138,0.8)",
     accent: "#FFE08A55",
-    twinkleDelay: ".6s",
+    pulseDelay: "1s",
   },
   {
     group: {
@@ -57,7 +58,7 @@ const ARC_CHIPS = [
     belowShadow:
       "0 0 0 4px rgba(244,148,62,0.22),0 0 16px 3px rgba(244,148,62,0.7)",
     accent: "#F4943E55",
-    twinkleDelay: "1.2s",
+    pulseDelay: "2s",
   },
 ] as const;
 
@@ -149,7 +150,7 @@ export function OneDay(props: {
                         height: chip.belowSize,
                         background: chip.dot,
                         boxShadow: chip.belowShadow,
-                        animationDelay: chip.twinkleDelay,
+                        animationDelay: chip.pulseDelay,
                       }}
                     />
                   </div>
@@ -274,8 +275,7 @@ export function OneDay(props: {
                     data-align={i % 2 === 0 ? "start" : "end"}
                   >
                     <span
-                      className={`serif ${s.stepBadge}`}
-                      style={{ background: STEP_BADGES[i % STEP_BADGES.length] }}
+                      className={`${s.stepBadge} ${STEP_BADGES[i % STEP_BADGES.length]}`}
                       data-tina-field={tinaField(step, "no")}
                     >
                       {step?.no}

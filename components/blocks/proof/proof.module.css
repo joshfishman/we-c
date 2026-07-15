@@ -25,6 +25,17 @@
   border-left: 1px solid rgba(231, 220, 196, 0.18);
 }
 
+/* Small label sitting above the big figure (e.g. "Founded" over "2011"). */
+.introEyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--t-proof-ink-soft);
+  opacity: 0.85;
+  margin-bottom: 8px;
+}
+
 /* Same scale as the One Day proof bar. */
 .introTitle,
 .value {

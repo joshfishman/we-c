@@ -57,22 +57,13 @@
   margin: 0 auto;
 }
 
-/* The shared Squiggle, dropped at the midpoint between the two cards it joins.
-   Cards sit at ~18% / 50% / 82% across the column, so the midpoints are ~34%
-   and ~66%. The offsets put each arrowhead tip exactly on those midpoints
-   (tip is at x=59 in the 92px box, or x=33 once flipped). */
+/* The shared Squiggle. It carries its own left/right nudge, so it just sits
+   centred in the column here. */
 .connector1,
 .connector2 {
-  align-self: flex-start;
+  align-self: center;
   margin-top: -4px;
   margin-bottom: -4px;
-}
-.connector1 {
-  margin-left: calc(34% - 59px);
-  margin-right: 0;
-}
-.connector2 {
-  margin-left: calc(66% - 33px);
 }
 
 /* ---- Card (Attract / Convert / Retain — all the same shape) ----

@@ -181,8 +181,9 @@
     #2b3766 88%,
     #1a2244 100%
   );
-  --t-btn-secondary: var(--grad-dusk);
-  --t-btn-secondary-shadow: rgba(90, 40, 60, 0.7);
+  /* Deeper than the primary sunset pill so the two read as distinct */
+  --t-btn-secondary: var(--grad-dusk-deep);
+  --t-btn-secondary-shadow: rgba(60, 26, 44, 0.75);
 
   /* Radii & shadows */
   --radius-sm: 12px;

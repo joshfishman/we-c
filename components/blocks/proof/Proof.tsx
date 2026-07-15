@@ -10,6 +10,14 @@ export function Proof({ data }: { data: any }) {
       <div className={styles.bar}>
         {data.intro ? (
           <div className={styles.cell}>
+            {data.intro.eyebrow ? (
+              <div
+                className={styles.introEyebrow}
+                data-tina-field={tinaField(data.intro, "eyebrow")}
+              >
+                {data.intro.eyebrow}
+              </div>
+            ) : null}
             <div
               className={`serif ${styles.introTitle}`}
               data-tina-field={tinaField(data.intro, "title")}

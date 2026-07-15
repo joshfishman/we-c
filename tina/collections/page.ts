@@ -84,7 +84,8 @@ const proofTemplate: Template = withVisible({
       name: "intro",
       label: "Intro cell",
       fields: [
-        { type: "string", name: "title", label: "Title (e.g. Since 2012)" },
+        { type: "string", name: "eyebrow", label: "Eyebrow (e.g. Founded)" },
+        { type: "string", name: "title", label: "Title (e.g. 2011)" },
         { type: "string", name: "subtitle", label: "Subtitle" },
       ],
     },
