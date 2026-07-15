@@ -12,7 +12,7 @@ export function Proof({ data }: { data: any }) {
           <div className={styles.cell}>
             {data.intro.eyebrow ? (
               <div
-                className={styles.introEyebrow}
+                className={styles.eyebrow}
                 data-tina-field={tinaField(data.intro, "eyebrow")}
               >
                 {data.intro.eyebrow}
@@ -35,6 +35,14 @@ export function Proof({ data }: { data: any }) {
 
         {data.stats?.map((stat: any, i: number) => (
           <div key={i} className={`${styles.cell} ${styles.cellBordered}`}>
+            {stat.eyebrow ? (
+              <div
+                className={styles.eyebrow}
+                data-tina-field={tinaField(stat, "eyebrow")}
+              >
+                {stat.eyebrow}
+              </div>
+            ) : null}
             <div
               className={`serif ${styles.value}`}
               data-tina-field={tinaField(stat, "value")}

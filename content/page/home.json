@@ -37,10 +37,12 @@
       },
       "stats": [
         {
+          "eyebrow": "Over",
           "value": "77+",
           "label": "Sites launched"
         },
         {
+          "eyebrow": "More Than",
           "value": "$6.7M",
           "label": "Revenue earned for clients"
         }
@@ -138,6 +140,11 @@
           "badge": "Idea → Exit",
           "services": "Shopify Development · Digital Marketing",
           "image": "/media/work-11-honore.png",
+          "logos": [
+            "shopify",
+            "facebook",
+            "instagram"
+          ],
           "url": "#contact"
         },
         {
@@ -145,6 +152,10 @@
           "badge": "6× ROI",
           "services": "Social Ad Management",
           "image": "/media/work-hudson-jeans.png",
+          "logos": [
+            "facebook",
+            "instagram"
+          ],
           "url": "#contact"
         },
         {

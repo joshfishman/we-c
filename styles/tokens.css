@@ -188,17 +188,8 @@
     #2b3766 85%,
     #1a2244 100%
   );
-  /* Same sunset→night ramp as the One Day "Tell us about your site" panel */
-  --t-cta-bg: radial-gradient(
-    125% 135% at 50% 122%,
-    #f4c06a 0%,
-    #ee9a55 18%,
-    #e0728e 38%,
-    #9a5e9e 56%,
-    #4f5c92 74%,
-    #2b3766 88%,
-    #1a2244 100%
-  );
+  /* Flat dark purple closing panel (same as the forest/default value) */
+  --t-cta-bg: linear-gradient(180deg, #2a1e3e 0%, #15102a 100%);
   /* Deeper than the primary sunset pill so the two read as distinct */
   --t-btn-secondary: var(--grad-dusk-deep);
   --t-btn-secondary-shadow: rgba(60, 26, 44, 0.75);

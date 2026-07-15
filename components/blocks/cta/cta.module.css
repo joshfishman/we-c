@@ -1,7 +1,8 @@
+/* No bottom padding: the footer bar ends flush with the page. */
 .section {
   background: var(--t-cta-bg);
   color: #fcefe2;
-  padding-block: 96px;
+  padding-block: 96px 0;
 }
 /* Forest theme (home / ecommerce-marketing page) */
 .section.forest {

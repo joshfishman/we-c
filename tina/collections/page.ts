@@ -96,6 +96,7 @@ const proofTemplate: Template = withVisible({
       list: true,
       ui: { itemProps: (i: any) => ({ label: i?.value || "Stat" }) },
       fields: [
+        { type: "string", name: "eyebrow", label: "Eyebrow (e.g. Over)" },
         { type: "string", name: "value", label: "Value (e.g. 77+)" },
         { type: "string", name: "label", label: "Label" },
       ],
@@ -188,6 +189,13 @@ const ourWorkTemplate: Template = withVisible({
           type: "image",
           name: "images",
           label: "Images (2+ to fan out, overrides single)",
+          list: true,
+        },
+        {
+          type: "string",
+          name: "logos",
+          label:
+            "Tech logos (shopify/facebook/meta/google/instagram/webflow/wordpress)",
           list: true,
         },
         {

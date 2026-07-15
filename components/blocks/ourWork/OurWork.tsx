@@ -41,6 +41,18 @@ const LOGO_SVGS: Record<string, { label: string; svg: React.ReactNode }> = {
       </svg>
     ),
   },
+  facebook: {
+    label: "Facebook",
+    svg: (
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+        <rect width="24" height="24" rx="6" fill="#1877F2" />
+        <path
+          fill="#fff"
+          d="M14 24V13.4h2.9l.5-3.4H14V7.9c0-1 .3-1.7 1.7-1.7h1.8V3.2c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.5V10H7.4v3.4h3.1V24z"
+        />
+      </svg>
+    ),
+  },
   google: {
     label: "Google",
     svg: (

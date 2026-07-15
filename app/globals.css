@@ -139,6 +139,10 @@ h4 {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 0.95rem;
+  /* Explicit so <button class="btn"> matches <a class="btn">: the UA `font`
+     shorthand resets a button's line-height to `normal`, while an anchor
+     inherits body's 1.6 — that alone made the submit button 6px shorter. */
+  line-height: 1.6;
   /* Block padding trimmed 0.95rem → 0.5rem: ~25% shorter buttons (54px → 40px) */
   padding: 0.5rem 1.6rem;
   border-radius: 999px;
@@ -184,6 +188,9 @@ h4 {
   color: #fff1e6;
   background-image: var(--grad-dusk);
   border: 1px solid rgba(255, 247, 233, 0.35);
+  /* Height is auto, so the 1px border would otherwise make this variant 2px
+     taller than every other button. Take the border back out of the padding. */
+  padding: calc(0.5rem - 1px) calc(1.6rem - 1px);
   box-shadow: 0 12px 30px -14px rgba(90, 40, 60, 0.6);
   animation: gradShift 6s ease infinite;
 }

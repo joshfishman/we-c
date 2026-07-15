@@ -104,7 +104,8 @@
         "image": "/media/work-11-honore.png",
         "logos": [
           "shopify",
-          "meta"
+          "facebook",
+          "instagram"
         ],
         "url": "#start"
       },
@@ -114,7 +115,7 @@
         "services": "Social Ad Management",
         "image": "/media/work-hudson-jeans.png",
         "logos": [
-          "meta",
+          "facebook",
           "instagram"
         ],
         "url": "#start"

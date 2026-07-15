@@ -141,7 +141,8 @@ export const OneDayCollection: Collection = {
             {
               type: "string",
               name: "logos",
-              label: "Tech logos (shopify/meta/google/instagram/webflow/wordpress)",
+              label:
+                "Tech logos (shopify/facebook/meta/google/instagram/webflow/wordpress)",
               list: true,
             },
             {
