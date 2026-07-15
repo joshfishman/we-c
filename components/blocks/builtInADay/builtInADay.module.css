@@ -57,14 +57,11 @@
   line-height: 1.3;
   color: #f6e3d4;
 }
+/* The standard secondary pill (.btn.btn--secondary) owns the look — this only
+   places it, so it doesn't stretch across the stats column. */
 .link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 15px;
-  font-weight: 700;
+  align-self: flex-start;
   margin-top: 6px;
-  color: #ffd9a6;
 }
 
 @media (max-width: 760px) {

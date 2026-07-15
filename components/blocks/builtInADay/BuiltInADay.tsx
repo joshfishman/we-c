@@ -47,8 +47,10 @@ export function BuiltInADay({ data }: { data: any }) {
             </div>
           ))}
           {data.cta?.label ? (
+            // A span, not a <Cta>: the whole panel is already an <a>, and
+            // anchors can't nest. It just wears the standard secondary pill.
             <span
-              className={styles.link}
+              className={`btn btn--secondary ${styles.link}`}
               data-tina-field={tinaField(data.cta, "label")}
             >
               {data.cta.label}
