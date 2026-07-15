@@ -29,8 +29,8 @@ Local dev runs Tina in **local mode** (`TINA_PUBLIC_IS_LOCAL=true`, set in
 `.env.local`): content is read/written on the filesystem under `content/`, with
 no database, auth, or GitHub required. Edits save directly to the JSON files.
 
-> `--legacy-peer-deps` is required (and pinned in `.npmrc`): `tinacms-authjs`
-> declares a Next.js peer range that doesn't yet list Next 16.
+> `--legacy-peer-deps` is required (and pinned in `.npmrc`): some Tina
+> packages declare a Next.js peer range that doesn't yet list Next 16.
 
 ## Project structure
 
@@ -153,9 +153,12 @@ runtime. Because Tina's *local* auth provider authorises every request
 (`isAuthorized: () => true`), serving that API in production would leave the
 content-write endpoint open to anyone. So production refuses to serve it:
 
-- `pages/api/tina/[...routes].ts` returns **404** in production whenever it
-  would run the local (no-auth) provider, or whenever `NEXTAUTH_SECRET` is
-  missing. The backend isn't even constructed in those cases.
+- `pages/api/tina/[...routes].ts` returns **404** in production unless editing
+  is fully configured (Supabase creds + a non-empty `TINA_ALLOWED_EMAILS` + the
+  KV datalayer). The backend isn't even constructed otherwise. When it *is*
+  live, every request must carry a Supabase bearer token, which the route
+  re-verifies with Supabase and checks against the allowlist — the browser
+  provider only gates the UI.
 - `middleware.ts` returns **404** for `/admin` in production until hosted
   editing is fully configured. (`tinacms build` emits the editor into
   `public/admin`, and files under `public/` are served directly — a rewrite
@@ -165,7 +168,8 @@ content-write endpoint open to anyone. So production refuses to serve it:
 what lets `tinacms build` run without a datalayer. It no longer pins the
 runtime value, so the Vercel dashboard controls that. Setting
 `TINA_PUBLIC_IS_LOCAL=false` on its own does **not** enable editing; without
-the KV datalayer and `NEXTAUTH_SECRET` the guards above keep it at 404.
+the Supabase credentials, `TINA_ALLOWED_EMAILS` and the KV datalayer the guards
+above keep it at 404.
 
 ## Deploy to Vercel (self-hosted Tina)
 
@@ -189,16 +193,21 @@ the KV datalayer and `NEXTAUTH_SECRET` the guards above keep it at 404.
    | `GITHUB_OWNER` | GitHub user/org |
    | `GITHUB_REPO` | repo name |
    | `GITHUB_BRANCH` | `main` |
-   | `NEXTAUTH_SECRET` | `openssl rand -base64 32` |
+   | `NEXT_PUBLIC_SUPABASE_URL` | from Supabase → Project Settings → API |
+   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | from Supabase → Project Settings → API |
+   | `TINA_ALLOWED_EMAILS` | comma-separated editor emails |
    | `KV_REST_API_URL` / `KV_REST_API_TOKEN` | from Vercel KV |
    | `NEXT_PUBLIC_GTM_ID` | your GTM id |
 
    Build command is `npm run build` (`tinacms build --partial-reindex && next build`).
-5. **Replace the seed user BEFORE the editor is ever reachable.**
-   `content/users/index.json` ships Tina's default `tinauser` / `tinarocks` in
-   plaintext with `passwordChangeRequired: true`. That means whoever loads the
-   editor first sets the password — so seed a real user (and remove the
-   default) in the same change that enables hosted editing, not after.
+5. **Create your editor in Supabase** (Authentication → Users → Add user,
+   email + password), then list that email in `TINA_ALLOWED_EMAILS`. There are
+   no credentials in this repo: Supabase owns accounts and passwords.
+
+   `TINA_ALLOWED_EMAILS` is the authorization gate and it fails closed. Being
+   signed in to Supabase is *not* enough — if the project allows public
+   sign-ups, anyone could create an account, so only the listed emails may
+   edit. Leave it empty and nobody can (and `/admin` stays 404).
 6. Visit `https://your-app.vercel.app/admin` to edit. Changes commit to GitHub
    and redeploy automatically.
 
