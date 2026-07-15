@@ -30,7 +30,7 @@ const ARC_CHIPS = [
     belowShadow:
       "0 0 0 4px rgba(240,166,190,0.22),0 0 16px 3px rgba(240,166,190,0.7)",
     accent: "#F0A6BE55",
-    pulseDelay: "0s",
+    twinkleDelay: "0s",
   },
   {
     group: {
@@ -44,7 +44,7 @@ const ARC_CHIPS = [
     belowShadow:
       "0 0 0 5px rgba(255,224,138,0.22),0 0 20px 4px rgba(255,224,138,0.8)",
     accent: "#FFE08A55",
-    pulseDelay: "1s",
+    twinkleDelay: ".6s",
   },
   {
     group: {
@@ -58,7 +58,7 @@ const ARC_CHIPS = [
     belowShadow:
       "0 0 0 4px rgba(244,148,62,0.22),0 0 16px 3px rgba(244,148,62,0.7)",
     accent: "#F4943E55",
-    pulseDelay: "2s",
+    twinkleDelay: "1.2s",
   },
 ] as const;
 
@@ -150,7 +150,7 @@ export function OneDay(props: {
                         height: chip.belowSize,
                         background: chip.dot,
                         boxShadow: chip.belowShadow,
-                        animationDelay: chip.pulseDelay,
+                        animationDelay: chip.twinkleDelay,
                       }}
                     />
                   </div>

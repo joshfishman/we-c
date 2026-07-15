@@ -145,11 +145,39 @@ funnel — qualitative behaviour on top of the quantitative conversion events.
   clearance, CTAs, contact form, read-more popover, responsive, plus `axe-core`
   scans asserting no serious/critical WCAG violations).
 
+## Production editing is OFF by default (and fails closed)
+
+The deployed site is **view-only**. It renders from the committed JSON in
+`content/` (see `lib/loadContent.ts`), so it never calls the Tina API at
+runtime. Because Tina's *local* auth provider authorises every request
+(`isAuthorized: () => true`), serving that API in production would leave the
+content-write endpoint open to anyone. So production refuses to serve it:
+
+- `pages/api/tina/[...routes].ts` returns **404** in production whenever it
+  would run the local (no-auth) provider, or whenever `NEXTAUTH_SECRET` is
+  missing. The backend isn't even constructed in those cases.
+- `middleware.ts` returns **404** for `/admin` in production until hosted
+  editing is fully configured. (`tinacms build` emits the editor into
+  `public/admin`, and files under `public/` are served directly — a rewrite
+  can't gate them, so this has to be middleware.)
+
+`vercel.json` pins `TINA_PUBLIC_IS_LOCAL=true` **for the build only** — that's
+what lets `tinacms build` run without a datalayer. It no longer pins the
+runtime value, so the Vercel dashboard controls that. Setting
+`TINA_PUBLIC_IS_LOCAL=false` on its own does **not** enable editing; without
+the KV datalayer and `NEXTAUTH_SECRET` the guards above keep it at 404.
+
 ## Deploy to Vercel (self-hosted Tina)
 
 1. **Push this repo to GitHub.**
-2. **Create a Vercel KV (Upstash Redis) store** and copy `KV_REST_API_URL` /
-   `KV_REST_API_TOKEN` (the Tina content index).
+2. **Provision the KV datalayer.** Tina keeps a searchable index of `content/`
+   so the editor can query it over GraphQL and commit changes back to GitHub.
+   Locally `tinacms dev` runs that index on your machine (ports 9000/4001);
+   a serverless function has no such process, so production needs a hosted
+   key-value store. In Vercel: **Storage → Create Database → Upstash Redis
+   (KV)**, connect it to the project, and it injects `KV_REST_API_URL` /
+   `KV_REST_API_TOKEN`. That is what "provision KV" means. Until it exists,
+   `tina/database.ts` falls back to placeholder creds and cannot work.
 3. **Create a GitHub Personal Access Token** with `contents: read/write` on this
    repo → `GITHUB_PERSONAL_ACCESS_TOKEN`.
 4. **Import the repo into Vercel** and set Environment Variables:
@@ -166,10 +194,11 @@ funnel — qualitative behaviour on top of the quantitative conversion events.
    | `NEXT_PUBLIC_GTM_ID` | your GTM id |
 
    Build command is `npm run build` (`tinacms build --partial-reindex && next build`).
-5. **First editor login:** the default admin user is in
-   `content/users/index.json` (`tinauser` / `tinarocks`) — **change this before
-   going live.** Add real users there (passwords are managed by Tina's Auth.js
-   provider).
+5. **Replace the seed user BEFORE the editor is ever reachable.**
+   `content/users/index.json` ships Tina's default `tinauser` / `tinarocks` in
+   plaintext with `passwordChangeRequired: true`. That means whoever loads the
+   editor first sets the password — so seed a real user (and remove the
+   default) in the same change that enables hosted editing, not after.
 6. Visit `https://your-app.vercel.app/admin` to edit. Changes commit to GitHub
    and redeploy automatically.
 

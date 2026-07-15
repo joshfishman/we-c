@@ -4,8 +4,5 @@
     "env": {
       "TINA_PUBLIC_IS_LOCAL": "true"
     }
-  },
-  "env": {
-    "TINA_PUBLIC_IS_LOCAL": "true"
   }
 }

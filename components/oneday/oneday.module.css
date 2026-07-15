@@ -209,23 +209,9 @@
   margin: 0 5px;
   opacity: 0.7;
 }
-/* The suns never blink out — they swell from normal to a brighter, larger
-   beat and settle back. Staggered morning → midday → sunset so the pulse
-   travels along the arc like the sun moving through the day. */
 .arcBelowDot {
   border-radius: 50%;
-  animation: dayPulse 3s ease-in-out infinite;
-}
-@keyframes dayPulse {
-  0%,
-  100% {
-    opacity: 0.82;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.12);
-  }
+  animation: twinkle 3s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .arcBelowDot {
