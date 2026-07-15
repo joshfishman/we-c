@@ -174,14 +174,19 @@ above keep it at 404.
 ## Deploy to Vercel (self-hosted Tina)
 
 1. **Push this repo to GitHub.**
-2. **Provision the KV datalayer.** Tina keeps a searchable index of `content/`
-   so the editor can query it over GraphQL and commit changes back to GitHub.
-   Locally `tinacms dev` runs that index on your machine (ports 9000/4001);
-   a serverless function has no such process, so production needs a hosted
-   key-value store. In Vercel: **Storage → Create Database → Upstash Redis
-   (KV)**, connect it to the project, and it injects `KV_REST_API_URL` /
-   `KV_REST_API_TOKEN`. That is what "provision KV" means. Until it exists,
-   `tina/database.ts` falls back to placeholder creds and cannot work.
+2. **Provision the datalayer (Upstash Redis).** Tina keeps a searchable index
+   of `content/` so the editor can query it over GraphQL and commit changes
+   back to GitHub. Locally `tinacms dev` runs that index on your machine
+   (ports 9000/4001); a serverless function has no such process, so production
+   needs a hosted Redis store.
+
+   Vercel KV is retired as a first-party product — use **Vercel → Storage →
+   Marketplace → Upstash (Redis)**, or create a database directly at
+   [upstash.com](https://upstash.com) and paste the REST credentials in.
+   Either naming convention works: `KV_REST_API_URL` / `KV_REST_API_TOKEN`
+   (what the Vercel integration injects) or `UPSTASH_REDIS_REST_URL` /
+   `UPSTASH_REDIS_REST_TOKEN` (Upstash's own names). Without them
+   `tina/database.ts` throws on boot rather than silently degrading.
 3. **Create a GitHub Personal Access Token** with `contents: read/write` on this
    repo → `GITHUB_PERSONAL_ACCESS_TOKEN`.
 4. **Import the repo into Vercel** and set Environment Variables:
@@ -196,7 +201,7 @@ above keep it at 404.
    | `NEXT_PUBLIC_SUPABASE_URL` | from Supabase → Project Settings → API |
    | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | from Supabase → Project Settings → API |
    | `TINA_ALLOWED_EMAILS` | comma-separated editor emails |
-   | `KV_REST_API_URL` / `KV_REST_API_TOKEN` | from Vercel KV |
+   | `KV_REST_API_URL` / `KV_REST_API_TOKEN` | from your Upstash Redis store |
    | `NEXT_PUBLIC_GTM_ID` | your GTM id |
 
    Build command is `npm run build` (`tinacms build --partial-reindex && next build`).

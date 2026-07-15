@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { TinaNodeBackend, LocalBackendAuthProvider } from "@tinacms/datalayer";
 
 import databaseClient from "../../../tina/__generated__/databaseClient";
+import { datalayerConfigured } from "../../../lib/datalayer";
 import {
   allowedEditorEmails,
   createSupabaseServerClient,
@@ -71,7 +72,7 @@ const hostedEditingReady =
   !isLocal &&
   supabaseConfigured &&
   allowedEditorEmails().length > 0 &&
-  !!process.env.KV_REST_API_URL;
+  datalayerConfigured;
 
 const disabled = isProd && !hostedEditingReady;
 

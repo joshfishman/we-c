@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+import { datalayerConfigured } from "./lib/datalayer";
+
 /**
  * Hide the TinaCMS editor in production until hosted editing is actually
  * configured.
@@ -21,7 +23,7 @@ export function middleware(request: NextRequest) {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY
     ) &&
     !!process.env.TINA_ALLOWED_EMAILS &&
-    !!process.env.KV_REST_API_URL;
+    datalayerConfigured;
   const isProd = process.env.NODE_ENV === "production";
 
   if (isProd && !hostedEditing) {
