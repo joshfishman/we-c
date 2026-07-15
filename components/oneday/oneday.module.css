@@ -418,14 +418,20 @@
   animation: gradShift 7s ease infinite;
   box-shadow: 0 0 0 6px rgba(230, 132, 156, 0.2);
 }
+/* The three badges walk the brand's signature dusk ramp in order
+   (--grad-dusk / --grad-dusk-deep: #8e5e9e → #c2607e → #d9614b → #b24a3a), so
+   01 → 02 → 03 travels purple → rose → terracotta as the day does. Every stop
+   is a real brand colour and stays dark enough to hold the white numeral at
+   WCAG AA. Each ramp loops back to its first stop so gradShift drifts
+   seamlessly. */
 .badge1 {
-  background-image: linear-gradient(135deg, #d45e7a, #a8446a, #d45e7a);
+  background-image: linear-gradient(140deg, #8e5e9e, #c2607e, #8e5e9e);
 }
 .badge2 {
-  background-image: linear-gradient(135deg, #c8792e, #a85a22, #c8792e);
+  background-image: linear-gradient(140deg, #c2607e, #d9614b, #c2607e);
 }
 .badge3 {
-  background-image: linear-gradient(135deg, #c9542f, #a03a2a, #c9542f);
+  background-image: linear-gradient(140deg, #d9614b, #b24a3a, #d9614b);
 }
 @media (prefers-reduced-motion: reduce) {
   .stepBadge {

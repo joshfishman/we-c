@@ -2,7 +2,7 @@
 
 Marketing site for WE Creative Agency. Two pages:
 
-- **Home** (`/`, `app/page.tsx`) — ecommerce-marketing landing. Forest/green theme.
+- **Home** (`/`, `app/page.tsx`) — ecommerce-marketing landing. Sunset/dusk theme (same palette as One Day).
 - **One Day** (`/one-day`, `app/one-day/page.tsx`) — "1 Day Website" offer. Sunset/dusk theme, cinematic sky hero.
 
 ## Golden rule
@@ -41,18 +41,19 @@ When adding new sections/fields, keep them editor-friendly: real Tina fields (st
   - **Production / `next build`** → reads the committed JSON directly (static render, no runtime backend). This is why the site deploys with no DB.
 - `components/blocks/Blocks.tsx` maps a page's `blocks[]` to components by Tina `__typename`. `OneDay.tsx` renders the One Day page directly.
 
-## Theming conventions
+## Theming (token layer — never hard-code a hex)
 
-Shared components take a `theme`/tone prop so the two pages share layout but differ in color:
+Colour is a **theme**, not per-component props. `styles/tokens.css` defines semantic `--t-*` tokens in two palettes: `forest` (the `:root` default) and `sunset`. A page's **Color theme** field (Tina → Pages) sets `data-theme` on the page root (`SiteRenderer`), and the whole page re-skins. Adding a palette = copy a block; no component changes.
 
-- **OurWork** — `theme="green"` (home) vs `"sunset"` (One Day). Same staggered 66% card layout; only the palette differs (`.green` overrides layer over the `.sunset` layout in `ourWork.module.css`).
-- **CtaSection** (the footer + contact form) — `theme="forest"` (home, green) vs default dusk (One Day). The `ContactForm` takes a `forest` prop for green-tinted fields + green submit.
-- **Header / Logo** — `tone="sky"` on One Day (darker header backing, sky links); logo is always the gold gradient. Nav shows only the cross-page link (Home shows "1 Day Website", One Day shows "Ecommerce Marketing").
+- Sections read `var(--t-panel-bg)`, `--t-card-bg`, `--t-proof-bg`, `--t-accent-grad`, `--t-connector`, `--t-cta-bg`, `--t-stars`, etc. **Both pages currently run `sunset`.**
+- **Keyframes must live in the module that uses them.** CSS Modules scopes `animation-name`, so `animation: gradShift` in a `.module.css` referencing a keyframe in `globals.css` resolves to a scoped name that doesn't exist and silently never runs. (This bit the whole site once.)
+- **Header** — transparent at the top on both pages; a minimal dusk backing only when `.scrolled` (over light content the nav link drops to ~1.1:1 without it). One shared `.sunText` gradient link.
+- Shared UI: `ui/Starfield.tsx` (visibility via `--t-stars`, `flip` for night-at-the-foot panels), `ui/Squiggle.tsx` (the dashed connector, used by both the One Day steps and the home Attract→Convert→Retain flow).
 
 ## Assets
 
 - Images live in `public/media/`. Some (Ovando, Stoned Immaculate project fans) are dropped in by the user — pasted screenshots can't be written to disk from here, so those are wired to expected paths and the user adds the files.
-- Favicon: `app/icon.svg` (gold "WE" on dark green).
+- Favicon: `app/icon.svg` (gold "WE" on the brand dusk purple).
 
 ## Verifying changes
 
@@ -70,5 +71,6 @@ Use the preview tools against the running dev server (screenshots can be flaky o
 
 ## Not yet enabled
 
-- **Production visual editing** — the deployed site is view-only. Turning on hosted `/admin` needs: a KV datalayer (Vercel KV), a GitHub PAT (content commits), **Supabase Auth** for login, and `TINA_PUBLIC_IS_LOCAL=false`.
+- **Production visual editing** — deliberately OFF and **fails closed**: `/admin` and `/api/tina/*` return 404 in production unless editing is fully configured (see README). Editing happens locally via `npm run dev` → `/admin`.
+  The code is built and dormant: **Supabase Auth** for login (`tina/SupabaseAuthProvider.tsx` + a server-side token check in the API route, gated on the `TINA_ALLOWED_EMAILS` allowlist — authentication is not authorization). Turning it on also needs an **Upstash Redis** datalayer (Vercel KV is retired; `lib/datalayer.ts` takes `KV_REST_API_*` or `UPSTASH_REDIS_REST_*`), a GitHub PAT, and `TINA_PUBLIC_IS_LOCAL=false`. Untested: the live sign-in round trip.
 - **Questionnaire page** — the "What are you planning?" CTA links to `#`; the multi-step questionnaire isn't built.
