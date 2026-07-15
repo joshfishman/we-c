@@ -260,7 +260,7 @@
 }
 /* screenshots float on the cream card */
 .sunset .mediaShot {
-  padding: 22px;
+  padding: 10px;
 }
 .sunset .mediaShot img {
   filter: drop-shadow(0 16px 26px rgba(40, 20, 30, 0.25));
@@ -287,17 +287,16 @@
 }
 
 @media (max-width: 760px) {
+  /* No stagger on mobile: cards run full width, flush with each other. */
   .sunset .row,
   .sunset .imgLeft,
   .sunset .imgRight {
-    width: 80%;
+    width: 100%;
     flex-direction: column;
   }
-  .sunset .imgLeft {
-    align-self: flex-start;
-  }
+  .sunset .imgLeft,
   .sunset .imgRight {
-    align-self: flex-end;
+    align-self: stretch;
   }
   .sunset .imgRight .textPanel {
     align-items: flex-start;

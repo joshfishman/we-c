@@ -7,13 +7,16 @@ import { Squiggle } from "../../ui/Squiggle";
 import styles from "./framework.module.css";
 
 /**
- * Same dashed arrow as the One Day process steps, sat between the staggered
- * cards. `step` places it at the midpoint between the two cards it joins.
+ * Same dashed arrow as the One Day process steps, sat between the cards.
+ *
+ * Direction is driven from CSS, not the `flip` prop: flip sets an inline
+ * transform, which would win over the rotation the grid needs. Desktop lays the
+ * three cards out in a row so the arrows rotate to point right; on mobile the
+ * row folds to a column and they point down, alternating as before.
  */
 function Connector({ step }: { step: 1 | 2 }) {
   return (
     <Squiggle
-      flip={step === 2}
       indent={step === 1 ? "left" : "right"}
       className={step === 1 ? styles.connector1 : styles.connector2}
     />
@@ -145,6 +148,14 @@ export function Framework({ data }: { data: any }) {
             >
               {data.heading}
             </h2>
+            {data.description ? (
+              <p
+                className={styles.description}
+                data-tina-field={tinaField(data, "description")}
+              >
+                {data.description}
+              </p>
+            ) : null}
             {data.flowIntro ? (
               <p
                 className={styles.flowIntro}

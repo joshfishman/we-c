@@ -65,7 +65,7 @@
     },
     {
       "visible": true,
-      "eyebrow": "",
+      "eyebrow": "What WE Do",
       "heading": "eCommerce Growth Services",
       "flowIntro": "",
       "layers": [
@@ -105,7 +105,8 @@
           ]
         }
       ],
-      "_template": "framework"
+      "_template": "framework",
+      "description": "Three layers that work together: attract the right people, turn them into customers, and keep them coming back."
     },
     {
       "visible": true,
@@ -126,7 +127,13 @@
             "/media/stoned-immaculate.jpg",
             "/media/stoned-immaculate-site.jpg"
           ],
-          "url": "#contact"
+          "url": "#contact",
+          "logos": [
+            "shopify",
+            "instagram",
+            "google",
+            "facebook"
+          ]
         },
         {
           "title": "California Chicken Cafe",
@@ -167,7 +174,10 @@
             "/media/ovando-1.png",
             "/media/ovando-2.png"
           ],
-          "url": "#contact"
+          "url": "#contact",
+          "logos": [
+            "shopify"
+          ]
         }
       ],
       "_template": "ourWork"

@@ -139,6 +139,12 @@ const frameworkTemplate: Template = withVisible({
       label: "Heading",
       ui: { component: "textarea" },
     },
+    {
+      type: "string",
+      name: "description",
+      label: "Description (paragraph under the heading)",
+      ui: { component: "textarea" },
+    },
     { type: "string", name: "flowIntro", label: "Flow intro label" },
     {
       type: "object",
