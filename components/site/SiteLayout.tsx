@@ -2,6 +2,7 @@
 
 import { Header } from "./Header";
 import { Analytics } from "./Analytics";
+import { RevealOnScroll } from "./RevealOnScroll";
 
 /**
  * Site shell — header + footer chrome that every page renders inside.
@@ -23,6 +24,7 @@ export function SiteLayout({
   return (
     <>
       <Analytics />
+      <RevealOnScroll />
       <Header settings={settings} tone={headerTone} />
       <main>{children}</main>
     </>

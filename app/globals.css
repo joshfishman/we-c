@@ -14,8 +14,38 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Section reveal — a gentle fade + rise as each section enters view.
+   The pending class is added by RevealOnScroll at runtime, so with JS off
+   (or reduced motion) everything simply stays visible. */
+.revealPending {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
+}
+.revealPending.revealIn {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .revealPending,
+  .revealPending.revealIn {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Page root — carries the themed ground so a page's `theme` re-skins it. */
+.themeRoot {
+  background: var(--t-page-bg);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
 body {
-  background: var(--page-gradient);
+  background: var(--t-page-bg);
   background-attachment: fixed;
   color: var(--color-ink);
   font-family: var(--font-display);
@@ -82,7 +112,7 @@ h4 {
 
 /* Animated gradient text (green by default) */
 .gradText {
-  background: var(--grad-green);
+  background: var(--t-accent-grad);
   background-size: 220% 100%;
   animation: gradShift 6s ease infinite;
   -webkit-background-clip: text;
@@ -109,7 +139,8 @@ h4 {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 0.95rem;
-  padding: 0.95rem 1.6rem;
+  /* Block padding trimmed 0.95rem → 0.5rem: ~25% shorter buttons (54px → 40px) */
+  padding: 0.5rem 1.6rem;
   border-radius: 999px;
   border: none;
   cursor: pointer;
@@ -139,9 +170,9 @@ h4 {
 /* Secondary — green gradient like the "View case" pills, no border. */
 .btn--secondary {
   color: #f3e7d6;
-  background-image: var(--grad-secondary);
+  background-image: var(--t-btn-secondary);
   background-size: 260% 100%;
-  box-shadow: 0 10px 24px -10px rgba(31, 110, 90, 0.75);
+  box-shadow: 0 10px 24px -10px var(--t-btn-secondary-shadow);
 }
 .btn--secondary:hover {
   color: #fff7e9;

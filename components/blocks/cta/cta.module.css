@@ -1,5 +1,5 @@
 .section {
-  background: linear-gradient(180deg, #2a1e3e 0%, #15102a 100%);
+  background: var(--t-cta-bg);
   color: #fcefe2;
   padding-block: 96px;
 }
@@ -172,5 +172,24 @@ a.detail:hover {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+  }
+}
+
+/* Local copy: CSS Modules scopes animation-name (see gradShift note). */
+@keyframes logoWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 100%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 0%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

@@ -7,7 +7,7 @@ import styles from "./caseStudy.module.css";
 
 export function CaseStudy({
   data,
-  theme = "default",
+  theme = "dusk",
 }: {
   data: any;
   theme?: "default" | "dusk";

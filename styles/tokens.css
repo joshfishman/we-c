@@ -55,6 +55,135 @@
   --container: 1280px;
   --container-pad: clamp(1.25rem, 4vw, 3rem);
 
+  /* ============================================================
+     THEME LAYER — every section reads these, never raw hexes.
+     Flip a page's palette with one value: the page's `theme`
+     field (Site → Pages → Color theme) sets data-theme on the
+     page root, and the whole page re-skins. Add a palette by
+     copying a block below; no component changes needed.
+     :root holds the default (forest).
+     ============================================================ */
+
+  /* Page ground */
+  --t-page-bg: var(--page-gradient);
+  /* Gradient used for eyebrows / accent words (.gradText) */
+  --t-accent-grad: var(--grad-green);
+  /* Richer ramp for the hero headline words (reads over the photo) */
+  --t-hero-grad: linear-gradient(
+    100deg,
+    #c3f56a 0%,
+    #4fb069 26%,
+    #1f8048 50%,
+    #86d94f 76%,
+    #c3f56a 100%
+  );
+  /* Big dark feature panel (Framework, Built-in-a-day) */
+  --t-panel-bg: radial-gradient(90% 70% at 85% 8%, #4e9e6a 0%, rgba(78, 158, 106, 0) 50%),
+    radial-gradient(80% 80% at 12% 100%, #6e8a38 0%, rgba(110, 138, 56, 0) 55%),
+    linear-gradient(160deg, #0c2418 0%, #12301f 55%, #16371f 100%);
+  --t-panel-ink: #f3e7d6;
+  --t-panel-ink-soft: #cbe0c4;
+  /* Starfield visibility — only palettes with a night sky show stars. */
+  --t-stars: 0;
+  /* Light cards sitting on the panel */
+  --t-card-bg: linear-gradient(150deg, #ffffff 0%, #eef4ea 100%);
+  --t-card-ink: #16301f;
+  --t-card-label: #5c7a50;
+  --t-icon-badge: linear-gradient(145deg, #7fbf6e, #3e7c4e);
+  --t-dot: #6fb060;
+  /* Connector arrows between the flow cards */
+  --t-connector: rgba(203, 224, 196, 0.85);
+  /* Proof strip */
+  --t-proof-bg: linear-gradient(120deg, #6e8a38 0%, #4e7c4a 28%, #2e5e42 60%, #163a2a 100%);
+  --t-proof-ink: #eaf1de;
+  --t-proof-ink-soft: #d8e6c8;
+  /* Glow panel (Built in a day) */
+  --t-glow-panel: radial-gradient(
+    125% 150% at 50% 122%,
+    #b7c96a 0%,
+    #8fb04e 18%,
+    #4e9e6a 38%,
+    #2c5a3e 56%,
+    #1f4a38 74%,
+    #13301f 88%,
+    #0c1f14 100%
+  );
+  /* Soft tinted section (Approach) */
+  --t-soft-bg: linear-gradient(150deg, #eaf2e6 0%, #e2efd8 58%, #d2e6ca 100%);
+  --t-soft-panel: linear-gradient(165deg, #2e6e48 0%, #1e3d2c 100%);
+  --t-soft-ink: #172419;
+  --t-soft-ink-soft: #4a5a42;
+  /* Closing CTA / contact section */
+  --t-cta-bg: linear-gradient(180deg, #2a1e3e 0%, #15102a 100%);
+  /* Secondary button fill */
+  --t-btn-secondary: var(--grad-secondary);
+  --t-btn-secondary-shadow: rgba(31, 110, 90, 0.75);
+}
+
+/* ---- Sunset / dusk palette (the One Day look) ---- */
+[data-theme="sunset"] {
+  --t-page-bg: #eae0cb;
+  --t-accent-grad: var(--grad-sunset-bright);
+  --t-hero-grad: linear-gradient(
+    100deg,
+    #ffe7a0 0%,
+    #ffc24d 26%,
+    #f2955a 50%,
+    #e0708a 76%,
+    #ffe7a0 100%
+  );
+  /* Day → night sky (same ramp as the One Day process section) */
+  --t-panel-bg: linear-gradient(
+    180deg,
+    #1a2244 0%,
+    #2b3766 15%,
+    #4f5c92 32%,
+    #8e5e9e 52%,
+    #d0708e 70%,
+    #e88e5c 87%,
+    #f2b566 100%
+  );
+  --t-panel-ink: #f6ecdd;
+  --t-panel-ink-soft: #f0c8a8;
+  --t-stars: 1;
+  --t-card-bg: linear-gradient(150deg, #fffaf3 0%, #f6e7d6 100%);
+  --t-card-ink: #3a2230;
+  --t-card-label: #a1512c;
+  --t-icon-badge: linear-gradient(145deg, #f2955a, #d9614b);
+  --t-dot: #d9614b;
+  --t-connector: rgba(244, 199, 126, 0.9);
+  /* Matches the One Day proof bar exactly */
+  --t-proof-bg: linear-gradient(120deg, #e8975a 0%, #d9614b 34%, #c2607e 66%, #8e5e9e 100%);
+  --t-proof-ink: #fff3e0;
+  --t-proof-ink-soft: #fce7d4;
+  --t-glow-panel: radial-gradient(
+    125% 150% at 50% 122%,
+    #ffe7a0 0%,
+    #ffc24d 18%,
+    #f2955a 38%,
+    #d9614b 56%,
+    #a8446a 74%,
+    #4f3c6a 88%,
+    #241a38 100%
+  );
+  --t-soft-bg: linear-gradient(150deg, #f6ede0 0%, #f0e2cd 58%, #e8d9c0 100%);
+  --t-soft-panel: linear-gradient(165deg, #4f3c6a 0%, #241a38 100%);
+  --t-soft-ink: #2b1626;
+  --t-soft-ink-soft: #5c4a55;
+  /* Same sunset→night ramp as the One Day "Tell us about your site" panel */
+  --t-cta-bg: radial-gradient(
+    125% 135% at 50% 122%,
+    #f4c06a 0%,
+    #ee9a55 18%,
+    #e0728e 38%,
+    #9a5e9e 56%,
+    #4f5c92 74%,
+    #2b3766 88%,
+    #1a2244 100%
+  );
+  --t-btn-secondary: var(--grad-dusk);
+  --t-btn-secondary-shadow: rgba(90, 40, 60, 0.7);
+
   /* Radii & shadows */
   --radius-sm: 12px;
   --radius: 20px;

@@ -6,6 +6,9 @@ import { defineConfig, devices } from "@playwright/test";
  * the site deploys. Locally, `reuseExistingServer` lets it attach to an
  * already-running dev server on :3000 instead of rebuilding.
  */
+/** Point the suite at an already-running build with BASE_URL=http://localhost:3005 */
+const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
+
 export default defineConfig({
   testDir: "./tests/e2e",
   timeout: 30_000,
@@ -15,7 +18,7 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? "github" : "list",
   use: {
-    baseURL: "http://localhost:3000",
+    baseURL: BASE_URL,
     trace: "on-first-retry",
   },
   projects: [
@@ -23,7 +26,7 @@ export default defineConfig({
   ],
   webServer: {
     command: "npm run build && npm run start",
-    url: "http://localhost:3000",
+    url: BASE_URL,
     timeout: 300_000,
     reuseExistingServer: !process.env.CI,
   },

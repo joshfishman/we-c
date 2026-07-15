@@ -16,12 +16,12 @@
   padding: 44px 40px;
 }
 .light {
-  background: linear-gradient(150deg, #eaf2e6 0%, #e2efd8 58%, #d2e6ca 100%);
+  background: var(--t-soft-bg);
   border: 1px solid rgba(58, 34, 48, 0.1);
-  color: var(--color-ink);
+  color: var(--t-soft-ink);
 }
 .dark {
-  background: linear-gradient(165deg, #2e6e48 0%, #1e3d2c 100%);
+  background: var(--t-soft-panel);
   color: #fcefe2;
 }
 
@@ -40,12 +40,12 @@
   margin-bottom: 18px;
 }
 .light .heading {
-  color: #172419;
+  color: var(--t-soft-ink);
 }
 .body {
   font-size: 16px;
   line-height: 1.65;
-  color: #4a5a42;
+  color: var(--t-soft-ink-soft);
 }
 .bodyDark {
   color: #d2e6ce;

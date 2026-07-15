@@ -5,9 +5,9 @@
   min-height: 600px;
   max-height: 860px;
   overflow: hidden;
-  /* Reserve space for the fixed header + a comfortable margin, so hero
-     content is never tucked behind it (--header-h is measured in Header.tsx). */
-  padding-top: calc(var(--header-h, 92px) + 28px);
+  /* Content is vertically centered, so on desktop it clears the fixed header
+     without reserved top padding. Mobile halves the old clearance (below). */
+  padding-top: 0;
   padding-bottom: 0;
   display: flex;
   flex-direction: column;
@@ -105,8 +105,8 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 22px;
-  /* Matches the headline's rich green gradient. */
-  background: linear-gradient(90deg, #c3f56a, #4fb069, #1f8048, #86d94f, #c3f56a);
+  /* Matches the headline's accent gradient (themed). */
+  background: var(--t-hero-grad);
   background-size: 220% 100%;
   animation: heroRise 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) 0.12s both,
     gradShift 6s ease infinite;
@@ -126,16 +126,9 @@
   text-shadow: 0 4px 34px rgba(8, 26, 36, 0.6);
   animation: heroRise 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) 0.28s both;
 }
-/* Green gradient on just "Grow" and "Online" — rich + vibrant so it pops */
+/* Accent gradient on just "Grow" and "Online" — themed, rich so it pops */
 .gradWord {
-  background: linear-gradient(
-    100deg,
-    #c3f56a 0%,
-    #4fb069 26%,
-    #1f8048 50%,
-    #86d94f 76%,
-    #c3f56a 100%
-  );
+  background: var(--t-hero-grad);
   background-size: 200% 100%;
   animation: gradShift 7s ease infinite;
   -webkit-background-clip: text;
@@ -237,9 +230,45 @@
   .hero {
     aspect-ratio: auto;
     min-height: 86vh;
+    /* Half the original header clearance on mobile. */
+    padding-top: calc((var(--header-h, 92px) + 28px) / 2);
   }
+  .content {
+    padding-bottom: 10px;
+  }
+  .actions {
+    gap: 12px;
+    margin-top: 28px;
+  }
+  /* Buttons fill the row so they take up space on mobile. */
+  .actions > * {
+    flex: 1 1 0;
+  }
+  /* Bring the AI-powered chip into the flow: centered below the buttons with
+     room before the proof strip (it was absolutely positioned and cramped). */
   .callout {
-    right: 16px;
-    bottom: 92px;
+    position: static;
+    right: auto;
+    bottom: auto;
+    align-self: center;
+    margin: 24px auto 0;
+  }
+  .calloutText {
+    text-align: center;
+  }
+}
+
+/* CSS Modules scopes animation-name, so a module referencing a keyframe from
+   globals.css resolves to a scoped name that doesn't exist and never runs.
+   Keep the keyframes local to the module that uses them. */
+@keyframes gradShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

@@ -5,15 +5,16 @@
 }
 
 .panel {
+  position: relative;
+  overflow: hidden;
   border-radius: 40px;
-  background:
-    radial-gradient(90% 70% at 85% 8%, #4e9e6a 0%, rgba(78, 158, 106, 0) 50%),
-    radial-gradient(80% 80% at 12% 100%, #6e8a38 0%, rgba(110, 138, 56, 0) 55%),
-    linear-gradient(160deg, #0c2418 0%, #12301f 55%, #16371f 100%);
-  color: #f3e7d6;
+  background: var(--t-panel-bg);
+  color: var(--t-panel-ink);
   padding: clamp(48px, 6vw, 88px) clamp(24px, 4vw, 56px);
 }
 .inner {
+  position: relative;
+  z-index: 1;
   max-width: 1160px;
   margin: 0 auto;
 }
@@ -43,7 +44,7 @@
   font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #cbe0c4;
+  color: var(--t-panel-ink-soft);
 }
 
 /* ---- Flow column (staggered diagonal of 3 identical cards) ---- */
@@ -56,9 +57,22 @@
   margin: 0 auto;
 }
 
-.arrow {
-  display: block;
-  margin: 2px auto;
+/* The shared Squiggle, dropped at the midpoint between the two cards it joins.
+   Cards sit at ~18% / 50% / 82% across the column, so the midpoints are ~34%
+   and ~66%. The offsets put each arrowhead tip exactly on those midpoints
+   (tip is at x=59 in the 92px box, or x=33 once flipped). */
+.connector1,
+.connector2 {
+  align-self: flex-start;
+  margin-top: -4px;
+  margin-bottom: -4px;
+}
+.connector1 {
+  margin-left: calc(34% - 59px);
+  margin-right: 0;
+}
+.connector2 {
+  margin-left: calc(66% - 33px);
 }
 
 /* ---- Card (Attract / Convert / Retain — all the same shape) ----
@@ -71,7 +85,7 @@
   display: flex;
   flex-direction: column;
   gap: 18px;
-  background: linear-gradient(150deg, #ffffff 0%, #eef4ea 100%);
+  background: var(--t-card-bg);
   border-radius: 22px;
   padding: 24px 30px;
   box-shadow: 0 20px 50px -34px rgba(0, 0, 0, 0.6);
@@ -105,19 +119,19 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #7fbf6e, #3e7c4e);
+  background: var(--t-icon-badge);
 }
 .badgeLabel {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #6a8a5e;
+  color: var(--t-card-label);
 }
 .cardTitle {
   font-size: 22px;
   font-weight: 700;
-  color: #16301f;
+  color: var(--t-card-ink);
 }
 .tagList {
   list-style: none;
@@ -133,7 +147,7 @@
   gap: 10px;
   font-size: 14px;
   font-weight: 500;
-  color: #16301f;
+  color: var(--t-card-ink);
 }
 .tagRow::before {
   content: "";
@@ -141,7 +155,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #6fb060;
+  background: var(--t-dot);
 }
 
 /* ---- Convert circle ---- */

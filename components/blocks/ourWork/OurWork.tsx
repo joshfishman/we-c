@@ -101,7 +101,7 @@ const LOGO_SVGS: Record<string, { label: string; svg: React.ReactNode }> = {
 
 export function OurWork({
   data,
-  theme = "green",
+  theme = "sunset",
 }: {
   data: any;
   theme?: "sage" | "sunset" | "green";
@@ -241,6 +241,9 @@ export function OurWork({
                         src={src}
                         alt={`${project?.title || ""} ${j + 1}`}
                         className={styles.fanItem}
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
                       />
                     ))}
                   </div>

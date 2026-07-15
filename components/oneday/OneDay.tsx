@@ -3,6 +3,8 @@
 import { useTina, tinaField } from "tinacms/dist/react";
 import { Cta } from "../ui/Cta";
 import { BgVideo } from "../ui/BgVideo";
+import { Starfield } from "../ui/Starfield";
+import { Squiggle } from "../ui/Squiggle";
 import { Typewriter, type TWSegment } from "../ui/Typewriter";
 import { SiteLayout } from "../site/SiteLayout";
 import { CaseStudy } from "../blocks/caseStudy/CaseStudy";
@@ -59,49 +61,6 @@ const ARC_CHIPS = [
   },
 ] as const;
 
-// Process night-sky decorative stars: exact positions
-const PROCESS_STARS = [
-  { left: "8%", top: "14%", size: 3, dur: "3.4s", delay: "0s" },
-  { left: "18%", top: "32%", size: 2, dur: "2.8s", delay: ".5s" },
-  { left: "27%", top: "9%", size: 2.5, dur: "4.1s", delay: ".2s" },
-  { left: "39%", top: "24%", size: 2, dur: "3.1s", delay: "1.1s" },
-  { left: "52%", top: "12%", size: 3, dur: "3.7s", delay: ".8s" },
-  { left: "63%", top: "30%", size: 2, dur: "2.6s", delay: "1.4s" },
-  { left: "72%", top: "8%", size: 2.5, dur: "4.4s", delay: ".3s" },
-  { left: "83%", top: "26%", size: 2, dur: "3.3s", delay: ".9s" },
-  { left: "92%", top: "16%", size: 3, dur: "3.9s", delay: ".6s" },
-  { left: "46%", top: "5%", size: 2, dur: "2.9s", delay: "1.7s" },
-];
-
-function Squiggle({ flip, indent }: { flip?: boolean; indent: "left" | "right" }) {
-  return (
-    <svg
-      width="92"
-      height="84"
-      viewBox="0 0 92 84"
-      fill="none"
-      className={`${s.arrow} ${indent === "left" ? s.arrowLeft : s.arrowRight}`}
-      style={flip ? { transform: "scaleX(-1)" } : undefined}
-      aria-hidden="true"
-    >
-      <path
-        d="M22 8 C 78 26, 14 50, 46 74"
-        stroke="#E9A94C"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        strokeDasharray="1 11"
-      />
-      <path
-        d="M45 62 L59 76 L72 60"
-        stroke="#E9A94C"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 export function OneDay(props: {
   page: { data: any; variables: any; query: string };
   settings: { data: any; variables: any; query: string };
@@ -129,7 +88,7 @@ export function OneDay(props: {
 
   return (
     <SiteLayout settings={settings} headerTone="sky">
-      <div className={s.page}>
+      <div className={s.page} data-theme="sunset">
         {/* HERO */}
       {hero?.visible !== false ? (
         <section className={s.hero} id="top" data-section="oneday_hero">
@@ -291,22 +250,7 @@ export function OneDay(props: {
       {/* PROCESS */}
       {process?.visible !== false ? (
         <section className={s.process} id="process" data-section="oneday_process">
-          <div className={s.stars} aria-hidden="true">
-            {PROCESS_STARS.map((star, i) => (
-              <span
-                key={i}
-                className={s.star}
-                style={{
-                  left: star.left,
-                  top: star.top,
-                  width: star.size,
-                  height: star.size,
-                  animationDuration: star.dur,
-                  animationDelay: star.delay,
-                }}
-              />
-            ))}
-          </div>
+          <Starfield />
           <div className={s.processInner}>
             <div className={s.processHead}>
               <p

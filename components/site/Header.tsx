@@ -25,7 +25,10 @@ export function Header({
   const header = settings?.header;
   const ref = useRef<HTMLElement | null>(null);
   const pathname = usePathname();
-  const linkCls = tone === "sky" ? styles.skyText : styles.sunText;
+  // Both pages share the sunset palette and a transparent bar, so the nav link
+  // uses one treatment. The old pale-blue "sky" variant sat at ~1.1:1 over the
+  // bright hero with no backing behind it (see header.module.css .scrolled).
+  const linkCls = styles.sunText;
 
   // Show only cross-page links: hide any nav item that points at the page
   // you're already on (so Home shows "One Day Website" and vice-versa).
@@ -78,11 +81,7 @@ export function Header({
   if (header?.visible === false) return null;
 
   return (
-    <header
-      ref={ref}
-      className={`${styles.header} ${tone === "sky" ? styles.skyHeader : ""}`}
-      id="site-header"
-    >
+    <header ref={ref} className={styles.header} id="site-header">
       <Link href="/" aria-label="Ecommerce Marketing — Home">
         <Logo settings={settings} tone={tone} />
       </Link>

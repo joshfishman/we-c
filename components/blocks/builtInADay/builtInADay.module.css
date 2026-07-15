@@ -13,16 +13,7 @@
   border-radius: 28px;
   padding: 64px 56px;
   text-decoration: none;
-  background: radial-gradient(
-    125% 150% at 50% 122%,
-    #b7c96a 0%,
-    #8fb04e 18%,
-    #4e9e6a 38%,
-    #2c5a3e 56%,
-    #1f4a38 74%,
-    #13301f 88%,
-    #0c1f14 100%
-  );
+  background: var(--t-glow-panel);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .panel:hover {

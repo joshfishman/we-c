@@ -2,27 +2,21 @@
 
 import { tinaField } from "tinacms/dist/react";
 import { Section } from "../../ui/Section";
+import { Starfield } from "../../ui/Starfield";
+import { Squiggle } from "../../ui/Squiggle";
 import styles from "./framework.module.css";
 
-function DownArrow() {
+/**
+ * Same dashed arrow as the One Day process steps, sat between the staggered
+ * cards. `step` places it at the midpoint between the two cards it joins.
+ */
+function Connector({ step }: { step: 1 | 2 }) {
   return (
-    <svg
-      width="14"
-      height="18"
-      viewBox="0 0 14 18"
-      fill="none"
-      className={styles.arrow}
-      aria-hidden="true"
-    >
-      <path
-        d="M7 1 V15 M2 10 L7 15 L12 10"
-        stroke="#cbe0c4"
-        strokeOpacity="0.7"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <Squiggle
+      flip={step === 2}
+      indent={step === 1 ? "left" : "right"}
+      className={step === 1 ? styles.connector1 : styles.connector2}
+    />
   );
 }
 
@@ -136,6 +130,7 @@ export function Framework({ data }: { data: any }) {
   return (
     <Section name="framework" id="framework" className={styles.wrap}>
       <div className={styles.panel}>
+        <Starfield />
         <div className={styles.inner}>
           <div className={styles.head}>
             <p
@@ -164,11 +159,11 @@ export function Framework({ data }: { data: any }) {
             {layers[0] ? (
               <OuterCard layer={layers[0]} icon="magnet" pos="left" />
             ) : null}
-            {layers[1] ? <DownArrow /> : null}
+            {layers[1] ? <Connector step={1} /> : null}
             {layers[1] ? (
               <OuterCard layer={layers[1]} icon="convert" pos="center" />
             ) : null}
-            {layers[2] ? <DownArrow /> : null}
+            {layers[2] ? <Connector step={2} /> : null}
             {layers[2] ? (
               <OuterCard layer={layers[2]} icon="recycle" pos="right" />
             ) : null}

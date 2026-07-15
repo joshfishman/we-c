@@ -1,0 +1,15 @@
+.squiggle {
+  display: block;
+  color: var(--t-connector);
+  margin: 6px 0;
+}
+
+/* The tip sits at x=59 in the 92px box; a 26px right margin pulls the whole
+   box left by 13px in a centred column, landing the tip on the centre line. */
+.left {
+  margin-right: 26px;
+}
+/* Flipped: the tip mirrors to x=33, so nudge the box right by the same 13px. */
+.right {
+  margin-left: 26px;
+}

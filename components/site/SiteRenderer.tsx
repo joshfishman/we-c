@@ -18,8 +18,12 @@ export function SiteRenderer(props: { page: TinaProps; settings: TinaProps }) {
     ? ({ ["--accent" as any]: settings.accent } as React.CSSProperties)
     : undefined;
 
+  // Colour theme comes from the page (Pages → Color theme). Every section
+  // reads the --t-* tokens, so this one value re-skins the whole page.
+  const theme = page?.theme || "forest";
+
   return (
-    <div style={style}>
+    <div className="themeRoot" data-theme={theme} style={style}>
       <SiteLayout settings={settings}>
         <Blocks blocks={page?.blocks ?? []} settings={settings} />
       </SiteLayout>

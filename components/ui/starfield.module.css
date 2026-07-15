@@ -1,0 +1,38 @@
+/* Twinkling starfield for the day→night panels. Theme-driven visibility:
+   --t-stars is 0 on palettes with no night sky. */
+.stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--t-stars, 0);
+  transition: opacity 0.4s ease;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.8);
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .star {
+    animation: none;
+    opacity: 0.75;
+  }
+}
+
+/* Local copy: CSS Modules scopes animation-name (see note above). */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}

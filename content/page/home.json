@@ -1,6 +1,7 @@
 {
   "title": "WE Creative Agency — We grow businesses online",
   "description": "Proven agency strategy & process, powered by AI. We grow ecommerce and lifestyle brands across strategy, development and marketing.",
+  "theme": "sunset",
   "blocks": [
     {
       "visible": true,
@@ -54,8 +55,8 @@
       "quote": "WE rebuilt our store and dialed in our organic and paid channels — we tripled revenue in a single quarter. They move fast and actually get fashion.",
       "personName": "Founder & Creative Director",
       "personTitle": "Stoned Immaculate Clothing",
-      "image": "/media/stoned-immaculate.jpg",
-      "imageAlt": "Stoned Immaculate Clothing brand photo",
+      "image": "/media/stoned-immaculate-editorial.jpg",
+      "imageAlt": "Stoned Immaculate Clothing editorial campaign photo",
       "avatar": "/media/avatar-founder.jpg",
       "_template": "caseStudy"
     },
@@ -118,9 +119,9 @@
           "services": "Shopify Development · Social & Search Ads",
           "image": "/media/work-stoned-immaculate.jpg",
           "images": [
-            "/media/stoned-immaculate-1.jpg",
-            "/media/stoned-immaculate-2.jpg",
-            "/media/stoned-immaculate-3.jpg"
+            "/media/work-stoned-immaculate.jpg",
+            "/media/stoned-immaculate.jpg",
+            "/media/stoned-immaculate-site.jpg"
           ],
           "url": "#contact"
         },
@@ -191,7 +192,7 @@
     },
     {
       "visible": true,
-      "theme": "forest",
+      "theme": "dusk",
       "heading": "See what WE can do for your brand.",
       "body": "Great work begins with a great fit. Let's talk about your brand, where you're headed, and how we can help you get there.",
       "cta": {

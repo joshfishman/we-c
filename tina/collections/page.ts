@@ -306,6 +306,14 @@ export const PageCollection: Collection = {
       ui: { component: "textarea" },
     },
     {
+      type: "string",
+      name: "theme",
+      label: "Color theme",
+      description:
+        "Re-skins the whole page. Every section reads the theme tokens.",
+      options: ["forest", "sunset"],
+    },
+    {
       type: "object",
       name: "blocks",
       label: "Sections",

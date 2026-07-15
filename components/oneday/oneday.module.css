@@ -434,14 +434,6 @@
   line-height: 1.6;
   color: #6a5750;
 }
-.arrow {
-  margin: 6px 0;
-}
-.arrowLeft,
-.arrowRight {
-  margin-left: 0;
-  margin-right: 0;
-}
 
 /* ---- Start CTA ---- */
 .startWrap {
@@ -579,9 +571,32 @@
     align-items: center;
     gap: 16px;
   }
-  .arrowLeft,
-  .arrowRight {
-    margin-left: 0;
-    margin-right: 0;
+}
+
+/* CSS Modules scopes animation-name, so a module referencing a keyframe from
+   globals.css resolves to a scoped name that doesn't exist and never runs.
+   Keep the keyframes local to the module that uses them. */
+@keyframes gradShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Local copy: CSS Modules scopes animation-name (see note above). */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
   }
 }

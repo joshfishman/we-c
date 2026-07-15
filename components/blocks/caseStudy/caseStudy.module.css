@@ -235,3 +235,18 @@
     gap: 12px;
   }
 }
+
+/* CSS Modules scopes animation-name, so a module referencing a keyframe from
+   globals.css resolves to a scoped name that doesn't exist and never runs.
+   Keep the keyframes local to the module that uses them. */
+@keyframes gradShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

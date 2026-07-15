@@ -23,7 +23,18 @@ export function ImageSlot({
       className={`imgSlot${className ? ` ${className}` : ""}`}
       data-tina-field={tinaField}
     >
-      {src ? <img src={src} alt={alt || ""} /> : <span>{placeholder}</span>}
+      {src ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={src}
+          alt={alt || ""}
+          onError={(e) => {
+            e.currentTarget.style.display = "none";
+          }}
+        />
+      ) : (
+        <span>{placeholder}</span>
+      )}
     </div>
   );
 }
