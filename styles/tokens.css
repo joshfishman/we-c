@@ -113,6 +113,9 @@
   --t-soft-panel: linear-gradient(165deg, #2e6e48 0%, #1e3d2c 100%);
   --t-soft-ink: #172419;
   --t-soft-ink-soft: #4a5a42;
+  --t-eyebrow-on-light: #2f5e3c;
+  /* Our Work panel — mirrors the panel above it */
+  --t-panel-bg-reverse: linear-gradient(160deg, #cfe0b4 0%, #c3d9a6 55%, #b8d29c 100%);
   /* Closing CTA / contact section */
   --t-cta-bg: linear-gradient(180deg, #2a1e3e 0%, #15102a 100%);
   /* Secondary button fill */
@@ -166,10 +169,25 @@
     #4f3c6a 88%,
     #241a38 100%
   );
-  --t-soft-bg: linear-gradient(150deg, #f6ede0 0%, #f0e2cd 58%, #e8d9c0 100%);
+  /* Human expertise = the daylight end of the sky; AI = the night end. */
+  --t-soft-bg: linear-gradient(150deg, #ffe3b0 0%, #f7c987 55%, #f0b06a 100%);
   --t-soft-panel: linear-gradient(165deg, #4f3c6a 0%, #241a38 100%);
   --t-soft-ink: #2b1626;
-  --t-soft-ink-soft: #5c4a55;
+  --t-soft-ink-soft: #4a3340;
+  /* The gold accent gradient disappears on the daylight panel — solid ink. */
+  --t-eyebrow-on-light: #7a3410;
+  /* Reversed sky: daylight at the top, night at the foot (Our Work sits
+     directly under the day→night panel, so it reads as one continuous sky). */
+  --t-panel-bg-reverse: linear-gradient(
+    180deg,
+    #f2b566 0%,
+    #e88e5c 13%,
+    #d0708e 30%,
+    #8e5e9e 48%,
+    #4f5c92 68%,
+    #2b3766 85%,
+    #1a2244 100%
+  );
   /* Same sunset→night ramp as the One Day "Tell us about your site" panel */
   --t-cta-bg: radial-gradient(
     125% 135% at 50% 122%,

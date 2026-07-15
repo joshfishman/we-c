@@ -5,6 +5,7 @@ import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { tinaField } from "tinacms/dist/react";
 import { Section } from "../../ui/Section";
 import { Cta } from "../../ui/Cta";
+import { Starfield } from "../../ui/Starfield";
 import { getCaseCopy } from "../../ui/CaseStudyPopover";
 import styles from "./ourWork.module.css";
 
@@ -117,6 +118,8 @@ export function OurWork({
           green ? styles.green : ""
         }`}
       >
+        {/* Night sky is at the foot of this panel, so the field is flipped. */}
+        <Starfield flip />
         <div className={styles.head}>
           <div>
             <p

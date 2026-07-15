@@ -20,6 +20,14 @@
   border: 1px solid rgba(58, 34, 48, 0.1);
   color: var(--t-soft-ink);
 }
+/* The accent gradient (.gradText) is a pale gold — it vanishes on the daylight
+   panel, so override it back to solid ink here. */
+.light .eyebrow {
+  background: none;
+  animation: none;
+  color: var(--t-eyebrow-on-light);
+  -webkit-text-fill-color: var(--t-eyebrow-on-light);
+}
 .dark {
   background: var(--t-soft-panel);
   color: #fcefe2;

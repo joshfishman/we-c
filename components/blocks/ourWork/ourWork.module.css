@@ -5,12 +5,16 @@
 }
 
 .panel {
+  position: relative;
+  overflow: hidden;
   border-radius: 40px;
-  background: linear-gradient(165deg, #cfe0b4 0%, #c3d9a6 55%, #b8d29c 100%);
+  background: var(--t-panel-bg-reverse);
   padding: 54px clamp(24px, 4vw, 48px);
 }
 
 .head {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -37,6 +41,8 @@
 }
 
 .rows {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -188,14 +194,10 @@
    SUNSET THEME (One Day page) — sunset→dusk panel, staggered
    cream cards, dusk badges, tech-logo rows.
    ============================================================ */
+/* Mirrors the day→night panel above it: daylight at the head, night at the
+   foot, so the two sections read as one continuous sky. */
 .panel.sunset {
-  background: linear-gradient(
-    160deg,
-    #f4c06a 0%,
-    #ee9a55 34%,
-    #e0728e 68%,
-    #9a5e9e 100%
-  );
+  background: var(--t-panel-bg-reverse);
 }
 .sunset .eyebrow {
   color: #5a2e20;

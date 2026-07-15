@@ -27,9 +27,14 @@ const STARS = [
   { left: "89%", top: "56%", size: 2.5, dur: "2.7s", delay: ".1s" },
 ];
 
-export function Starfield() {
+/** `flip` mirrors the field vertically, for panels whose night sky is at the
+ *  foot rather than the head. */
+export function Starfield({ flip }: { flip?: boolean } = {}) {
   return (
-    <div className={styles.stars} aria-hidden="true">
+    <div
+      className={`${styles.stars}${flip ? ` ${styles.flip}` : ""}`}
+      aria-hidden="true"
+    >
       {STARS.map((star, i) => (
         <span
           key={i}

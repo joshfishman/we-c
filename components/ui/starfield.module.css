@@ -9,6 +9,12 @@
   transition: opacity 0.4s ease;
 }
 
+/* Mirror the field so the stars sit at the foot, for panels whose night sky is
+   at the bottom. */
+.flip {
+  transform: scaleY(-1);
+}
+
 .star {
   position: absolute;
   border-radius: 50%;
