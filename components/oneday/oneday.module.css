@@ -276,7 +276,10 @@
 
 /* ---- Enterprise quality ---- */
 .quality {
-  padding: var(--section-pad-y) clamp(1.25rem, 4vw, 3rem);
+  /* Bigger bottom so the cream Quality block doesn't sit tight against the navy
+     Process block below it — the colored sections felt cramped at the base. */
+  padding: var(--section-pad-y) clamp(1.25rem, 4vw, 3rem)
+    clamp(4.75rem, 7vw, 6.5rem);
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -336,7 +339,9 @@
     #f2b566 100%
   );
   color: #f3e7d6;
-  padding: var(--section-pad-y) clamp(1.25rem, 4vw, 3rem);
+  /* The navy Process block needs room above the heading and below the last
+     step so it doesn't butt tight against the sections either side of it. */
+  padding: clamp(4.75rem, 7vw, 6.5rem) clamp(1.25rem, 4vw, 3rem);
   overflow: hidden;
 }
 .stars {
