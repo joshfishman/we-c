@@ -207,7 +207,10 @@ export function OurWork({
                   ) : null}
                   <Popover.Root>
                     <Popover.Trigger asChild>
-                      <button type="button" className={styles.readMore}>
+                      <button
+                        type="button"
+                        className={`btn btn--secondary ${styles.readMore}`}
+                      >
                         Read more <span aria-hidden="true">→</span>
                       </button>
                     </Popover.Trigger>

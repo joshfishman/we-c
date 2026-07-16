@@ -78,7 +78,8 @@
 .badge {
   align-self: flex-start;
   display: inline-flex;
-  font-size: 11px;
+  /* Matches the section eyebrow — the client result reads at the same weight. */
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -101,22 +102,11 @@
   text-transform: uppercase;
   color: #4a5a44;
 }
+/* A secondary button now (className adds `btn btn--secondary`); this only sets
+   what the button base doesn't. No margin-top: .textPanel's gap already puts the
+   same 14px above it as between every other item in the panel. */
 .readMore {
   align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  /* No margin-top: .textPanel's gap sets the rhythm so every row is evenly spaced. */
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #2f6e5a;
 }
 /* Right-floating cards right-align their copy, so the badge above the title and
    the button below it follow it over. Both set align-self themselves, which
@@ -261,9 +251,6 @@
 }
 .sunset .projCat {
   color: #9a7684;
-}
-.sunset .readMore {
-  color: #c2683e;
 }
 /* Flush top and bottom, a little room at the sides — every brand card. */
 .sunset .media {
@@ -412,9 +399,6 @@
 }
 .green .projCat {
   color: #4a5a44;
-}
-.green .readMore {
-  color: #2f6e5a;
 }
 
 /* CSS Modules scopes animation-name, so a module referencing a keyframe from
