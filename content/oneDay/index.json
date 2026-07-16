@@ -5,7 +5,7 @@
     "visible": true,
     "bgVideo": "/media/sky-video.mp4",
     "bgVideoMobile": "",
-    "bgPoster": "/media/sky-bg.png",
+    "bgPoster": "/media/sky-poster.jpg",
     "badge": "AI-Powered Development",
     "headlineLine1": "Plan in the morning.",
     "headlineLine2": "Go Live by Sunset.",
@@ -122,8 +122,8 @@
         "services": "Site Development",
         "image": "/media/work-ovando.jpg",
         "images": [
-          "/media/ovando-1.png",
-          "/media/ovando-2.png"
+          "/media/ovando-1.jpg",
+          "/media/ovando-2.jpg"
         ],
         "logos": [
           "shopify"

@@ -127,3 +127,55 @@ test.describe("Responsive", () => {
     expect(h1Box!.y).toBeGreaterThanOrEqual(headerBox!.y + headerBox!.height - 1);
   });
 });
+
+/**
+ * The One Day hero background must never leave a hole or offer a play button:
+ * it plays muted+inline, and when the media can't play the poster still frame
+ * carries the section instead.
+ */
+test.describe("Hero background video", () => {
+  test("autoplays muted and inline, with no play button", async ({ page }) => {
+    await page.goto("/one-day");
+    const state = await page.evaluate(async () => {
+      const v = document.querySelector("video");
+      if (!v) return null;
+      await new Promise((r) => setTimeout(r, 1500));
+      return {
+        playing: !v.paused && v.currentTime > 0,
+        muted: v.muted,
+        loop: v.loop,
+        controls: v.controls,
+        playsInline: v.playsInline,
+        hasPoster: !!v.poster,
+      };
+    });
+    expect(state).not.toBeNull();
+    expect(state!.muted).toBe(true);
+    expect(state!.loop).toBe(true);
+    expect(state!.playsInline).toBe(true);
+    expect(state!.controls).toBe(false); // no play button, ever
+    expect(state!.hasPoster).toBe(true);
+    expect(state!.playing).toBe(true);
+  });
+
+  test("falls back to the poster image when the video cannot play", async ({
+    page,
+  }) => {
+    await page.route("**/*.mp4", (r) => r.fulfill({ status: 404, body: "" }));
+    await page.goto("/one-day");
+    const poster = await page.evaluate(() => {
+      const img = [...document.querySelectorAll("img")].find((i) =>
+        /sky-poster/.test(i.currentSrc || i.src)
+      );
+      if (!img) return null;
+      const r = img.getBoundingClientRect();
+      return { loaded: img.complete && img.naturalWidth > 0, w: r.width, h: r.height };
+    });
+    expect(poster).not.toBeNull();
+    expect(poster!.loaded).toBe(true); // a real still frame is on screen
+    expect(poster!.w).toBeGreaterThan(200);
+    expect(poster!.h).toBeGreaterThan(200);
+    // and still no controls to click
+    expect(await page.evaluate(() => document.querySelector("video")?.controls ?? false)).toBe(false);
+  });
+});
