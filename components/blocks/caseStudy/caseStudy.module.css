@@ -50,7 +50,7 @@
   /* line-height 1 + a hair of top padding so the raised % glyph stays inside
      the box it clips its gradient from — 0.85 cut the top off the % in Safari. */
   line-height: 1;
-  padding-top: 0.06em;
+  padding: 0.06em 0.14em 0 0;
   letter-spacing: -0.02em;
 }
 .metricLabel {
@@ -180,7 +180,7 @@
   font-weight: 500;
   font-size: clamp(46px, 12vw, 84px);
   line-height: 1;
-  padding-top: 0.06em;
+  padding: 0.06em 0.14em 0 0;
   background: linear-gradient(90deg, #ffd98a, #f2955a, #e0708a, #ffd98a);
   background-size: 220% 100%;
   animation: gradShift 6s ease infinite;

@@ -76,21 +76,22 @@
   gap: 14px;
   padding: clamp(28px, 4vw, 48px);
 }
-/* A soft outlined chip, not a solid pill: the read-more is a real button on the
-   same card, so the result reads as a label (tinted fill + hairline, no shadow),
-   not a second button. Same size as the section eyebrow. */
+/* A gradient-filled kicker, not a pill: no border-radius, border or fill, so it
+   can't be read as a second button next to Read more. It's an eyebrow that
+   happens to carry the result. */
 .badge {
   align-self: flex-start;
-  display: inline-flex;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #1f6e5a;
-  background: rgba(31, 110, 90, 0.1);
-  border: 1px solid rgba(31, 110, 90, 0.28);
-  padding: 6px 13px;
-  border-radius: 999px;
+  background: linear-gradient(90deg, #1f6e5a, #2f7d4f, #1f6e5a);
+  background-size: 200% 100%;
+  animation: gradShift 7s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 .projTitle {
   font-size: clamp(26px, 3.2vw, 34px);
@@ -247,10 +248,12 @@
   padding: 42px 46px;
 }
 .sunset .badge {
-  /* Deepened accent that clears AA on the cream card (4.9:1 on #f6e7d6). */
-  color: #9c4d29;
-  background: rgba(154, 77, 41, 0.1);
-  border-color: rgba(154, 77, 41, 0.3);
+  /* background-image, not the `background` shorthand: the shorthand resets
+     background-clip to border-box, which paints the gradient as a solid bar
+     instead of clipping it to the text. Deep sunset→dusk ramp, every stop
+     clears AA on the cream card (5.1:1). */
+  background-image: linear-gradient(90deg, #95421f, #9c3a5e, #5f3c78);
+  background-size: 200% 100%;
 }
 .sunset .projTitle {
   color: #3a2230;
@@ -397,8 +400,8 @@
   background: linear-gradient(165deg, #ffffff 0%, #f1f6ea 60%, #e3eccf 100%);
 }
 .green .badge {
-  background: linear-gradient(90deg, #1f6e5a, #3fa56e, #9fcb55);
-  color: #f3e7d6;
+  background-image: linear-gradient(90deg, #1f6e5a, #2f7d4f, #1f6e5a);
+  background-size: 200% 100%;
 }
 .green .projTitle {
   color: #16301f;
