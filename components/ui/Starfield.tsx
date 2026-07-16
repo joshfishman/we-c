@@ -25,6 +25,24 @@ const STARS = [
   { left: "35%", top: "44%", size: 2.5, dur: "4.0s", delay: ".7s" },
   { left: "68%", top: "48%", size: 2, dur: "3.5s", delay: "1.0s" },
   { left: "89%", top: "56%", size: 2.5, dur: "2.7s", delay: ".1s" },
+  // Second layer: fills the gaps and the lower half so the field covers the
+  // whole panel rather than clustering up top.
+  { left: "3%", top: "40%", size: 2, dur: "3.8s", delay: ".9s" },
+  { left: "18%", top: "62%", size: 2.5, dur: "3.0s", delay: "1.3s" },
+  { left: "27%", top: "16%", size: 2, dur: "4.3s", delay: ".4s" },
+  { left: "43%", top: "36%", size: 2.5, dur: "2.9s", delay: "1.6s" },
+  { left: "51%", top: "58%", size: 2, dur: "3.6s", delay: ".2s" },
+  { left: "59%", top: "16%", size: 2, dur: "4.0s", delay: "1.0s" },
+  { left: "74%", top: "38%", size: 2.5, dur: "3.2s", delay: ".6s" },
+  { left: "82%", top: "66%", size: 2, dur: "2.8s", delay: "1.5s" },
+  { left: "96%", top: "18%", size: 2, dur: "3.9s", delay: ".8s" },
+  { left: "24%", top: "78%", size: 2.5, dur: "3.4s", delay: "1.1s" },
+  { left: "44%", top: "84%", size: 2, dur: "4.1s", delay: ".3s" },
+  { left: "62%", top: "72%", size: 2, dur: "3.0s", delay: "1.4s" },
+  { left: "77%", top: "88%", size: 2.5, dur: "3.7s", delay: ".5s" },
+  { left: "92%", top: "80%", size: 2, dur: "2.7s", delay: "1.8s" },
+  { left: "12%", top: "90%", size: 2, dur: "3.5s", delay: ".7s" },
+  { left: "53%", top: "42%", size: 2.5, dur: "4.2s", delay: "1.2s" },
 ];
 
 /** `flip` mirrors the field vertically, for panels whose night sky is at the

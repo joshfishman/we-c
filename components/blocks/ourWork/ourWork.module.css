@@ -211,7 +211,7 @@
 
 /* staggered cream cards */
 .sunset .rows {
-  gap: 34px;
+  gap: 68px;
 }
 .sunset .row {
   display: flex;
