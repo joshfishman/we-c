@@ -39,8 +39,9 @@ export function Squiggle({
         strokeLinecap="round"
         strokeDasharray="1 11"
       />
+      {/* symmetric about the vertex: both arms 13 across, 14 up */}
       <path
-        d="M45 62 L59 76 L72 60"
+        d="M46 62 L59 76 L72 62"
         stroke="currentColor"
         strokeWidth="3.5"
         strokeLinecap="round"
