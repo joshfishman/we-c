@@ -170,8 +170,13 @@ export function LeadQuiz({
           }}
         >
           <div className={styles.head}>
-            <Dialog.Title className={styles.title}>
-              {quiz.title || "Let's find your fit"}
+            {/* The contact step has its own heading, so the modal title would
+                stack a second one on top of it. Hidden, not removed: Radix
+                points aria-labelledby at it, so it still names the dialog. */}
+            <Dialog.Title
+              className={onContact ? styles.srOnly : styles.title}
+            >
+              {quiz.title || "Tell us about your project"}
             </Dialog.Title>
             <Dialog.Close className={styles.close} aria-label="Close">
               ×

@@ -22,7 +22,7 @@
   },
   "quiz": {
     "visible": true,
-    "title": "Let's find your fit",
+    "title": "Tell us about your project",
     "intro": "Six quick questions — about a minute of your time — and we'll come back with a plan built for your brand, not a generic pitch.",
     "submitLabel": "Get my plan",
     "steps": [

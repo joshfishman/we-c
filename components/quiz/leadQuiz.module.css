@@ -55,6 +55,9 @@
   color: var(--t-card-ink);
 }
 .close {
+  /* Holds the right edge even when the title is visually hidden and drops out
+     of the flex row on the contact step. */
+  margin-left: auto;
   flex-shrink: 0;
   width: 32px;
   height: 32px;
