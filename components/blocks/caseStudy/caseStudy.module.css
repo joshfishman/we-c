@@ -1,7 +1,7 @@
 .wrap {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 48px clamp(1.25rem, 4vw, 3rem);
+  padding-inline: clamp(1.25rem, 4vw, 3rem);
 }
 
 .grid {
@@ -47,7 +47,10 @@
 .metric {
   font-weight: 500;
   font-size: clamp(46px, 10vw, 84px);
-  line-height: 0.85;
+  /* line-height 1 + a hair of top padding so the raised % glyph stays inside
+     the box it clips its gradient from — 0.85 cut the top off the % in Safari. */
+  line-height: 1;
+  padding-top: 0.06em;
   letter-spacing: -0.02em;
 }
 .metricLabel {
@@ -176,7 +179,8 @@
 .dusk .metric {
   font-weight: 500;
   font-size: clamp(46px, 12vw, 84px);
-  line-height: 0.85;
+  line-height: 1;
+  padding-top: 0.06em;
   background: linear-gradient(90deg, #ffd98a, #f2955a, #e0708a, #ffd98a);
   background-size: 220% 100%;
   animation: gradShift 6s ease infinite;

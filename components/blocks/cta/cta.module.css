@@ -2,7 +2,7 @@
 .section {
   background: var(--t-cta-bg);
   color: #fcefe2;
-  padding-block: 96px 0;
+  padding-block: var(--section-pad-y) 0;
 }
 /* Forest theme (home / ecommerce-marketing page) */
 .section.forest {

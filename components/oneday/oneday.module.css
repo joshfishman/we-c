@@ -225,7 +225,8 @@
   margin: -70px auto 0;
   position: relative;
   z-index: 7;
-  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  /* Overlaps the hero at the top; standard section gap below, like home. */
+  padding: 0 clamp(1.25rem, 4vw, 3rem) var(--section-pad-y);
 }
 .proofBar {
   display: flex;
@@ -275,7 +276,7 @@
 
 /* ---- Enterprise quality ---- */
 .quality {
-  padding: 72px clamp(1.25rem, 4vw, 3rem) 96px;
+  padding: var(--section-pad-y) clamp(1.25rem, 4vw, 3rem);
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -335,7 +336,7 @@
     #f2b566 100%
   );
   color: #f3e7d6;
-  padding: 96px clamp(1.25rem, 4vw, 3rem);
+  padding: var(--section-pad-y) clamp(1.25rem, 4vw, 3rem);
   overflow: hidden;
 }
 .stars {
@@ -469,7 +470,7 @@
 
 /* ---- Start CTA ---- */
 .startWrap {
-  padding: 100px clamp(1.25rem, 4vw, 3rem);
+  padding: var(--section-pad-y) clamp(1.25rem, 4vw, 3rem);
   max-width: 1280px;
   margin: 0 auto;
 }

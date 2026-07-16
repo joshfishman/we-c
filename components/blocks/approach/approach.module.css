@@ -1,7 +1,7 @@
 .wrap {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 100px clamp(1.25rem, 4vw, 3rem);
+  padding-inline: clamp(1.25rem, 4vw, 3rem);
 }
 
 .grid {
