@@ -24,7 +24,7 @@ export function SiteRenderer(props: { page: TinaProps; settings: TinaProps }) {
 
   return (
     <div className="themeRoot" data-theme={theme} style={style}>
-      <SiteLayout settings={settings}>
+      <SiteLayout settings={settings} theme={theme}>
         <Blocks blocks={page?.blocks ?? []} settings={settings} />
       </SiteLayout>
     </div>

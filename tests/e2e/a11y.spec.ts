@@ -33,3 +33,34 @@ for (const path of ["/", "/one-day"]) {
     expect(blocking, `\n${report}`).toEqual([]);
   });
 }
+
+/**
+ * The quiz is a modal, so it only exists once opened — the page scans above
+ * never see it. Scan it at each shape it takes.
+ */
+test("lead quiz modal has no serious or critical a11y violations", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.locator("header button", { hasText: "Let's Grow" }).click();
+  const dialog = page.getByRole("dialog");
+  await dialog.waitFor();
+
+  const scan = async (label: string) => {
+    const results = await new AxeBuilder({ page }).withTags(TAGS).analyze();
+    const blocking = results.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical"
+    );
+    const report = blocking
+      .map((v) => `[${v.impact}] ${v.id}: ${v.help}`)
+      .join("\n");
+    expect(blocking, `${label}\n${report}`).toEqual([]);
+  };
+
+  await scan("intro panel");
+  await dialog.getByRole("button", { name: "Start" }).click();
+  await scan("first question");
+  await dialog.getByText("Both", { exact: true }).click();
+  await dialog.getByRole("button", { name: /Next/ }).click();
+  await scan("branched question");
+});

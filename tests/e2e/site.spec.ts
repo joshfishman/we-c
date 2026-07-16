@@ -179,3 +179,99 @@ test.describe("Hero background video", () => {
     expect(await page.evaluate(() => document.querySelector("video")?.controls ?? false)).toBe(false);
   });
 });
+
+/**
+ * Lead quiz — the qualifying funnel behind the header CTA.
+ *
+ * The a11y rules here are the load-bearing ones (WCAG 3.2.2 on-input, 3.3.7
+ * redundant entry, and the APG dialog pattern's focus contract); the axe scan
+ * lives in a11y.spec.ts.
+ */
+test.describe("Lead quiz", () => {
+  /** Opens the quiz and returns the dialog. Every locator is scoped to it:
+   *  unscoped, /Next/ also matches Next.js's own dev-tools button when the
+   *  suite attaches to a running dev server. */
+  const openQuiz = async (page: Page) => {
+    await page.goto("/");
+    await page.locator("header button", { hasText: "Let's Grow" }).click();
+    const dialog = page.getByRole("dialog");
+    await dialog.waitFor();
+    return dialog;
+  };
+
+  test("the header CTA opens it as a dialog", async ({ page }) => {
+    const dialog = await openQuiz(page);
+    await expect(dialog).toBeVisible();
+    // Labelled, and themed — it portals to <body>, outside the themed root.
+    await expect(dialog).toHaveAttribute("aria-labelledby", /.+/);
+    await expect(dialog).toHaveAttribute("data-theme", "sunset");
+  });
+
+  test("selecting an answer never auto-advances (WCAG 3.2.2)", async ({
+    page,
+  }) => {
+    const dialog = await openQuiz(page);
+    await dialog.getByRole("button", { name: "Start" }).click();
+    const step = dialog.locator('[class*="progressText"]');
+    await expect(step).toHaveText(/^Step 1 of/);
+    await dialog.getByText("Digital Marketing", { exact: true }).click();
+    // Still on step 1: choosing must not change context on its own. (The total
+    // does move — picking a service adds its branch question — so this asserts
+    // the step number, not the whole label.)
+    await expect(step).toHaveText(/^Step 1 of/);
+    await expect(dialog.getByRole("button", { name: /Next/ })).toBeVisible();
+  });
+
+  test("Back keeps the answers already given (WCAG 3.3.7)", async ({ page }) => {
+    const dialog = await openQuiz(page);
+    await dialog.getByRole("button", { name: "Start" }).click();
+    await dialog.getByText("Digital Marketing", { exact: true }).click();
+    await dialog.getByRole("button", { name: /Next/ }).click();
+    await dialog.getByText("Paid acquisition").click();
+    await dialog.getByText("SEO & organic").click();
+    await dialog.getByRole("button", { name: /Next/ }).click();
+    await dialog.getByRole("button", { name: /Back/ }).click();
+
+    const checked = dialog.locator("input:checked");
+    await expect(checked).toHaveCount(2);
+  });
+
+  test("an unanswered step is blocked with an error", async ({ page }) => {
+    const dialog = await openQuiz(page);
+    await dialog.getByRole("button", { name: "Start" }).click();
+    const step = dialog.locator('[class*="progressText"]');
+    await dialog.getByRole("button", { name: /Next/ }).click();
+    await expect(step).toHaveText(/^Step 1 of/);
+    await expect(dialog.getByRole("alert")).toBeVisible();
+  });
+
+  test("the service split drives which questions get asked", async ({ page }) => {
+    const dialog = await openQuiz(page);
+    await dialog.getByRole("button", { name: "Start" }).click();
+
+    // "Both" costs one extra question, not a second track.
+    await dialog.getByText("Both", { exact: true }).click();
+    const both = await dialog.locator('[class*="progressText"]').textContent();
+    await dialog.getByText("Digital Marketing", { exact: true }).click();
+    const marketing = await dialog.locator('[class*="progressText"]').textContent();
+    expect(both).not.toBe(marketing); // the total shrinks back
+
+    // Marketing-only never sees the site-development question.
+    await dialog.getByRole("button", { name: /Next/ }).click();
+    await expect(
+      dialog.getByRole("heading", { name: /matter most right now/i })
+    ).toBeVisible();
+  });
+
+  test("Esc closes it and returns focus to the button that opened it", async ({
+    page,
+  }) => {
+    await openQuiz(page);
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+    const focused = await page.evaluate(
+      () => document.activeElement?.textContent?.trim() ?? ""
+    );
+    expect(focused).toContain("Let's Grow");
+  });
+});

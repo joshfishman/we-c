@@ -108,7 +108,7 @@ export function OneDay(props: {
   pushLine(hero?.headlineLine2Accent, hero?.headlineLine2);
 
   return (
-    <SiteLayout settings={settings} headerTone="sky">
+    <SiteLayout settings={settings} headerTone="sky" theme="sunset">
       <div className={s.page} data-theme="sunset">
         {/* HERO */}
       {hero?.visible !== false ? (

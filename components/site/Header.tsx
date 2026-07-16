@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import { tinaField } from "tinacms/dist/react";
 import { Cta } from "../ui/Cta";
 import { Logo } from "./Logo";
+import { useQuiz } from "../quiz/QuizContext";
+import { trackCtaClick } from "../../lib/track";
 import styles from "./header.module.css";
 
 /** The path a nav link ultimately targets (ignoring any #anchor). */
@@ -25,6 +27,7 @@ export function Header({
   const header = settings?.header;
   const ref = useRef<HTMLElement | null>(null);
   const pathname = usePathname();
+  const quiz = useQuiz();
   // Both pages share the sunset palette and a transparent bar, so the nav link
   // uses one treatment. The old pale-blue "sky" variant sat at ~1.1:1 over the
   // bright hero with no backing behind it (see header.module.css .scrolled).
@@ -97,14 +100,32 @@ export function Header({
             {link?.label}
           </a>
         ))}
-        <Cta
-          label={header?.cta?.label}
-          url={header?.cta?.url}
-          location="header"
-          variant="primary"
-          className={styles.headerCta}
-          tinaField={header?.cta ? tinaField(header.cta, "label") : undefined}
-        />
+        {/* The CTA opens the lead quiz. It's a real <button>, not a link: it
+            opens a dialog rather than navigating, and Radix returns focus here
+            when the dialog closes. With the quiz turned off in the editor it
+            falls back to the plain link to the contact form. */}
+        {quiz.enabled && header?.cta?.label ? (
+          <button
+            type="button"
+            className={`btn btn--primary ${styles.headerCta}`}
+            data-tina-field={tinaField(header.cta, "label")}
+            onClick={() => {
+              trackCtaClick(header.cta.label, "header");
+              quiz.open();
+            }}
+          >
+            {header.cta.label}
+          </button>
+        ) : (
+          <Cta
+            label={header?.cta?.label}
+            url={header?.cta?.url}
+            location="header"
+            variant="primary"
+            className={styles.headerCta}
+            tinaField={header?.cta ? tinaField(header.cta, "label") : undefined}
+          />
+        )}
       </nav>
     </header>
   );

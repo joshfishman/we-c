@@ -1,0 +1,338 @@
+/* ---------------------------------------------------------------
+   Lead quiz modal — reads the theme tokens, so it re-skins with the
+   page like every other section. No hard-coded palette.
+   --------------------------------------------------------------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: rgba(12, 8, 24, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: quizFade 0.25s ease both;
+}
+
+.modal {
+  position: fixed;
+  z-index: 901;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(560px, calc(100vw - 32px));
+  /* Never sit under the fixed bar, and never outgrow the viewport. */
+  max-height: min(
+    calc(100dvh - var(--header-h, 92px) - 32px),
+    calc(100dvh - 32px)
+  );
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 28px;
+  /* The card surface, not --t-panel-bg-reverse: that's the day→night ramp, and
+     it goes dark navy at the foot — where the Back button and the last answer
+     tile sit, in dark ink. A form needs one readable surface top to bottom. */
+  background: var(--t-card-bg);
+  box-shadow: 0 40px 90px -30px rgba(12, 6, 20, 0.7);
+  animation: quizIn 0.32s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 24px 0;
+}
+.title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  color: var(--t-card-ink);
+}
+.close {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(58, 34, 48, 0.08);
+  color: var(--t-card-ink);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.close:hover {
+  background: rgba(58, 34, 48, 0.16);
+}
+
+/* ---- Progress ---- */
+.progressWrap {
+  position: relative;
+  z-index: 1;
+  padding: 16px 24px 0;
+}
+.progressTrack {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(58, 34, 48, 0.12);
+  overflow: hidden;
+}
+.progressBar {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--t-accent-grad);
+  transition: width 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.progressText {
+  margin: 8px 0 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--t-card-label);
+}
+
+/* ---- Body ---- */
+.body {
+  position: relative;
+  z-index: 1;
+  padding: 20px 24px 24px;
+  overflow-y: auto;
+}
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.question {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--t-card-ink);
+}
+.question:focus-visible {
+  outline: 2px solid var(--t-card-label);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.help,
+.intro {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--t-soft-ink-soft);
+}
+.intro {
+  font-size: 16px;
+}
+.duration {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--t-card-label);
+}
+
+/* ---- Answer tiles ---- */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(58, 34, 48, 0.14);
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.option:hover {
+  border-color: color-mix(in srgb, var(--t-card-label) 55%, transparent);
+  background: rgba(255, 255, 255, 0.9);
+}
+/* The input is visually hidden but still focusable, so the ring has to be
+   drawn on the label it controls. */
+.option:has(input:focus-visible) {
+  outline: 2px solid var(--t-card-label);
+  outline-offset: 2px;
+}
+.optionOn {
+  border-color: var(--t-card-label);
+  background: #fff;
+}
+.optionLabel {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--t-card-ink);
+}
+.tick {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(58, 34, 48, 0.28);
+}
+.optionOn .tick {
+  border-color: transparent;
+  background: var(--t-accent-grad);
+}
+
+/* ---- Contact fields ---- */
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.label {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--t-soft-ink-soft);
+}
+.optional {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+  color: var(--t-card-label);
+}
+.input,
+.textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(58, 34, 48, 0.16);
+  background: rgba(255, 255, 255, 0.75);
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--t-card-ink);
+}
+.textarea {
+  resize: vertical;
+}
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: 2px solid var(--t-card-label);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+/* ---- Actions ---- */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 6px;
+}
+.back {
+  margin-right: auto;
+  border: none;
+  background: none;
+  padding: 8px 2px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--t-card-label);
+}
+.back:hover {
+  color: var(--t-card-ink);
+}
+.error {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 500;
+  /* Deepened for AA on the cream panel. */
+  color: #b03a26;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 560px) {
+  .modal {
+    width: calc(100vw - 20px);
+    border-radius: 22px;
+  }
+  .body {
+    padding: 16px 18px 20px;
+  }
+  .head {
+    padding: 18px 18px 0;
+  }
+  .progressWrap {
+    padding: 14px 18px 0;
+  }
+  .question {
+    font-size: 19px;
+  }
+}
+
+/* Keyframes stay local to the module that uses them: CSS Modules scopes
+   animation-name, so referencing a keyframe from globals.css resolves to a
+   scoped name that doesn't exist and silently never runs. */
+@keyframes quizFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes quizIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 12px)) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .modal {
+    animation: none;
+  }
+  .progressBar {
+    transition: none;
+  }
+}

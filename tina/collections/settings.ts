@@ -59,6 +59,142 @@ export const SettingsCollection: Collection = {
     },
     {
       type: "object",
+      name: "quiz",
+      label: "Lead quiz (Let's Grow)",
+      description:
+        "The qualifying quiz behind the header button. Steps run in order; a step with a Branch set is only asked when that service is picked.",
+      fields: [
+        {
+          type: "boolean",
+          name: "visible",
+          label: "Enabled (uncheck to send the button to the contact form instead)",
+        },
+        { type: "string", name: "title", label: "Title (modal heading)" },
+        {
+          type: "string",
+          name: "intro",
+          label: "Intro line",
+          ui: { component: "textarea" },
+        },
+        {
+          type: "string",
+          name: "duration",
+          label: "Time estimate (e.g. About 60 seconds)",
+          description: "Set expectations before they start. Leave empty to hide.",
+        },
+        { type: "string", name: "startLabel", label: "Start button" },
+        { type: "string", name: "submitLabel", label: "Final submit button" },
+        {
+          type: "object",
+          name: "steps",
+          label: "Questions",
+          list: true,
+          ui: {
+            itemProps: (i: any) => ({
+              label: `${i?.branch && i.branch !== "any" ? `[${i.branch}] ` : ""}${
+                i?.question ?? "Question"
+              }`,
+            }),
+          },
+          fields: [
+            {
+              type: "string",
+              name: "key",
+              label: "Field key (what Formspree receives)",
+              description: "Lowercase, no spaces. e.g. timeline",
+            },
+            { type: "string", name: "question", label: "Question" },
+            {
+              type: "string",
+              name: "help",
+              label: "Helper line under the question",
+              ui: { component: "textarea" },
+            },
+            {
+              type: "string",
+              name: "type",
+              label: "Answer type",
+              options: [
+                { value: "single", label: "Pick one" },
+                { value: "multi", label: "Pick any" },
+              ],
+            },
+            {
+              type: "string",
+              name: "branch",
+              label: "Only ask for",
+              description:
+                "Which service picks this question. 'any' asks it of everyone.",
+              options: [
+                { value: "any", label: "Everyone" },
+                { value: "marketing", label: "Digital Marketing (or Both)" },
+                { value: "site", label: "Site Development (or Both)" },
+              ],
+            },
+            {
+              type: "object",
+              name: "options",
+              label: "Answers",
+              list: true,
+              ui: { itemProps: (i: any) => ({ label: i?.label || "Answer" }) },
+              fields: [
+                { type: "string", name: "label", label: "Label" },
+                {
+                  type: "string",
+                  name: "value",
+                  label: "Value (defaults to the label)",
+                },
+                {
+                  type: "string",
+                  name: "picks",
+                  label: "Sets the service branch (first question only)",
+                  description:
+                    "On the service question, what this answer selects.",
+                  options: [
+                    { value: "", label: "—" },
+                    { value: "marketing", label: "Digital Marketing" },
+                    { value: "site", label: "Site Development" },
+                    { value: "both", label: "Both" },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "object",
+          name: "contact",
+          label: "Final step (contact capture)",
+          fields: [
+            { type: "string", name: "question", label: "Heading" },
+            {
+              type: "string",
+              name: "help",
+              label: "Helper line",
+              ui: { component: "textarea" },
+            },
+          ],
+        },
+        {
+          type: "object",
+          name: "done",
+          label: "Confirmation (after submit)",
+          fields: [
+            { type: "string", name: "title", label: "Heading" },
+            {
+              type: "string",
+              name: "body",
+              label: "Body",
+              ui: { component: "textarea" },
+              description:
+                "The final button promises a plan — say when it lands, and make sure it does.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: "object",
       name: "footer",
       label: "Footer",
       fields: [

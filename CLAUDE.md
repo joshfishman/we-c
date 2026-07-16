@@ -73,4 +73,18 @@ Use the preview tools against the running dev server (screenshots can be flaky o
 
 - **Production visual editing** — removed, not dormant. Editing is **local-only** (`npm run dev` → `/admin`); `/admin` and `/api/tina/*` return **404** in production unconditionally, with no config to get wrong. `tina/database.ts` is just `createLocalDatabase()`, so **the build needs no env vars** (checked with `TINA_PUBLIC_IS_LOCAL` unset/`false`/`true`).
   The Supabase login + Upstash datalayer + GitHub PAT that hosted editing needed are gone: it was never switched on, and `tina/database.ts` threw at build time without a datalayer, which broke deploys. Re-adding it means an auth provider, a hosted datalayer and a git provider again — see the commit "Editing is local-only".
-- **Questionnaire page** — the "What are you planning?" CTA links to `#`; the multi-step questionnaire isn't built.
+- **Questionnaire page** — the "What are you planning?" CTA links to `#`. The lead quiz below covers the multi-step questionnaire; this CTA still isn't wired to it.
+
+## Lead quiz
+
+The qualifying funnel behind the header **Let's Grow** button, on both pages (`components/quiz/`). One quiz, not two: a first "Digital Marketing / Site Development / Both" question branches the rest, so **Both costs one extra question, not a second track**. Content is a Tina global (Site Settings → Lead quiz): questions, answers, branch, copy and the confirmation are all editor fields, and unchecking `visible` drops the button back to its plain `href`.
+
+- **Trigger** — `QuizProvider` (context) lets any CTA call `useQuiz().open()`; the modal renders once in `SiteLayout`. Header renders a real `<button>` (it opens a dialog, it doesn't navigate).
+- **Theme** — Radix portals the dialog to `<body>`, *outside* the themed root, so `SiteLayout` takes a `theme` prop that gets stamped on `Dialog.Content` as `data-theme`. Without it the `--t-*` tokens fall back to `:root` (forest) and the modal renders green. The panel uses `--t-card-bg`, **not** `--t-panel-bg-reverse` — that ramp goes dark navy at the foot, under dark ink.
+- **A11y invariants** (these are the researched, load-bearing ones — see `tests/e2e/site.spec.ts` › Lead quiz):
+  - **Never auto-advance on select** — keyboard users arrow through radios firing change on every option, and changing context on input is a WCAG 3.2.2 (A) failure. Always an explicit Next.
+  - **Back preserves answers** — WCAG 3.3.7 Redundant Entry (A).
+  - **Focus moves to the step heading** on each step; deliberately *no* `aria-live` as well, the two announcements collide.
+  - **Focus returns to the trigger on close** — Radix only does this for its own `<Dialog.Trigger>`; ours isn't one, so `QuizContext` remembers the opener and restores it via `onCloseAutoFocus`.
+  - Axe scans the modal open, at each step (`tests/e2e/a11y.spec.ts`). Note axe **cannot** check text contrast over a gradient, so it passed the green-panel bug — check contrast by hand.
+- **Submits** to the same Formspree form as the contact form, with every answer as a hidden field. The button says "Get my plan", so a plan has to actually arrive.
