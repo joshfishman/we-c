@@ -85,7 +85,7 @@ export function Header({
 
   return (
     <header ref={ref} className={styles.header} id="site-header">
-      <Link href="/" aria-label="Ecommerce Marketing — Home">
+      <Link href="/" aria-label="Ecommerce Marketing, Home">
         <Logo settings={settings} tone={tone} />
       </Link>
 

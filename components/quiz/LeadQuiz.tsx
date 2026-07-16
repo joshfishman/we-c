@@ -204,7 +204,7 @@ export function LeadQuiz({
             {state.succeeded ? (
               <div className={styles.panel}>
                 <h3 className={styles.question}>
-                  {quiz.done?.title || "Got it — your plan is on the way."}
+                  {quiz.done?.title || "Got it. Your plan is on the way."}
                 </h3>
                 <p className={styles.help}>{quiz.done?.body}</p>
                 <div className={styles.actions}>
@@ -236,7 +236,7 @@ export function LeadQuiz({
                 <input
                   type="hidden"
                   name="_subject"
-                  value="New quiz lead — WE Creative Agency"
+                  value="New quiz lead, WE Creative Agency"
                 />
                 {steps.map((s) =>
                   s.key ? (

@@ -9,11 +9,11 @@ const CASE_COPY: Record<string, string> = {
   "california-chicken-cafe":
     "<p>A custom WordPress theme built hand-in-hand with the in-house team, plus a branded store locator tied to their delivery partners.</p>",
   "11-honore":
-    "<p><strong>From idea to exit.</strong></p><p>Two full site builds, launch &amp; growth marketing, and ongoing optimization — all the way through to acquisition.</p>",
+    "<p><strong>From idea to exit.</strong></p><p>Two full site builds, launch &amp; growth marketing, and ongoing optimization, all the way through to acquisition.</p>",
   "hudson-jeans":
     "<p><strong>6× ROI across all campaigns.</strong> Integrated digital and retail audiences, headlined by the Fall 2020 / Kaia Gerber collaboration launch.</p>",
   ovando:
-    "<p>An editorial, image-led site for a luxury floral designer — with seasonal refreshes and a smooth content workflow.</p>",
+    "<p>An editorial, image-led site for a luxury floral designer, with seasonal refreshes and a smooth content workflow.</p>",
 };
 
 function slugify(s: string) {

@@ -45,7 +45,7 @@ export function ContactForm({
           forest ? styles.forest : ""
         } ${styles.done}`}
       >
-        <p className={styles.thanks}>Thanks — we&apos;ll be in touch shortly.</p>
+        <p className={styles.thanks}>Thanks, we&apos;ll be in touch shortly.</p>
       </div>
     );
   }
@@ -57,7 +57,7 @@ export function ContactForm({
       }`}
       onSubmit={handleSubmit}
     >
-      <input type="hidden" name="_subject" value="New enquiry — WE Creative Agency" />
+      <input type="hidden" name="_subject" value="New enquiry, WE Creative Agency" />
       <div className={styles.row}>
         <input
           className={styles.input}

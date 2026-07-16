@@ -105,8 +105,11 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 22px;
-  /* Matches the headline's accent gradient (themed). */
-  background: var(--t-hero-grad);
+  /* A near-white cream gradient, not the gold hero ramp: the gold read as low
+     contrast over the bright canopy. Cream sits with the headline's cream words
+     and stays legible over the sky. The soft halo carries it over hot spots
+     (drop-shadow, since the fill is transparent so text-shadow wouldn't show). */
+  background: linear-gradient(100deg, #fff7e9, #fde9cf, #fff7e9);
   background-size: 220% 100%;
   animation: heroRise 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) 0.12s both,
     gradShift 6s ease infinite;
@@ -114,6 +117,12 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+  /* Tight dark edge + soft glow. Cream over the bright canopy has no reliable
+     contrast on its own (the sky runs to near-white in spots); the tight edge
+     is what keeps it legible there, the glow softens it elsewhere. Same pattern
+     the header nav link uses over this hero. */
+  filter: drop-shadow(0 1px 1.5px rgba(8, 26, 40, 0.85))
+    drop-shadow(0 1px 8px rgba(8, 26, 40, 0.6));
 }
 
 .headline {
@@ -245,21 +254,14 @@
     gap: 12px;
     margin-top: 28px;
   }
-  /* Buttons fill the row so they take up space on mobile. */
-  .actions > * {
-    flex: 1 1 0;
-  }
-  /* Bring the AI-powered chip into the flow: centered below the buttons with
-     room before the proof strip (it was absolutely positioned and cramped). */
+  /* Bring the AI-powered chip into the flow, sat to the right like it is on
+     desktop (margin-left:auto pushes it to the content's right edge) with room
+     before the proof strip (it was absolutely positioned and cramped). */
   .callout {
     position: static;
     right: auto;
     bottom: auto;
-    align-self: center;
-    margin: 24px auto 0;
-  }
-  .calloutText {
-    text-align: center;
+    margin: 24px 0 0 auto;
   }
 }
 

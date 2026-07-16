@@ -68,7 +68,7 @@ export function CtaSection({ data, id = "contact" }: { data: any; id?: string })
         </div>
 
         <p className={styles.copyright}>
-          © {year} WE Creative Agency — Los Angeles
+          © {year} WE Creative Agency, Los Angeles
         </p>
       </div>
     </Section>

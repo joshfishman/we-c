@@ -1,6 +1,6 @@
 {
-  "title": "Website & Ecommerce Development in a Day — WE Creative Agency",
-  "description": "Enterprise-level websites — strategy, design and development, all in one day. Planned in the morning, live by sunset.",
+  "title": "Website & Ecommerce Development in a Day | WE Creative Agency",
+  "description": "Enterprise-level websites: strategy, design and development, all in one day. Planned in the morning, live by sunset.",
   "hero": {
     "visible": true,
     "bgVideo": "/media/sky-video.mp4",
@@ -55,7 +55,7 @@
     "metricValue": "300+%",
     "metricLabel": "revenue growth in six months",
     "brand": "Stoned Immaculate Clothing",
-    "quote": "WE rebuilt our store and dialed in our organic and paid channels — we tripled revenue in a single quarter. They move fast and actually get fashion.",
+    "quote": "WE rebuilt our store and dialed in our organic and paid channels. We tripled revenue in a single quarter. They move fast and actually get fashion.",
     "personName": "Founder & Creative Director",
     "personTitle": "Stoned Immaculate Clothing",
     "image": "/media/stoned-immaculate-editorial.jpg",
@@ -131,7 +131,7 @@
       {
         "icon": "⚡",
         "title": "Built for speed",
-        "body": "Lightning page loads and clean code — engineered to score top marks on Core Web Vitals out of the box."
+        "body": "Lightning page loads and clean code, engineered to score top marks on Core Web Vitals out of the box."
       },
       {
         "icon": "⌕",
@@ -141,7 +141,7 @@
       {
         "icon": "⛬",
         "title": "Secure & scalable",
-        "body": "Hosted on rock-solid infrastructure that grows with you — and a stack you fully own and control."
+        "body": "Hosted on rock-solid infrastructure that grows with you, and a stack you fully own and control."
       }
     ]
   },
@@ -154,19 +154,19 @@
         "no": "01",
         "title": "Plan",
         "tag": "Morning",
-        "body": "A guided questionnaire gets your goals, audience and brand on paper fast. We align on scope and direction together — no guesswork, no long discovery cycle."
+        "body": "A guided questionnaire gets your goals, audience and brand on paper fast. We align on scope and direction together. No guesswork, no long discovery cycle."
       },
       {
         "no": "02",
         "title": "Design",
         "tag": "Midday",
-        "body": "We lock in all content and structure — copy, imagery, sitemap and layout. With everything settled up front, AI turns the approved plan into a polished, on-brand build."
+        "body": "We lock in all content and structure: copy, imagery, sitemap and layout. With everything settled up front, AI turns the approved plan into a polished, on-brand build."
       },
       {
         "no": "03",
         "title": "Launch & Refine",
         "tag": "Sunset",
-        "body": "Your site goes live the same day. Then we measure real behaviour and refine — tuning copy, layout and conversion paths so the site keeps getting sharper."
+        "body": "Your site goes live the same day. Then we measure real behaviour and refine, tuning copy, layout and conversion paths so the site keeps getting sharper."
       }
     ]
   },
@@ -174,7 +174,7 @@
     "visible": true,
     "eyebrow": "Website & Ecommerce Development",
     "heading": "Tell us about your site. We'll build it tomorrow.",
-    "body": "Start with the questionnaire — it takes about 5 minutes and starts your one-day build process.",
+    "body": "Start with the questionnaire. It takes about 5 minutes and starts your one-day build process.",
     "image": "/media/one-day-sunset.jpg",
     "ctaPrimary": {
       "label": "What are you planning?",
@@ -196,6 +196,6 @@
   },
   "footer": {
     "contact": "hello@wecreativeagency.com  ·  (323) 412-0544",
-    "copyright": "© WE Creative Agency — Los Angeles"
+    "copyright": "© WE Creative Agency, Los Angeles"
   }
 }
