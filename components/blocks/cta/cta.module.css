@@ -1,11 +1,18 @@
-/* No bottom padding: the footer bar ends flush with the page. */
+/* The section only carries the shared cream gap on top (uniform with every
+   other section); no bottom padding, so the band ends flush with the page. */
 .section {
-  background: var(--t-cta-bg);
-  color: #fcefe2;
   padding-block: var(--section-pad-y) 0;
 }
+/* The dark band: the colour and light ink live here, not on the section, so
+   the top padding above reads as cream gap, not dark. Its own top padding gives
+   the heading room off the colour edge; it bleeds to the foot of the page. */
+.band {
+  background: var(--t-cta-bg);
+  color: #fcefe2;
+  padding-top: clamp(3rem, 5vw, 4.5rem);
+}
 /* Forest theme (home / ecommerce-marketing page) */
-.section.forest {
+.forest .band {
   background: linear-gradient(180deg, #1c3a29 0%, #0c1f15 100%);
 }
 

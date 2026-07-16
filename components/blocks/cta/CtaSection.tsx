@@ -27,7 +27,11 @@ export function CtaSection({ data, id = "contact" }: { data: any; id?: string })
       id={id}
       className={`${styles.section} ${data?.theme === "forest" ? styles.forest : ""}`}
     >
-      <div className={styles.grid}>
+      {/* The dark colour lives on this band, not the section, so the section's
+          top padding is cream gap (uniform with the rest) rather than dark. The
+          band still bleeds to the foot of the page. */}
+      <div className={styles.band}>
+        <div className={styles.grid}>
         <div>
           <h2
             className={`serif ${styles.heading}`}
@@ -70,6 +74,7 @@ export function CtaSection({ data, id = "contact" }: { data: any; id?: string })
         <p className={styles.copyright}>
           © {year} WE Creative Agency, Los Angeles
         </p>
+      </div>
       </div>
     </Section>
   );
