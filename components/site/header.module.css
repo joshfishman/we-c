@@ -39,7 +39,12 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  filter: drop-shadow(0 1px 8px rgba(8, 26, 40, 0.65));
+  /* Tight outline + soft halo. At the top of the home page the header has no
+     backing and the hero photo runs to near-white sky behind this link, where
+     the gold ramp on its own is barely findable — the soft 8px glow alone was
+     too diffuse to separate them. */
+  filter: drop-shadow(0 1px 1.5px rgba(8, 26, 40, 0.92))
+    drop-shadow(0 1px 8px rgba(8, 26, 40, 0.7));
 }
 
 .nav {

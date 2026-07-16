@@ -127,6 +127,8 @@
 [data-theme="sunset"] {
   --t-page-bg: #eae0cb;
   --t-accent-grad: var(--grad-sunset-bright);
+  /* Hero headline words. Only the home hero reads this — the One Day headline
+     uses --grad-sunset-bright directly. */
   --t-hero-grad: linear-gradient(
     100deg,
     #ffe7a0 0%,

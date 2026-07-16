@@ -114,7 +114,6 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  filter: drop-shadow(0 1px 4px rgba(6, 22, 12, 0.8));
 }
 
 .headline {
@@ -126,7 +125,9 @@
   text-shadow: 0 4px 34px rgba(8, 26, 36, 0.6);
   animation: heroRise 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) 0.28s both;
 }
-/* Accent gradient on just "Grow" and "Online" — themed, rich so it pops */
+/* Accent gradient on just "Grow" and "Online" — themed. The headline's own
+   text-shadow sits behind these (the fill is transparent, so it reads as a soft
+   halo); they carry no drop-shadow outline of their own. */
 .gradWord {
   background: var(--t-hero-grad);
   background-size: 200% 100%;
@@ -135,9 +136,6 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  /* tight dark shadow = near-outline so the green reads over the canopy */
-  filter: drop-shadow(0 1.5px 1px rgba(6, 22, 12, 0.9))
-    drop-shadow(0 4px 18px rgba(6, 22, 12, 0.55));
 }
 
 .subhead {
@@ -205,7 +203,12 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #cbe0a0;
+  /* Themed: was a leftover forest green on a page that runs sunset. */
+  background: var(--t-accent-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 .calloutMain {
   font-size: 11px;
@@ -220,8 +223,8 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #e7dcc4;
-  color: #0c2a33;
+  background: var(--t-accent-grad);
+  color: #2b1626;
   font-size: 11px;
   flex-shrink: 0;
 }
