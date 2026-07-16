@@ -10,9 +10,8 @@ import styles from "./squiggle.module.css";
  * to fall rather than to travel sideways.
  *
  * In both, the dashed line lands on the caret's vertex so the caret reads as
- * the line's arrowhead rather than a V floating beside it, and the caret is
- * symmetric about that vertex. Stroke is currentColor ← --t-connector, so it
- * re-skins with the theme.
+ * the line's arrowhead rather than a V floating beside it. Stroke is
+ * currentColor ← --t-connector, so it re-skins with the theme.
  */
 export function Squiggle({
   flip,
@@ -50,7 +49,6 @@ export function Squiggle({
             strokeLinecap="round"
             strokeDasharray="1 11"
           />
-          {/* symmetric about the vertex: both arms 14 back, 13 out */}
           <path
             d="M49 56 L63 42 L49 29"
             stroke="currentColor"
@@ -62,15 +60,14 @@ export function Squiggle({
       ) : (
         <>
           <path
-            d="M22 8 C 80 28, 20 54, 59 76"
+            d="M22 8 C48 18, 50 52, 56 75"
             stroke="currentColor"
             strokeWidth="3.5"
             strokeLinecap="round"
             strokeDasharray="1 11"
           />
-          {/* symmetric about the vertex: both arms 13 across, 14 up */}
           <path
-            d="M46 62 L59 76 L72 62"
+            d="M41 60 L55 74 L68 58"
             stroke="currentColor"
             strokeWidth="3.5"
             strokeLinecap="round"
