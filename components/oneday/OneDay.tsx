@@ -16,13 +16,30 @@ import s from "./oneday.module.css";
 // numeral keeps WCAG AA contrast (large text) right through the animation.
 const STEP_BADGES = [s.badge1, s.badge2, s.badge3];
 
-// Hero day-arc chips: fixed position/colors per index (0=morning,1=midday,2=sunset)
+/**
+ * Where the arc's curve actually sits, as a % of .dayArc's height.
+ *
+ * The SVG is viewBox="0 0 760 96" with preserveAspectRatio="none", so the curve
+ * stretches to whatever height .dayArc is — 96px, but 118px once the pills wrap
+ * to two lines on mobile. Percentages stretch with it; the fixed px offsets
+ * these replace did not, which left the suns off the line at that width.
+ *
+ * For the path `M 40 84 Q 380 -6 720 84`, x(t) = 40 + 680t (the t² terms
+ * cancel), so a chip at 10%/50%/90% of the 760-wide viewBox sits at
+ * t = .0529/.5/.9471, where the curve's y = 74.98/39/74.98.
+ */
+const ARC_CURVE_Y = {
+  outer: `${(74.98 / 96) * 100}%`, // 78.1%
+  apex: `${(39 / 96) * 100}%`, // 40.6%
+};
+
+// Hero day-arc chips: fixed position/colors per index (0=morning,1=midday,2=sunset).
+// `group` anchors the SUN's centre to the curve; the pill stacks above it.
 const ARC_CHIPS = [
   {
     group: {
       left: "10%",
-      bottom: "18px",
-      transform: "translateX(-50%)",
+      top: ARC_CURVE_Y.outer,
     } as React.CSSProperties,
     dot: "#F0A6BE",
     dotGlow: "rgba(240,166,190,0.7)",
@@ -35,8 +52,7 @@ const ARC_CHIPS = [
   {
     group: {
       left: "50%",
-      top: "-12px",
-      transform: "translateX(-50%)",
+      top: ARC_CURVE_Y.apex,
     } as React.CSSProperties,
     dot: "#FFE08A",
     dotGlow: "rgba(255,224,138,0.8)",
@@ -48,9 +64,8 @@ const ARC_CHIPS = [
   },
   {
     group: {
-      right: "10%",
-      bottom: "18px",
-      transform: "translateX(50%)",
+      left: "90%",
+      top: ARC_CURVE_Y.outer,
     } as React.CSSProperties,
     dot: "#F4943E",
     dotGlow: "rgba(244,148,62,0.7)",
@@ -79,13 +94,18 @@ export function OneDay(props: {
   const cta = page?.cta;
   const contact = page?.contact;
 
-  // Typed hero headline: line 1 (cream) then line 2 (sunset gradient).
+  // Typed hero headline. Each line can lead with an accent phrase that carries
+  // the sunset gradient ("Plan", "Go Live"); the rest of the line stays cream.
+  // Both are editor fields, so which words glow is content, not markup.
   const titleSegments: TWSegment[] = [];
-  if (hero?.headlineLine1) titleSegments.push({ text: hero.headlineLine1 });
-  if (hero?.headlineLine2) {
-    titleSegments.push({ break: true });
-    titleSegments.push({ text: hero.headlineLine2, className: s.heroTitleSunset });
-  }
+  const pushLine = (accent?: string, rest?: string) => {
+    if (!accent && !rest) return;
+    if (titleSegments.length) titleSegments.push({ break: true });
+    if (accent) titleSegments.push({ text: accent, className: s.heroTitleSunset });
+    if (rest) titleSegments.push({ text: accent ? ` ${rest}` : rest });
+  };
+  pushLine(hero?.headlineLine1Accent, hero?.headlineLine1);
+  pushLine(hero?.headlineLine2Accent, hero?.headlineLine2);
 
   return (
     <SiteLayout settings={settings} headerTone="sky">
@@ -125,7 +145,20 @@ export function OneDay(props: {
                 const chip = ARC_CHIPS[i];
                 if (!chip) return null;
                 return (
-                  <div key={i} className={s.arcGroup} style={chip.group}>
+                  <div
+                    key={i}
+                    className={s.arcGroup}
+                    style={{
+                      ...chip.group,
+                      // The sun is the group's last child, so pulling the group
+                      // up by its own height lands the sun's bottom on the
+                      // curve; nudging back down by its radius centres it there
+                      // — whatever height the pill above it grows to.
+                      transform: `translate(-50%, calc(-100% + ${
+                        chip.belowSize / 2
+                      }px))`,
+                    }}
+                  >
                     <span className={s.arcPill}>
                       <span
                         className={s.arcPillGradient}

@@ -47,8 +47,22 @@ export const OneDayCollection: Collection = {
         { type: "string", name: "bgVideoMobile", label: "Background video (mobile)" },
         { type: "image", name: "bgPoster", label: "Video poster" },
         { type: "string", name: "badge", label: "Badge" },
+        {
+          type: "string",
+          name: "headlineLine1Accent",
+          label: "Headline line 1 — gradient words (e.g. Plan)",
+          description:
+            "Leads the line in the sunset gradient. Leave empty for no accent.",
+        },
         { type: "string", name: "headlineLine1", label: "Headline line 1" },
-        { type: "string", name: "headlineLine2", label: "Headline line 2 (italic)" },
+        {
+          type: "string",
+          name: "headlineLine2Accent",
+          label: "Headline line 2 — gradient words (e.g. Go Live)",
+          description:
+            "Leads the line in the sunset gradient. Leave empty for no accent.",
+        },
+        { type: "string", name: "headlineLine2", label: "Headline line 2" },
         {
           type: "string",
           name: "subhead",
