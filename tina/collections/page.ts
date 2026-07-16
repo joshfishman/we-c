@@ -45,6 +45,14 @@ const heroTemplate: Template = withVisible({
       description: "Optional. Falls back to the desktop video.",
     },
     { type: "image", name: "bgPoster", label: "Video poster / fallback image" },
+    {
+      type: "image",
+      name: "bgSlides",
+      label: "Background slideshow (2+ images crossfade)",
+      description:
+        "Add two or more images and the hero crossfades between them. Overrides the video/poster. One image just acts as the poster.",
+      list: true,
+    },
     { type: "string", name: "eyebrow", label: "Eyebrow" },
     { type: "string", name: "headlineLead", label: "Headline — lead" },
     {

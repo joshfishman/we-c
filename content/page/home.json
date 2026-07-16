@@ -7,7 +7,11 @@
       "visible": true,
       "bgVideo": "",
       "bgVideoMobile": "",
-      "bgPoster": "/media/hero-trees.jpg",
+      "bgPoster": "",
+      "bgSlides": [
+        "/media/hero-trees.jpg",
+        "/media/hero-maple.jpg"
+      ],
       "eyebrow": "For ecommerce and lifestyle brands",
       "headlineLead": "Grow",
       "headlineAccent": "your\nBrand",
@@ -67,6 +71,7 @@
       "visible": true,
       "eyebrow": "What WE Do",
       "heading": "eCommerce Growth Services",
+      "description": "Three layers that work together: attract the right people, turn them into customers, and keep them coming back.",
       "flowIntro": "",
       "layers": [
         {
@@ -105,8 +110,7 @@
           ]
         }
       ],
-      "_template": "framework",
-      "description": "Three layers that work together: attract the right people, turn them into customers, and keep them coming back."
+      "_template": "framework"
     },
     {
       "visible": true,
@@ -127,6 +131,7 @@
             "facebook",
             "instagram"
           ],
+          "caseBody": "",
           "url": "#contact"
         },
         {
@@ -134,13 +139,14 @@
           "badge": "3× revenue · 6 mo",
           "services": "Shopify Development · Social & Search Ads",
           "image": "/media/work-stoned-immaculate.png",
-          "url": "#contact",
           "logos": [
             "shopify",
             "instagram",
             "google",
             "facebook"
-          ]
+          ],
+          "caseBody": "",
+          "url": "#contact"
         },
         {
           "title": "Grow Organic Baby",
@@ -150,6 +156,7 @@
           "logos": [
             "shopify"
           ],
+          "caseBody": "",
           "url": "#contact"
         }
       ],

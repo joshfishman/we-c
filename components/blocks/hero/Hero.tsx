@@ -4,6 +4,7 @@ import { tinaField } from "tinacms/dist/react";
 import { Section } from "../../ui/Section";
 import { Cta } from "../../ui/Cta";
 import { BgVideo } from "../../ui/BgVideo";
+import { BgSlideshow } from "../../ui/BgSlideshow";
 import { Typewriter, type TWSegment } from "../../ui/Typewriter";
 import styles from "./hero.module.css";
 
@@ -31,12 +32,18 @@ export function Hero({ data }: { data: any }) {
   return (
     <Section name="hero" id="top" className={styles.hero}>
       <div className={styles.bg} aria-hidden="true">
-        <BgVideo
-          src={data.bgVideo}
-          mobileSrc={data.bgVideoMobile}
-          poster={data.bgPoster}
-          className={styles.media}
-        />
+        {/* Two or more background images → a slow crossfading slideshow.
+            Otherwise the video/poster path (a single image is just a poster). */}
+        {(data.bgSlides?.filter(Boolean).length ?? 0) >= 2 ? (
+          <BgSlideshow slides={data.bgSlides} className={styles.media} />
+        ) : (
+          <BgVideo
+            src={data.bgVideo}
+            mobileSrc={data.bgVideoMobile}
+            poster={data.bgPoster}
+            className={styles.media}
+          />
+        )}
         {/* legibility scrims */}
         <div className={styles.scrimTop} />
         <div className={styles.scrimCenter} />
