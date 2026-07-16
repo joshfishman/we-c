@@ -9,17 +9,22 @@ import styles from "./framework.module.css";
 /**
  * Same dashed arrow as the One Day process steps, sat between the cards.
  *
- * Direction is driven from CSS, not the `flip` prop: flip sets an inline
- * transform, which would win over the rotation the grid needs. Desktop lays the
- * three cards out in a row so the arrows rotate to point right; on mobile the
- * row folds to a column and they point down, alternating as before.
+ * Desktop lays the three cards out in a row and mobile folds them to a column,
+ * so the arrow has to point right or down depending on width. That's a
+ * different path, not a rotation, so both are rendered and CSS picks one —
+ * which keeps it a media query rather than a JS width check that SSR can't
+ * resolve. Both are aria-hidden, so the spare node costs nothing to a reader.
+ *
+ * The down variant alternates its curve left/right the way the stacked layout
+ * always did; that flip lives in CSS, since the `flip` prop's inline transform
+ * would win over it.
  */
 function Connector({ step }: { step: 1 | 2 }) {
   return (
-    <Squiggle
-      indent={step === 1 ? "left" : "right"}
-      className={step === 1 ? styles.connector1 : styles.connector2}
-    />
+    <span className={step === 1 ? styles.connector1 : styles.connector2}>
+      <Squiggle direction="right" className={styles.connectorRow} />
+      <Squiggle direction="down" className={styles.connectorCol} />
+    </span>
   );
 }
 

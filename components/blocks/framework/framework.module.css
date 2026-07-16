@@ -66,15 +66,19 @@
   margin: 0 auto;
 }
 
-/* The Squiggle draws a down-and-right curve, so rotating it -90deg makes it
-   point along the row. Its own left/right nudge is for a stacked column, so
-   it's cancelled here. */
+/* The row runs left to right, so it uses the Squiggle drawn to travel that way.
+   The down variant is rendered too but stays hidden until the row folds. */
 .connector1,
 .connector2 {
   align-self: center;
-  margin: 0;
-  transform: rotate(-90deg);
   flex-shrink: 0;
+}
+.connectorRow {
+  display: block;
+  margin: 0;
+}
+.connectorCol {
+  display: none;
 }
 
 /* ---- Card (Attract / Convert / Retain — all the same shape) ----
@@ -238,12 +242,16 @@
   .connector1,
   .connector2 {
     justify-self: center;
+  }
+  .connectorRow {
+    display: none;
+  }
+  .connectorCol {
+    display: block;
     margin: -4px 0;
   }
-  .connector1 {
-    transform: none;
-  }
-  .connector2 {
+  /* alternate the curve so consecutive arrows don't read as one line */
+  .connector2 .connectorCol {
     transform: scaleX(-1);
   }
 }
