@@ -216,7 +216,8 @@
 }
 .sunset .row {
   display: flex;
-  width: 66%;
+  width: 90%;
+  max-width: 800px;
   min-height: 320px;
   border-radius: 24px;
   background: linear-gradient(165deg, #ffffff 0%, #fbeedf 60%, #f6dfcb 100%);

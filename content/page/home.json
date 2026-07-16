@@ -118,6 +118,18 @@
       },
       "projects": [
         {
+          "title": "11 Honoré",
+          "badge": "Idea → Exit",
+          "services": "Shopify Development · Digital Marketing",
+          "image": "/media/work-11-honore.png",
+          "logos": [
+            "shopify",
+            "facebook",
+            "instagram"
+          ],
+          "url": "#contact"
+        },
+        {
           "title": "Stoned Immaculate Clothing",
           "badge": "3× revenue · 6 mo",
           "services": "Shopify Development · Social & Search Ads",
@@ -131,48 +143,14 @@
           ]
         },
         {
-          "title": "California Chicken Cafe",
-          "badge": "WordPress · Store Locator",
-          "services": "Site Development",
-          "image": "/media/work-california-chicken-cafe.png",
-          "url": "#contact"
-        },
-        {
-          "title": "11 Honoré",
-          "badge": "Idea → Exit",
+          "title": "Grow Organic Baby",
+          "badge": "Shopify · DTC",
           "services": "Shopify Development · Digital Marketing",
-          "image": "/media/work-11-honore.png",
-          "logos": [
-            "shopify",
-            "facebook",
-            "instagram"
-          ],
-          "url": "#contact"
-        },
-        {
-          "title": "Hudson Jeans",
-          "badge": "6× ROI",
-          "services": "Social Ad Management",
-          "image": "/media/work-hudson-jeans.png",
-          "logos": [
-            "facebook",
-            "instagram"
-          ],
-          "url": "#contact"
-        },
-        {
-          "title": "Ovando",
-          "badge": "Seasonal Collections",
-          "services": "Site Development",
-          "image": "/media/work-ovando.jpg",
-          "images": [
-            "/media/ovando-1.jpg",
-            "/media/ovando-2.jpg"
-          ],
-          "url": "#contact",
+          "image": "/media/work-grow-organic-baby.jpg",
           "logos": [
             "shopify"
-          ]
+          ],
+          "url": "#contact"
         }
       ],
       "_template": "ourWork"

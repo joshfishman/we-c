@@ -7,8 +7,10 @@
     "bgVideoMobile": "",
     "bgPoster": "/media/sky-poster.jpg",
     "badge": "AI-Powered Development",
-    "headlineLine1": "Plan in the morning.",
-    "headlineLine2": "Go Live by Sunset.",
+    "headlineLine1Accent": "Plan",
+    "headlineLine1": "in the morning.",
+    "headlineLine2Accent": "Go Live",
+    "headlineLine2": "by Sunset.",
     "subhead": "Enterprise level websites. From Strategy to Design & Development, all in one day.",
     "ctaPrimary": {
       "label": "Let's Build Together →",
@@ -83,6 +85,20 @@
         "url": "#start"
       },
       {
+        "title": "Ovando",
+        "badge": "Seasonal Collections",
+        "services": "Site Development",
+        "image": "/media/work-ovando.jpg",
+        "images": [
+          "/media/ovando-1.jpg",
+          "/media/ovando-2.jpg"
+        ],
+        "logos": [
+          "shopify"
+        ],
+        "url": "#start"
+      },
+      {
         "title": "California Chicken Cafe",
         "badge": "Custom Webflow",
         "services": "Site Development",
@@ -102,31 +118,6 @@
           "shopify",
           "facebook",
           "instagram"
-        ],
-        "url": "#start"
-      },
-      {
-        "title": "Hudson Jeans",
-        "badge": "6× ROI",
-        "services": "Social Ad Management",
-        "image": "/media/work-hudson-jeans.png",
-        "logos": [
-          "facebook",
-          "instagram"
-        ],
-        "url": "#start"
-      },
-      {
-        "title": "Ovando",
-        "badge": "Seasonal Collections",
-        "services": "Site Development",
-        "image": "/media/work-ovando.jpg",
-        "images": [
-          "/media/ovando-1.jpg",
-          "/media/ovando-2.jpg"
-        ],
-        "logos": [
-          "shopify"
         ],
         "url": "#start"
       }
