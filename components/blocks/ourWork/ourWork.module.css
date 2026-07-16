@@ -118,6 +118,10 @@
   text-transform: uppercase;
   color: #2f6e5a;
 }
+/* Right-floating cards right-align their copy, so the badge above the title and
+   the button below it follow it over. Both set align-self themselves, which
+   would otherwise beat the panel's align-items. */
+.imgRight .badge,
 .imgRight .readMore {
   align-self: flex-end;
 }
@@ -309,6 +313,11 @@
   }
   .imgRight .logos {
     justify-content: flex-start;
+  }
+  /* Stacked cards run left-aligned, so the badge and button come back too. */
+  .imgRight .badge,
+  .imgRight .readMore {
+    align-self: flex-start;
   }
 }
 
