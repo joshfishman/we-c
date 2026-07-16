@@ -320,13 +320,47 @@
 /* ---- Case-study popover (Radix Popover off "Read more") ---- */
 .casePop {
   position: relative;
-  max-width: 360px;
+  max-width: 380px;
   background: #fffdf8;
   color: #3a2230;
-  border-radius: 16px;
-  padding: 22px 24px;
+  border-radius: 18px;
+  padding: 44px 48px;
   box-shadow: 0 26px 60px -22px rgba(20, 10, 20, 0.5);
   z-index: 400;
+  transform-origin: var(--radix-popover-content-transform-origin);
+}
+/* Radix stamps data-state open/closed and keeps the node mounted through the
+   closed animation, so the tooltip fades out rather than snapping away. */
+.casePop[data-state="open"] {
+  animation: casePopIn 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.casePop[data-state="closed"] {
+  animation: casePopOut 0.15s ease-in both;
+}
+@keyframes casePopIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes casePopOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .casePop[data-state] {
+    animation: none;
+  }
 }
 .casePopKicker {
   display: block;

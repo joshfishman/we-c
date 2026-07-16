@@ -10,7 +10,14 @@
   background: rgba(12, 8, 24, 0.62);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+}
+/* Radix stamps data-state open/closed and holds the node mounted through the
+   closed animation, so the modal fades out instead of vanishing. */
+.overlay[data-state="open"] {
   animation: quizFade 0.25s ease both;
+}
+.overlay[data-state="closed"] {
+  animation: quizFade 0.2s ease reverse both;
 }
 
 .modal {
@@ -34,7 +41,12 @@
      tile sit, in dark ink. A form needs one readable surface top to bottom. */
   background: var(--t-card-bg);
   box-shadow: 0 40px 90px -30px rgba(12, 6, 20, 0.7);
+}
+.modal[data-state="open"] {
   animation: quizIn 0.32s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.modal[data-state="closed"] {
+  animation: quizOut 0.24s cubic-bezier(0.4, 0, 0.7, 0.3) both;
 }
 
 .head {
@@ -44,7 +56,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 22px 24px 0;
+  padding: 44px 48px 0;
 }
 .title {
   margin: 0;
@@ -80,7 +92,7 @@
 .progressWrap {
   position: relative;
   z-index: 1;
-  padding: 16px 24px 0;
+  padding: 20px 48px 0;
 }
 .progressTrack {
   height: 4px;
@@ -107,7 +119,7 @@
 .body {
   position: relative;
   z-index: 1;
-  padding: 20px 24px 24px;
+  padding: 28px 48px 48px;
   overflow-y: auto;
 }
 .panel {
@@ -329,10 +341,20 @@
     transform: translate(-50%, -50%) scale(1);
   }
 }
+@keyframes quizOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 8px)) scale(0.98);
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .overlay,
-  .modal {
+  .overlay[data-state],
+  .modal[data-state] {
     animation: none;
   }
   .progressBar {
