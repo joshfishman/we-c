@@ -66,7 +66,13 @@ const heroTemplate: Template = withVisible({
       name: "callout",
       label: "Side callout (AI-powered)",
       fields: [
-        { type: "string", name: "eyebrow", label: "Eyebrow" },
+        {
+          type: "string",
+          name: "eyebrow",
+          label: "Eyebrow",
+          description: "Line breaks here show on the chip.",
+          ui: { component: "textarea" },
+        },
         { type: "string", name: "text", label: "Text" },
         { type: "string", name: "url", label: "URL" },
       ],

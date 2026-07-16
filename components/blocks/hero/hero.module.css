@@ -173,7 +173,7 @@
 /* AI-powered side callout */
 .callout {
   position: absolute;
-  right: 28px;
+  right: 8px;
   bottom: 118px;
   z-index: 8;
   display: flex;
@@ -203,6 +203,8 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  /* Line breaks are the editor's: the eyebrow field is a textarea. */
+  white-space: pre-line;
   /* Themed: was a leftover forest green on a page that runs sunset. */
   background: var(--t-accent-grad);
   -webkit-background-clip: text;
