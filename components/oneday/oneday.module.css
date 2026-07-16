@@ -325,8 +325,16 @@
 }
 
 /* ---- Process ---- */
+/* The section only contributes the shared cream gap — same padding as every
+   other section, so its boundaries are the uniform 128px. The navy is on the
+   inner band below, not here, so this padding reads as gap, not colour. */
 .process {
+  padding-block: var(--section-pad-y);
+}
+/* The navy band: full-width, its own internal room for the content. */
+.processPanel {
   position: relative;
+  color: #f3e7d6;
   background: linear-gradient(
     180deg,
     #1a2244 0%,
@@ -337,9 +345,7 @@
     #e88e5c 87%,
     #f2b566 100%
   );
-  color: #f3e7d6;
-  /* Shared rhythm, so both boundaries are the uniform 128px like the rest. */
-  padding: var(--section-pad-y) clamp(1.25rem, 4vw, 3rem);
+  padding: clamp(3rem, 5vw, 4.5rem) clamp(1.25rem, 4vw, 3rem);
   overflow: hidden;
 }
 .stars {

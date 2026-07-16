@@ -284,8 +284,12 @@ export function OneDay(props: {
       {/* PROCESS */}
       {process?.visible !== false ? (
         <section className={s.process} id="process" data-section="oneday_process">
-          <Starfield />
-          <div className={s.processInner}>
+          {/* The navy lives on this inner band, not the section, so the
+              section's padding is cream gap (like every other section) instead
+              of navy — otherwise the block reads as half-spaced. */}
+          <div className={s.processPanel}>
+            <Starfield />
+            <div className={s.processInner}>
             <div className={s.processHead}>
               <p
                 className={s.processEyebrow}
@@ -346,6 +350,7 @@ export function OneDay(props: {
                   ) : null}
                 </div>
               ))}
+            </div>
             </div>
           </div>
         </section>
