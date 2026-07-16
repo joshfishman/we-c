@@ -276,10 +276,9 @@
 
 /* ---- Enterprise quality ---- */
 .quality {
-  /* Bigger bottom so the cream Quality block doesn't sit tight against the navy
-     Process block below it — the colored sections felt cramped at the base. */
-  padding: var(--section-pad-y) clamp(1.25rem, 4vw, 3rem)
-    clamp(4.75rem, 7vw, 6.5rem);
+  /* Same shared rhythm as every other section, so the gap into Process below
+     it is the uniform 128px (= 2 x --section-pad-y). */
+  padding: var(--section-pad-y) clamp(1.25rem, 4vw, 3rem);
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -339,9 +338,8 @@
     #f2b566 100%
   );
   color: #f3e7d6;
-  /* The navy Process block needs room above the heading and below the last
-     step so it doesn't butt tight against the sections either side of it. */
-  padding: clamp(4.75rem, 7vw, 6.5rem) clamp(1.25rem, 4vw, 3rem);
+  /* Shared rhythm, so both boundaries are the uniform 128px like the rest. */
+  padding: var(--section-pad-y) clamp(1.25rem, 4vw, 3rem);
   overflow: hidden;
 }
 .stars {
