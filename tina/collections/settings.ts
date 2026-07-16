@@ -73,16 +73,11 @@ export const SettingsCollection: Collection = {
         {
           type: "string",
           name: "intro",
-          label: "Intro line",
+          label: "Intro line (sits above the first question)",
+          description:
+            "Say how long it takes here — there's no separate intro screen.",
           ui: { component: "textarea" },
         },
-        {
-          type: "string",
-          name: "duration",
-          label: "Time estimate (e.g. About 60 seconds)",
-          description: "Set expectations before they start. Leave empty to hide.",
-        },
-        { type: "string", name: "startLabel", label: "Start button" },
         { type: "string", name: "submitLabel", label: "Final submit button" },
         {
           type: "object",

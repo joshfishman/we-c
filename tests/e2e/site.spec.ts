@@ -205,13 +205,15 @@ test.describe("Lead quiz", () => {
     // Labelled, and themed — it portals to <body>, outside the themed root.
     await expect(dialog).toHaveAttribute("aria-labelledby", /.+/);
     await expect(dialog).toHaveAttribute("data-theme", "sunset");
+    // No intro panel: it opens on question one, with the intro line above it.
+    await expect(dialog.getByRole("button", { name: "Start" })).toHaveCount(0);
+    await expect(dialog.locator('[class*="progressText"]')).toHaveText(/^Step 1 of/);
   });
 
   test("selecting an answer never auto-advances (WCAG 3.2.2)", async ({
     page,
   }) => {
     const dialog = await openQuiz(page);
-    await dialog.getByRole("button", { name: "Start" }).click();
     const step = dialog.locator('[class*="progressText"]');
     await expect(step).toHaveText(/^Step 1 of/);
     await dialog.getByText("Digital Marketing", { exact: true }).click();
@@ -224,7 +226,6 @@ test.describe("Lead quiz", () => {
 
   test("Back keeps the answers already given (WCAG 3.3.7)", async ({ page }) => {
     const dialog = await openQuiz(page);
-    await dialog.getByRole("button", { name: "Start" }).click();
     await dialog.getByText("Digital Marketing", { exact: true }).click();
     await dialog.getByRole("button", { name: /Next/ }).click();
     await dialog.getByText("Paid acquisition").click();
@@ -238,7 +239,6 @@ test.describe("Lead quiz", () => {
 
   test("an unanswered step is blocked with an error", async ({ page }) => {
     const dialog = await openQuiz(page);
-    await dialog.getByRole("button", { name: "Start" }).click();
     const step = dialog.locator('[class*="progressText"]');
     await dialog.getByRole("button", { name: /Next/ }).click();
     await expect(step).toHaveText(/^Step 1 of/);
@@ -247,7 +247,6 @@ test.describe("Lead quiz", () => {
 
   test("the service split drives which questions get asked", async ({ page }) => {
     const dialog = await openQuiz(page);
-    await dialog.getByRole("button", { name: "Start" }).click();
 
     // "Both" costs one extra question, not a second track.
     await dialog.getByText("Both", { exact: true }).click();

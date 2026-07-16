@@ -61,8 +61,10 @@ export function LeadQuiz({
 }) {
   const allSteps: QuizStep[] = useMemo(() => quiz?.steps ?? [], [quiz]);
 
-  // -1 is the intro panel; steps.length is the contact capture.
-  const [index, setIndex] = useState(-1);
+  // 0 is the first question; steps.length is the contact capture. There's no
+  // separate intro panel — a screen with nothing to answer is a step that costs
+  // a click and asks nothing, so the intro line sits above question one.
+  const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [error, setError] = useState<string | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
@@ -91,7 +93,7 @@ export function LeadQuiz({
   // cascades an extra render, and this is an event, not derived state.
   const handleOpenChange = (next: boolean) => {
     if (!next) {
-      setIndex(-1);
+      setIndex(0);
       setAnswers({});
       setError(null);
     }
@@ -106,7 +108,7 @@ export function LeadQuiz({
    * focus, the focus trap, Esc, and returning focus to the trigger on close.
    */
   useEffect(() => {
-    if (open && index >= 0) headingRef.current?.focus();
+    if (open) headingRef.current?.focus();
   }, [index, open]);
 
   useEffect(() => {
@@ -132,11 +134,7 @@ export function LeadQuiz({
   };
 
   const next = () => {
-    if (index === -1) {
-      track("quiz_start", { form: "lead_quiz" });
-      setIndex(0);
-      return;
-    }
+    if (index === 0) track("quiz_start", { form: "lead_quiz" });
     if (step?.key) {
       const a = answers[step.key];
       const empty = Array.isArray(a) ? a.length === 0 : !a;
@@ -151,12 +149,12 @@ export function LeadQuiz({
 
   const back = () => {
     setError(null);
-    setIndex((i) => Math.max(-1, i - 1));
+    setIndex((i) => Math.max(0, i - 1));
   };
 
   if (!quiz || quiz.visible === false) return null;
 
-  const progress = index < 0 ? 0 : ((index + 1) / total) * 100;
+  const progress = ((index + 1) / total) * 100;
 
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
@@ -180,7 +178,7 @@ export function LeadQuiz({
             </Dialog.Close>
           </div>
 
-          {index >= 0 && !state.succeeded ? (
+          {!state.succeeded ? (
             <div className={styles.progressWrap}>
               {/* The bar is decorative; the step count below it is the text
                   equivalent, and the total shifts when "Both" adds a step. */}
@@ -211,23 +209,6 @@ export function LeadQuiz({
                     onClick={() => handleOpenChange(false)}
                   >
                     Close
-                  </button>
-                </div>
-              </div>
-            ) : index === -1 ? (
-              /* ---- Intro ---- */
-              <div className={styles.panel}>
-                <p className={styles.intro}>{quiz.intro}</p>
-                {quiz.duration ? (
-                  <p className={styles.duration}>{quiz.duration}</p>
-                ) : null}
-                <div className={styles.actions}>
-                  <button
-                    type="button"
-                    className="btn btn--primary"
-                    onClick={next}
-                  >
-                    {quiz.startLabel || "Start"}
                   </button>
                 </div>
               </div>
@@ -280,7 +261,7 @@ export function LeadQuiz({
                   />
 
                   <label className={styles.label} htmlFor="quiz-email">
-                    Email
+                    Company email
                   </label>
                   <input
                     id="quiz-email"
@@ -297,14 +278,28 @@ export function LeadQuiz({
                     className={styles.error}
                   />
 
+                  <label className={styles.label} htmlFor="quiz-company">
+                    Company
+                  </label>
+                  <input
+                    id="quiz-company"
+                    className={styles.input}
+                    name="company"
+                    required
+                    autoComplete="organization"
+                  />
+
                   <label className={styles.label} htmlFor="quiz-site">
-                    Company or site <span className={styles.optional}>(optional)</span>
+                    Website <span className={styles.optional}>(optional)</span>
                   </label>
                   <input
                     id="quiz-site"
                     className={styles.input}
-                    name="company"
-                    autoComplete="organization"
+                    name="website"
+                    type="url"
+                    inputMode="url"
+                    placeholder="https://"
+                    autoComplete="url"
                   />
 
                   <label className={styles.label} htmlFor="quiz-note">
@@ -351,6 +346,9 @@ export function LeadQuiz({
                   >
                     {step?.question}
                   </h3>
+                  {index === 0 && quiz.intro ? (
+                    <p className={styles.intro}>{quiz.intro}</p>
+                  ) : null}
                   {step?.help ? (
                     <p className={styles.help}>{step.help}</p>
                   ) : null}
@@ -399,9 +397,11 @@ export function LeadQuiz({
                 ) : null}
 
                 <div className={styles.actions}>
-                  <button type="button" className={styles.back} onClick={back}>
-                    ← Back
-                  </button>
+                  {index > 0 ? (
+                    <button type="button" className={styles.back} onClick={back}>
+                      ← Back
+                    </button>
+                  ) : null}
                   {/* Never auto-advance on select: keyboard users arrow through
                       radios, firing change on every option they pass, and a
                       context change on input is a WCAG 3.2.2 failure. */}

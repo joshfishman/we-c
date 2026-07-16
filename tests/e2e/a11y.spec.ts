@@ -57,8 +57,6 @@ test("lead quiz modal has no serious or critical a11y violations", async ({
     expect(blocking, `${label}\n${report}`).toEqual([]);
   };
 
-  await scan("intro panel");
-  await dialog.getByRole("button", { name: "Start" }).click();
   await scan("first question");
   await dialog.getByText("Both", { exact: true }).click();
   await dialog.getByRole("button", { name: /Next/ }).click();
