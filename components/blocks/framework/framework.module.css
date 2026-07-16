@@ -1,6 +1,8 @@
 .wrap {
   max-width: 1280px;
-  margin: 56px auto;
+  /* Vertical rhythm comes from the shared .section padding (--section-pad-y),
+     so sections are evenly spaced. Only horizontal centring here. */
+  margin: 0 auto;
   padding: 0 clamp(1.25rem, 4vw, 3rem);
 }
 
