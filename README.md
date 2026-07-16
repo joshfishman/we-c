@@ -153,74 +153,56 @@ runtime. Because Tina's *local* auth provider authorises every request
 (`isAuthorized: () => true`), serving that API in production would leave the
 content-write endpoint open to anyone. So production refuses to serve it:
 
-- `pages/api/tina/[...routes].ts` returns **404** in production unless editing
-  is fully configured (Supabase creds + a non-empty `TINA_ALLOWED_EMAILS` + the
-  KV datalayer). The backend isn't even constructed otherwise. When it *is*
-  live, every request must carry a Supabase bearer token, which the route
-  re-verifies with Supabase and checks against the allowlist — the browser
-  provider only gates the UI.
-- `middleware.ts` returns **404** for `/admin` in production until hosted
-  editing is fully configured. (`tinacms build` emits the editor into
-  `public/admin`, and files under `public/` are served directly — a rewrite
-  can't gate them, so this has to be middleware.)
+- `pages/api/tina/[...routes].ts` returns **404** in production, full stop. The
+  backend isn't constructed and the database isn't even imported.
+- `middleware.ts` returns **404** for `/admin` in production. (`tinacms build`
+  emits the editor into `public/admin`, and files under `public/` are served
+  directly — a rewrite can't gate them, so this has to be middleware.)
 
-`vercel.json` pins `TINA_PUBLIC_IS_LOCAL=true` **for the build only** — that's
-what lets `tinacms build` run without a datalayer. It no longer pins the
-runtime value, so the Vercel dashboard controls that. Setting
-`TINA_PUBLIC_IS_LOCAL=false` on its own does **not** enable editing; without
-the Supabase credentials, `TINA_ALLOWED_EMAILS` and the KV datalayer the guards
-above keep it at 404.
+There is no condition to get wrong: editing is local-only, so both guards are
+unconditional. The build needs **no environment variables at all** — verified
+with `TINA_PUBLIC_IS_LOCAL` unset, `false` and `true`.
 
-## Deploy to Vercel (self-hosted Tina)
+There used to be a hosted-editing mode behind a Supabase login, an Upstash Redis
+datalayer and a GitHub PAT. It was never switched on, and `tina/database.ts`
+threw at build time whenever the datalayer was missing — which is what broke
+deploys. It's gone; `tina/database.ts` is now just `createLocalDatabase()`.
+
+## Deploy to Vercel
 
 1. **Push this repo to GitHub.**
-2. **Provision the datalayer (Upstash Redis).** Tina keeps a searchable index
-   of `content/` so the editor can query it over GraphQL and commit changes
-   back to GitHub. Locally `tinacms dev` runs that index on your machine
-   (ports 9000/4001); a serverless function has no such process, so production
-   needs a hosted Redis store.
-
-   Vercel KV is retired as a first-party product — use **Vercel → Storage →
-   Marketplace → Upstash (Redis)**, or create a database directly at
-   [upstash.com](https://upstash.com) and paste the REST credentials in.
-   Either naming convention works: `KV_REST_API_URL` / `KV_REST_API_TOKEN`
-   (what the Vercel integration injects) or `UPSTASH_REDIS_REST_URL` /
-   `UPSTASH_REDIS_REST_TOKEN` (Upstash's own names). Without them
-   `tina/database.ts` throws on boot rather than silently degrading.
-3. **Create a GitHub Personal Access Token** with `contents: read/write` on this
-   repo → `GITHUB_PERSONAL_ACCESS_TOKEN`.
-4. **Import the repo into Vercel** and set Environment Variables:
+2. **Import the repo into Vercel.** Build command is `npm run build`
+   (`tinacms build && next build`).
+3. **Set Environment Variables** — only the analytics ones, and both optional:
 
    | Variable | Value |
    | --- | --- |
-   | `TINA_PUBLIC_IS_LOCAL` | `false` |
-   | `GITHUB_PERSONAL_ACCESS_TOKEN` | your PAT |
-   | `GITHUB_OWNER` | GitHub user/org |
-   | `GITHUB_REPO` | repo name |
-   | `GITHUB_BRANCH` | `main` |
-   | `NEXT_PUBLIC_SUPABASE_URL` | from Supabase → Project Settings → API |
-   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | from Supabase → Project Settings → API |
-   | `TINA_ALLOWED_EMAILS` | comma-separated editor emails |
-   | `KV_REST_API_URL` / `KV_REST_API_TOKEN` | from your Upstash Redis store |
-   | `NEXT_PUBLIC_GTM_ID` | your GTM id |
+   | `NEXT_PUBLIC_GTM_ID` | your GTM container id (optional) |
+   | `NEXT_PUBLIC_CLARITY_ID` | your Clarity project id (optional) |
 
-   Build command is `npm run build` (`tinacms build --partial-reindex && next build`).
-5. **Create your editor in Supabase** (Authentication → Users → Add user,
-   email + password), then list that email in `TINA_ALLOWED_EMAILS`. There are
-   no credentials in this repo: Supabase owns accounts and passwords.
+That's it. No database, no Redis, no auth provider, no PAT. Pushes to `main`
+deploy automatically.
 
-   `TINA_ALLOWED_EMAILS` is the authorization gate and it fails closed. Being
-   signed in to Supabase is *not* enough — if the project allows public
-   sign-ups, anyone could create an account, so only the listed emails may
-   edit. Leave it empty and nobody can (and `/admin` stays 404).
-6. Visit `https://your-app.vercel.app/admin` to edit. Changes commit to GitHub
-   and redeploy automatically.
+## Editing content
+
+Editing is local-only:
+
+```bash
+npm run dev     # → http://localhost:3000/admin
+```
+
+Tina indexes `content/` on your machine (ports 9000/4001), you edit in the
+visual editor, and your changes are written straight to the JSON in `content/`.
+Commit and push them like any other change; the push deploys the site.
+
+To put the editor back on the internet you'd need to re-add an auth provider, a
+hosted datalayer and a git provider — see the git history for the Supabase +
+Upstash version (removed in "Editing is local-only").
 
 ## Scripts
 
 | Script | Purpose |
 | --- | --- |
 | `npm run dev` | Local dev (Tina local mode + Next). |
-| `npm run dev:prod` | Dev against the production backend (needs prod env). |
 | `npm run build` | Production build (`tinacms build` + `next build`). |
 | `npm start` | Serve the production build. |

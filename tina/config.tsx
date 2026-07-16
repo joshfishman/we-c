@@ -1,17 +1,16 @@
 import { defineConfig, LocalAuthProvider } from "tinacms";
 
-import { SupabaseAuthProvider } from "./SupabaseAuthProvider";
 import { PageCollection } from "./collections/page";
 import { SettingsCollection } from "./collections/settings";
 import { OneDayCollection } from "./collections/oneDay";
 
-const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
-
 export default defineConfig({
-  // Local dev needs no login. Hosted editing authenticates against Supabase;
-  // the API route re-verifies every request server-side, so this only gates
-  // the editor UI (see pages/api/tina/[...routes].ts).
-  authProvider: isLocal ? new LocalAuthProvider() : new SupabaseAuthProvider(),
+  // Editing is local-only (`npm run dev` → /admin), which needs no login: the
+  // editor is only reachable from localhost, and /admin and /api/tina both 404
+  // in production. The Supabase login this replaces was for hosted editing,
+  // which was never switched on. No user collection either, so there are still
+  // no credentials in this repo.
+  authProvider: new LocalAuthProvider(),
   contentApiUrlOverride: "/api/tina/gql",
   build: {
     publicFolder: "public",
@@ -25,8 +24,6 @@ export default defineConfig({
     },
   },
   schema: {
-    // No user collection: Supabase owns accounts and passwords now, so there
-    // are no credentials stored in this repo.
     collections: [SettingsCollection, PageCollection, OneDayCollection],
   },
 });

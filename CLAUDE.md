@@ -71,6 +71,6 @@ Use the preview tools against the running dev server (screenshots can be flaky o
 
 ## Not yet enabled
 
-- **Production visual editing** — deliberately OFF and **fails closed**: `/admin` and `/api/tina/*` return 404 in production unless editing is fully configured (see README). Editing happens locally via `npm run dev` → `/admin`.
-  The code is built and dormant: **Supabase Auth** for login (`tina/SupabaseAuthProvider.tsx` + a server-side token check in the API route, gated on the `TINA_ALLOWED_EMAILS` allowlist — authentication is not authorization). Turning it on also needs an **Upstash Redis** datalayer (Vercel KV is retired; `lib/datalayer.ts` takes `KV_REST_API_*` or `UPSTASH_REDIS_REST_*`), a GitHub PAT, and `TINA_PUBLIC_IS_LOCAL=false`. Untested: the live sign-in round trip.
+- **Production visual editing** — removed, not dormant. Editing is **local-only** (`npm run dev` → `/admin`); `/admin` and `/api/tina/*` return **404** in production unconditionally, with no config to get wrong. `tina/database.ts` is just `createLocalDatabase()`, so **the build needs no env vars** (checked with `TINA_PUBLIC_IS_LOCAL` unset/`false`/`true`).
+  The Supabase login + Upstash datalayer + GitHub PAT that hosted editing needed are gone: it was never switched on, and `tina/database.ts` threw at build time without a datalayer, which broke deploys. Re-adding it means an auth provider, a hosted datalayer and a git provider again — see the commit "Editing is local-only".
 - **Questionnaire page** — the "What are you planning?" CTA links to `#`; the multi-step questionnaire isn't built.

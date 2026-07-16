@@ -2,95 +2,50 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { TinaNodeBackend, LocalBackendAuthProvider } from "@tinacms/datalayer";
 
-import databaseClient from "../../../tina/__generated__/databaseClient";
-import { datalayerConfigured } from "../../../lib/datalayer";
-import {
-  allowedEditorEmails,
-  createSupabaseServerClient,
-  isAllowedEditor,
-  supabaseConfigured,
-} from "../../../lib/supabase";
-
+/**
+ * Tina's content API — local development only.
+ *
+ * Tina's local provider authorizes every request, so this must never answer in
+ * production. There is no hosted-editing mode to fall back to any more (the
+ * Supabase login and the Redis datalayer are gone), so the rule is simply: only
+ * serve when running locally, and 404 otherwise. The public site renders from
+ * committed JSON and never calls this route, so refusing costs it nothing.
+ *
+ * Fails closed: production is disabled outright, and an unset or malformed
+ * TINA_PUBLIC_IS_LOCAL is not "true", so that disables it too.
+ */
 const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
 const isProd = process.env.NODE_ENV === "production";
+const enabled = isLocal && !isProd;
+
+type Handler = (req: NextApiRequest, res: NextApiResponse) => unknown;
+let handler: Handler | null = null;
 
 /**
- * Supabase-backed authorization for Tina's content API.
- *
- * This is the authoritative check: the browser provider only gates the UI, so
- * every read/write here re-verifies the bearer token with Supabase and then
- * confirms the account is on the editor allowlist. Authentication alone isn't
- * enough — anyone who can sign up in the Supabase project would otherwise be
- * able to write content.
+ * Loaded on first use rather than imported at module scope: the database reads
+ * the filesystem, and production should never construct one just to 404.
  */
-const SupabaseBackendAuthProvider = () => ({
-  isAuthorized: async (
-    req: NextApiRequest,
-    _res: NextApiResponse
-  ): Promise<
-    { isAuthorized: true } | { isAuthorized: false; errorCode: number; errorMessage: string }
-  > => {
-    const denied = {
-      isAuthorized: false as const,
-      errorCode: 401,
-      errorMessage: "Unauthorized",
-    };
-
-    const header = req.headers.authorization || "";
-    const token = header.startsWith("Bearer ") ? header.slice(7).trim() : "";
-    if (!token) return denied;
-
-    const supabase = createSupabaseServerClient();
-    if (!supabase) return denied;
-
-    // Ask Supabase to validate the JWT (signature + expiry) and resolve the user.
-    const { data, error } = await supabase.auth.getUser(token);
-    if (error || !data?.user) return denied;
-
-    if (!isAllowedEditor(data.user.email)) {
-      return {
-        isAuthorized: false as const,
-        errorCode: 403,
-        errorMessage: "Not an approved editor",
-      };
-    }
-
-    return { isAuthorized: true as const };
-  },
-});
-
-/**
- * Refuse to serve in production unless editing is genuinely configured.
- *
- * Tina's local provider authorizes every request, so it must never run in
- * production. Supabase auth is useless without an allowlist, and the API can't
- * work without the datalayer — so require all of it, or 404. The public site
- * renders from committed JSON and never calls this route, so disabling it
- * costs nothing.
- */
-const hostedEditingReady =
-  !isLocal &&
-  supabaseConfigured &&
-  allowedEditorEmails().length > 0 &&
-  datalayerConfigured;
-
-const disabled = isProd && !hostedEditingReady;
-
-const handler = disabled
-  ? null
-  : TinaNodeBackend({
-      authProvider: isLocal
-        ? LocalBackendAuthProvider()
-        : SupabaseBackendAuthProvider(),
-      databaseClient,
-    });
-
-const tinaHandler = (req: NextApiRequest, res: NextApiResponse) => {
+async function getHandler(): Promise<Handler> {
   if (!handler) {
+    const { default: databaseClient } = await import(
+      "../../../tina/__generated__/databaseClient"
+    );
+    handler = TinaNodeBackend({
+      authProvider: LocalBackendAuthProvider(),
+      databaseClient,
+    }) as Handler;
+  }
+  return handler;
+}
+
+export default async function tinaHandler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (!enabled) {
     res.status(404).json({ error: "Not found" });
     return;
   }
-  return handler(req, res);
-};
-
-export default tinaHandler;
+  const h = await getHandler();
+  return h(req, res);
+}
