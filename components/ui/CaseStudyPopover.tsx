@@ -2,32 +2,11 @@
 
 import { useEffect } from "react";
 
-/** Per-case default copy, keyed by a slug of the project title. */
-const CASE_COPY: Record<string, string> = {
-  "stoned-immaculate-clothing":
-    "<p><strong>3× revenue in six months.</strong> WE rebuilt Stoned Immaculate's Shopify store from the ground up and implemented a structured ad-testing and scaling framework across paid social and search.</p><p><strong>What we did:</strong> Shopify theme &amp; PDP rebuild; creative testing on Meta &amp; Google; a scaling framework driven by blended ROAS.</p>",
-  "california-chicken-cafe":
-    "<p>A custom WordPress theme built hand-in-hand with the in-house team, plus a branded store locator tied to their delivery partners.</p>",
-  "11-honore":
-    "<p><strong>From idea to exit.</strong></p><p>Two full site builds, launch &amp; growth marketing, and ongoing optimization, all the way through to acquisition.</p>",
-  "hudson-jeans":
-    "<p><strong>6× ROI across all campaigns.</strong> Integrated digital and retail audiences, headlined by the Fall 2020 / Kaia Gerber collaboration launch.</p>",
-  ovando:
-    "<p>An editorial, image-led site for a luxury floral designer, with seasonal refreshes and a smooth content workflow.</p>",
-};
-
-function slugify(s: string) {
-  return (s || "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
 /**
  * Resolve the popover body for a project.
  * - If the editor filled the WYSIWYG `caseBody` (Tina rich-text), return it as
  *   `rich` (rendered with <TinaMarkdown>).
- * - Otherwise fall back to the default per-case HTML (or a generic line).
+ * - Otherwise show a generic fallback for newly added projects.
  */
 export function getCaseCopy(project: any): {
   title: string;
@@ -38,9 +17,7 @@ export function getCaseCopy(project: any): {
   const rich = project?.caseBody;
   const hasRich =
     rich && typeof rich === "object" && Array.isArray(rich.children) && rich.children.length > 0;
-  const bodyHtml =
-    CASE_COPY[slugify(title)] ||
-    `<p>${project?.services || "A project we're proud of."}</p>`;
+  const bodyHtml = `<p>${project?.services || "A project we're proud of."}</p>`;
   return { title, rich: hasRich ? rich : null, bodyHtml };
 }
 

@@ -8,23 +8,18 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px clamp(1.25rem, 4vw, 3rem);
-  background: transparent;
-  border-bottom: 1px solid transparent;
-  transition: background 0.4s ease, backdrop-filter 0.4s ease,
-    border-color 0.4s ease, box-shadow 0.4s ease, padding 0.3s ease;
-}
-
-/* At the top the bar is fully transparent on both pages (no backing, divider
-   or shadow) so it floats over the hero.
-   Once scrolled it sits over light page content, where the nav link would drop
-   to ~1.1:1 contrast with no backing — a WCAG AA failure the axe gate blocks.
-   So the scrolled state keeps a minimal dusk backing: no divider, no shadow. */
-.scrolled {
-  background: rgba(26, 34, 68, 0.72);
+  /* Both pages carry the same frosted dusk backing at all times (no divider
+     or shadow), so the logo/nav read over the hero and over light page content
+     alike. Reduced 30% from the old scrolled backing (0.72 → 0.5). */
+  background: rgba(26, 34, 68, 0.5);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom-color: transparent;
-  box-shadow: none;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease,
+    box-shadow 0.4s ease, padding 0.3s ease;
+}
+
+/* Scrolled keeps the same backing; only the padding tightens slightly. */
+.scrolled {
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -43,8 +38,8 @@
      backing and the hero photo runs to near-white sky behind this link, where
      the gold ramp on its own is barely findable — the soft 8px glow alone was
      too diffuse to separate them. */
-  filter: drop-shadow(0 1px 1.5px rgba(8, 26, 40, 0.92))
-    drop-shadow(0 1px 8px rgba(8, 26, 40, 0.7));
+  filter: drop-shadow(0 1px 3px rgba(8, 26, 40, 1))
+    drop-shadow(0 1px 16px rgba(8, 26, 40, 1));
 }
 
 .nav {

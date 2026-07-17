@@ -16,7 +16,7 @@ export function Logo({
   tone?: "default" | "sky";
 }) {
   const toneStyle = {
-    textShadow: "0 1px 14px rgba(8,26,36,0.55)",
+    textShadow: "0 1px 28px rgba(8,26,36,1)",
   } as React.CSSProperties;
 
   return (

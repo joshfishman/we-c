@@ -167,6 +167,9 @@ export function OurWork({
             const isFan = imgs.length > 1;
             const single = imgs[0] || "";
             const isShot = single.toLowerCase().endsWith(".png");
+            const isStonedMockup = single
+              .toLowerCase()
+              .includes("work-stoned-immaculate");
             const imageLeft = i % 2 === 0;
             const logos: string[] = Array.isArray(project?.logos)
               ? project.logos
@@ -267,7 +270,7 @@ export function OurWork({
                   </div>
                 ) : (
                   <div
-                    className={`${styles.media} ${isShot ? styles.mediaShot : styles.mediaFill}`}
+                    className={`${styles.media} ${isShot ? styles.mediaShot : styles.mediaFill} ${isStonedMockup ? styles.mediaContain : ""}`}
                   >
                     {single ? (
                       // eslint-disable-next-line @next/next/no-img-element

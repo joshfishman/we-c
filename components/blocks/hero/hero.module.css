@@ -18,7 +18,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: #0b1f16;
+  background: var(--t-page-bg);
 }
 .media {
   position: absolute;
@@ -84,6 +84,22 @@
   max-width: 960px;
   margin: 0 auto;
   padding: 8px 24px 96px;
+}
+/* A soft dark halo behind the whole hero copy — sits at the foot of the
+   content's own stacking context (z-index: -1) so the text reads above it.
+   Subtle, but enough to lift the headline off a bright slide. */
+.content::before {
+  content: "";
+  position: absolute;
+  inset: -4% -10% 2%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    62% 66% at 50% 47%,
+    rgba(6, 18, 30, 0.45) 0%,
+    rgba(6, 18, 30, 0.33) 48%,
+    transparent 78%
+  );
 }
 
 /* On-load entrance: content starts hidden (so the load shows only the header
@@ -172,7 +188,8 @@
   .eyebrow,
   .headline,
   .subhead,
-  .actions {
+  .actions,
+  .callout {
     animation: none;
     opacity: 1;
     transform: none;
@@ -182,24 +199,36 @@
 /* AI-powered side callout */
 .callout {
   position: absolute;
-  right: 8px;
+  right: 24px;
   bottom: 118px;
   z-index: 8;
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 11px;
   background: rgba(10, 28, 40, 0.42);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 16px;
-  padding: 8px 8px 8px 13px;
+  padding: 11px 12px 11px 16px;
   color: #fff1da;
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition: background 0.3s ease;
+  /* Slides in from the right and fades up a couple of seconds after load,
+     once the rest of the hero has settled. `both` keeps it hidden until then. */
+  animation: chipIn 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 2.4s both;
 }
 .callout:hover {
-  transform: translateX(-4px);
-  background: rgba(10, 28, 40, 0.6);
+  background: rgba(10, 28, 40, 0.62);
+}
+@keyframes chipIn {
+  from {
+    opacity: 0;
+    transform: translateX(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 .calloutText {
   display: flex;
@@ -208,9 +237,9 @@
   text-align: right;
 }
 .calloutEyebrow {
-  font-size: 8px;
+  font-size: 10.5px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   /* Line breaks are the editor's: the eyebrow field is a textarea. */
   white-space: pre-line;
@@ -222,21 +251,21 @@
   color: transparent;
 }
 .calloutMain {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 1.2;
-  max-width: 110px;
+  line-height: 1.25;
+  max-width: 150px;
 }
 .calloutArrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: var(--t-accent-grad);
   color: #2b1626;
-  font-size: 11px;
+  font-size: 13px;
   flex-shrink: 0;
 }
 
@@ -261,7 +290,7 @@
     position: static;
     right: auto;
     bottom: auto;
-    margin: 24px 0 0 auto;
+    margin: 24px 0.5rem 0 auto;
   }
 }
 

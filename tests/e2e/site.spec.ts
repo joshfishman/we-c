@@ -191,9 +191,11 @@ test.describe("Lead quiz", () => {
   /** Opens the quiz and returns the dialog. Every locator is scoped to it:
    *  unscoped, /Next/ also matches Next.js's own dev-tools button when the
    *  suite attaches to a running dev server. */
+  // The header's only <button> is the quiz trigger (nav items are links), so
+  // match it by role rather than a hard-coded label that editors can change.
   const openQuiz = async (page: Page) => {
     await page.goto("/");
-    await page.locator("header button", { hasText: "Let's Grow" }).click();
+    await page.locator("header button").first().click();
     const dialog = page.getByRole("dialog");
     await dialog.waitFor();
     return dialog;
@@ -266,11 +268,16 @@ test.describe("Lead quiz", () => {
     page,
   }) => {
     await openQuiz(page);
+    const triggerText = await page
+      .locator("header button")
+      .first()
+      .textContent();
     await page.keyboard.press("Escape");
     await expect(page.getByRole("dialog")).toHaveCount(0);
+    // Focus returns to the header trigger it opened from, whatever its label.
     const focused = await page.evaluate(
       () => document.activeElement?.textContent?.trim() ?? ""
     );
-    expect(focused).toContain("Let's Grow");
+    expect(focused).toBe((triggerText ?? "").trim());
   });
 });

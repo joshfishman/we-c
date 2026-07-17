@@ -20,7 +20,7 @@ const spectral = Spectral({
 });
 
 export const metadata: Metadata = {
-  title: "WE Creative Agency",
+  title: "WE Digital Studio",
   description:
     "Human-led strategy and process, powered by AI speed. We grow brands.",
 };

@@ -51,6 +51,7 @@
   line-height: 1.6;
   color: #a8c0a4;
   max-width: 440px;
+  white-space: pre-line;
 }
 .cta {
   margin-top: 36px;

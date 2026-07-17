@@ -42,7 +42,7 @@ test("lead quiz modal has no serious or critical a11y violations", async ({
   page,
 }) => {
   await page.goto("/");
-  await page.locator("header button", { hasText: "Let's Grow" }).click();
+  await page.locator("header button").first().click();
   const dialog = page.getByRole("dialog");
   await dialog.waitFor();
 

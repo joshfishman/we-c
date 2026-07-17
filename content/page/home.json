@@ -1,5 +1,5 @@
 {
-  "title": "WE Creative Agency | We grow businesses online",
+  "title": "WE Digital Studio | We grow businesses online",
   "description": "Proven agency strategy & process, powered by AI. We grow ecommerce and lifestyle brands across strategy, development and marketing.",
   "theme": "sunset",
   "blocks": [
@@ -7,16 +7,12 @@
       "visible": true,
       "bgVideo": "",
       "bgVideoMobile": "",
-      "bgPoster": "",
-      "bgSlides": [
-        "/media/hero-trees.jpg",
-        "/media/hero-maple.jpg"
-      ],
+      "bgPoster": "/media/hero-trees.jpg",
       "eyebrow": "For ecommerce and lifestyle brands",
       "headlineLead": "Grow",
       "headlineAccent": "your\nBrand",
       "headlineTail": "Online",
-      "subhead": "Proven Agency Strategy & Process,\npowered by AI. Optimize your funnel and unleash growth.",
+      "subhead": "Proven Agency Strategy,\nstreamlined with AI tools. ",
       "ctaPrimary": {
         "label": "Let's Grow",
         "url": "#contact"
@@ -25,17 +21,12 @@
         "label": "See Our Work",
         "url": "#work"
       },
-      "callout": {
-        "eyebrow": "AI-optimized\ndevelopment",
-        "text": "Enterprise-grade websites in one day",
-        "url": "/one-day"
-      },
       "_template": "hero"
     },
     {
       "visible": true,
       "intro": {
-        "eyebrow": "Founded",
+        "eyebrow": "Since",
         "title": "2011",
         "subtitle": "Strategy / Development / Marketing"
       },
@@ -47,7 +38,7 @@
         },
         {
           "eyebrow": "More Than",
-          "value": "$6.7M",
+          "value": "$6.7M+",
           "label": "Revenue earned for clients"
         }
       ],
@@ -56,22 +47,22 @@
     {
       "visible": true,
       "eyebrow": "Client Results",
-      "metricValue": "300+%",
+      "metricValue": "3X+",
       "metricLabel": "revenue growth in six months",
       "brand": "Stoned Immaculate Clothing",
-      "quote": "WE rebuilt our store and dialed in our organic and paid channels. We tripled revenue in a single quarter. They move fast and actually get fashion.",
-      "personName": "Founder & Creative Director",
-      "personTitle": "Stoned Immaculate Clothing",
-      "image": "/media/stoned-immaculate-editorial.jpg",
-      "imageAlt": "Stoned Immaculate Clothing editorial campaign photo",
-      "avatar": "/media/avatar-founder.jpg",
+      "quote": "Working with WE has been a great experience.  WE rebuilt & optimized our store, as well as managed our ads. Conversion rate went gone up and sales grew consistently.",
+      "personName": "Elliot Hans",
+      "personTitle": "Founder & Creative Director",
+      "image": "/media/work-stoned-immaculate.png",
+      "imageAlt": "Founder Photo",
+      "avatar": "/media/elliothans.png",
       "_template": "caseStudy"
     },
     {
       "visible": true,
-      "eyebrow": "What WE Do",
-      "heading": "eCommerce Growth Services",
-      "description": "Three layers that work together: attract the right people, turn them into customers, and keep them coming back.",
+      "eyebrow": "Our Process",
+      "heading": "Holistic Digital Growth",
+      "description": "We help you attract the right audience, convert them into customers, and keep them coming back.",
       "flowIntro": "",
       "layers": [
         {
@@ -80,10 +71,9 @@
           "badge": "",
           "description": "Get found by the right people.",
           "tags": [
-            "Content Creation",
-            "Paid Social & Search",
             "AI & Search Optimization",
-            "Audience & Testing "
+            "Content Creation",
+            "Paid Social & Search"
           ]
         },
         {
@@ -92,10 +82,9 @@
           "badge": "",
           "description": "Turn visitors into customers.",
           "tags": [
-            "Web Development",
+            "Ecommerce / Web Development",
             "Conversion Rate Optimization",
-            "Customer Funnel Creation",
-            "Analytics"
+            "Customer Funnel Creation"
           ]
         },
         {
@@ -104,9 +93,10 @@
           "badge": "",
           "description": "Keep them coming back for more.",
           "tags": [
-            "Post-Purchase Flows",
-            "Personalized Offering",
-            "Reviews"
+            "Post-Purchase Messaging",
+            "Personalized Offers",
+            "Generate Reviews",
+            "Activate Evangelists"
           ]
         }
       ],
@@ -131,7 +121,7 @@
             "facebook",
             "instagram"
           ],
-          "caseBody": "",
+          "caseBody": "**From idea to exit.**\n\nTwo full site builds, launch and growth marketing, and ongoing optimization, all the way through to acquisition.\n",
           "url": "#contact"
         },
         {
@@ -145,18 +135,18 @@
             "google",
             "facebook"
           ],
-          "caseBody": "",
+          "caseBody": "**3× revenue in six months.** WE rebuilt Stoned Immaculate's Shopify store from the ground up and implemented a structured ad-testing and scaling framework across paid social and search.\n\n**What we did:** Shopify theme and PDP rebuild; creative testing on Meta and Google; a scaling framework driven by blended ROAS.\n",
           "url": "#contact"
         },
         {
           "title": "Grow Organic Baby",
-          "badge": "Shopify · DTC",
+          "badge": "2× business growth",
           "services": "Shopify Development · Digital Marketing",
           "image": "/media/work-grow-organic-baby.png",
           "logos": [
             "shopify"
           ],
-          "caseBody": "",
+          "caseBody": "**2× business growth in a highly competitive market.** Our ecommerce and marketing work helped Grow Organic Baby double its business and reach more families.\n\n**What we did:** Shopify development; conversion optimization; digital growth strategy; ongoing marketing and site management.\n",
           "url": "#contact"
         }
       ],
@@ -166,10 +156,10 @@
       "visible": true,
       "leftEyebrow": "Guided by",
       "leftHeading": "Human expertise",
-      "leftBody": "Strategy, process and skill earned from building brands online for over a decade. Taste, judgment and accountability you can't automate.",
-      "rightEyebrow": "Supercharged with",
+      "leftBody": "Strategy, process and skill earned from building brands online for over a decade. \n\nTaste, judgment and accountability you can't automate.",
+      "rightEyebrow": "Optimized with",
       "rightHeading": "Specialized AI",
-      "rightBody": "AI is our supercharged intern: research, prototyping, build. Weeks become days, and more of the budget goes into craft, not grind.",
+      "rightBody": "AI is our supercharged intern: research, prototyping, build. Weeks become days, and more of your budget goes into craft, not grind.",
       "_template": "approach"
     },
     {
@@ -187,7 +177,7 @@
         }
       ],
       "cta": {
-        "label": "See how we'd build yours →",
+        "label": "See how we do it →",
         "url": "/one-day"
       },
       "_template": "builtInADay"
@@ -196,12 +186,12 @@
       "visible": true,
       "theme": "dusk",
       "heading": "See what WE can do for your brand.",
-      "body": "Great work begins with a great fit. Let's talk about your brand, where you're headed, and how we can help you get there.",
+      "body": "Great work begins with great understanding. Let's talk about your brand.\nWhere are you headed, and how can we help you get there.",
       "cta": {
         "label": "Book a call →",
         "url": "#"
       },
-      "email": "hello@wecreativeagency.com",
+      "email": "hello@wedigital.studio",
       "phone": "(323) 412-0544",
       "studio": [
         "268 S. Orange Dr",

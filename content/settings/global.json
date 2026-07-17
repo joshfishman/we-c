@@ -1,13 +1,13 @@
 {
-  "siteName": "Creative Agency",
+  "siteName": "Digital Studio",
   "logoText": "WE",
-  "logoSub": "Digital<br>Agency",
+  "logoSub": "Digital<br>Studio",
   "accent": "#E08A4E",
   "header": {
     "visible": true,
     "links": [
       {
-        "label": "1 Day Website",
+        "label": "1 Day Websites",
         "url": "/one-day"
       },
       {
@@ -16,7 +16,7 @@
       }
     ],
     "cta": {
-      "label": "Let's Grow",
+      "label": "Start Your Project",
       "url": "/#contact"
     }
   },
@@ -177,8 +177,8 @@
       "268 S. Orange Dr",
       "Los Angeles, CA 90036"
     ],
-    "email": "hello@wecreativeagency.com",
+    "email": "hello@wedigital.studio",
     "phone": "(323) 412-0544",
-    "copyright": "© WE Creative Agency, Los Angeles"
+    "copyright": "© WE Digital Studio, Los Angeles"
   }
 }

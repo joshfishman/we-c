@@ -148,6 +148,13 @@
   height: 100%;
   object-fit: cover;
 }
+/* The Stoned asset is a transparent desktop/mobile composition rather than a
+   flat screenshot. Keep the full composition inside the same media half used
+   by California Chicken Cafe instead of cropping its edges. */
+.mediaContain img {
+  object-fit: contain;
+  object-position: center;
+}
 
 /* ---- Fanned multi-image stack (e.g. Ovando) ---- */
 .fan {

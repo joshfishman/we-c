@@ -1,6 +1,7 @@
 "use client";
 
 import { trackCtaClick, trackLead, trackOutbound } from "../../lib/track";
+import { useQuiz } from "../quiz/QuizContext";
 
 type Props = {
   label?: string | null;
@@ -34,8 +35,10 @@ export function Cta({
   tinaField,
   className,
 }: Props) {
+  const quiz = useQuiz();
   if (!label) return null;
   const href = url || "#";
+  const opensSurvey = href === "#survey" && quiz.enabled;
   const outbound = isOutbound(href);
   const lead = isLead(href);
 
@@ -44,6 +47,22 @@ export function Cta({
     else trackCtaClick(label, location);
     if (outbound) trackOutbound(href);
   };
+
+  if (opensSurvey) {
+    return (
+      <button
+        type="button"
+        className={`btn btn--${variant}${className ? ` ${className}` : ""}`}
+        data-tina-field={tinaField}
+        onClick={() => {
+          trackCtaClick(label, location);
+          quiz.open();
+        }}
+      >
+        {label}
+      </button>
+    );
+  }
 
   return (
     <a

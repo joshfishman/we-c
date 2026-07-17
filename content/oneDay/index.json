@@ -1,5 +1,5 @@
 {
-  "title": "Website & Ecommerce Development in a Day | WE Creative Agency",
+  "title": "Website & Ecommerce Development in a Day | WE Digital Studio",
   "description": "Enterprise-level websites: strategy, design and development, all in one day. Planned in the morning, live by sunset.",
   "hero": {
     "visible": true,
@@ -11,7 +11,7 @@
     "headlineLine1": "in the morning.",
     "headlineLine2Accent": "Go Live",
     "headlineLine2": "by Sunset.",
-    "subhead": "Enterprise level websites. From Strategy to Design & Development, all in one day.",
+    "subhead": "Enterprise level websites. Strategy, Design & Development, all in one day.",
     "ctaPrimary": {
       "label": "Let's Build Together →",
       "url": "#start"
@@ -36,7 +36,7 @@
     "visible": true,
     "stats": [
       {
-        "value": "10×",
+        "value": "20×",
         "label": "Faster than typical development"
       },
       {
@@ -52,15 +52,15 @@
   "caseStudy": {
     "visible": true,
     "eyebrow": "Client Results",
-    "metricValue": "300+%",
+    "metricValue": "3X+",
     "metricLabel": "revenue growth in six months",
     "brand": "Stoned Immaculate Clothing",
-    "quote": "WE rebuilt our store and dialed in our organic and paid channels. We tripled revenue in a single quarter. They move fast and actually get fashion.",
-    "personName": "Founder & Creative Director",
-    "personTitle": "Stoned Immaculate Clothing",
-    "image": "/media/stoned-immaculate-editorial.jpg",
-    "imageAlt": "Stoned Immaculate Clothing editorial campaign photo",
-    "avatar": "/media/avatar-founder.jpg"
+    "quote": "Working with WE has been a great experience.  WE rebuilt & optimized our store, as well as managed our ads. Conversion rate went gone up and sales grew consistently.",
+    "personName": "Elliot Hans",
+    "personTitle": "Founder & Creative Director",
+    "image": "/media/work-stoned-immaculate.png",
+    "imageAlt": "Founder Photo",
+    "avatar": "/media/elliothans.png"
   },
   "ourWork": {
     "visible": true,
@@ -72,16 +72,15 @@
     },
     "projects": [
       {
-        "title": "Stoned Immaculate Clothing",
-        "badge": "3× revenue · 6 mo",
-        "services": "Shopify Development · Social & Search Ads",
-        "image": "/media/work-stoned-immaculate.png",
+        "title": "California Chicken Cafe",
+        "badge": "Custom Webflow",
+        "services": "Site Development",
+        "image": "/media/work-california-chicken-cafe.png",
         "logos": [
-          "shopify",
-          "instagram",
-          "google",
-          "facebook"
+          "webflow",
+          "wordpress"
         ],
+        "caseBody": "**A custom Webflow experience built for convenience.** We created a polished site that makes finding a location, viewing the menu, and ordering delivery effortless.\n\n**What we did:** Custom Webflow design and development; interactive menu and location map; delivery-partner links; a flexible CMS their team can easily update.\n",
         "url": "#start"
       },
       {
@@ -96,17 +95,21 @@
         "logos": [
           "shopify"
         ],
+        "caseBody": "**A defining name in New York floral design.** Ovando trusts WE to translate her distinctive creative vision into an equally refined digital presence.\n\n**What we do:** Ongoing site development and management; digital strategy; seasonal storytelling; a polished online experience built to captivate and grow.\n",
         "url": "#start"
       },
       {
-        "title": "California Chicken Cafe",
-        "badge": "Custom Webflow",
-        "services": "Site Development",
-        "image": "/media/work-california-chicken-cafe.png",
+        "title": "Stoned Immaculate Clothing",
+        "badge": "3× revenue · 6 mo",
+        "services": "Shopify Development · Social & Search Ads",
+        "image": "/media/work-stoned-immaculate.png",
         "logos": [
-          "webflow",
-          "wordpress"
+          "shopify",
+          "instagram",
+          "google",
+          "facebook"
         ],
+        "caseBody": "**3× revenue in six months.** WE rebuilt Stoned Immaculate's Shopify store from the ground up and implemented a structured ad-testing and scaling framework across paid social and search.\n\n**What we did:** Shopify theme and PDP rebuild; creative testing on Meta and Google; a scaling framework driven by blended ROAS.\n",
         "url": "#start"
       },
       {
@@ -119,6 +122,18 @@
           "facebook",
           "instagram"
         ],
+        "caseBody": "**From idea to exit.**\n\nTwo full site builds, launch and growth marketing, and ongoing optimization, all the way through to acquisition.\n",
+        "url": "#start"
+      },
+      {
+        "title": "Grow Organic Baby",
+        "badge": "2× business growth",
+        "services": "Shopify Development · Digital Marketing",
+        "image": "/media/work-grow-organic-baby.png",
+        "logos": [
+          "shopify"
+        ],
+        "caseBody": "**2× business growth in a highly competitive market.** Our ecommerce and marketing work helped Grow Organic Baby double its business and reach more families.\n\n**What we did:** Shopify development; conversion optimization; digital growth strategy; ongoing marketing and site management.\n",
         "url": "#start"
       }
     ]
@@ -126,22 +141,22 @@
   "quality": {
     "visible": true,
     "eyebrow": "Built for growth",
-    "heading": "Quality is the headline. Speed is the bonus.",
+    "heading": "Tell your story online.",
     "cards": [
       {
         "icon": "⚡",
         "title": "Built for speed",
-        "body": "Lightning page loads and clean code, engineered to score top marks on Core Web Vitals out of the box."
+        "body": "Lightning page loads and clean code."
       },
       {
         "icon": "⌕",
-        "title": "AI & Search Engine Optimized",
-        "body": "Semantic structure, metadata and accessibility baked in, so you rank well and welcome every visitor."
+        "title": "AI & Search Discovery",
+        "body": "Metadata and accessibility baked in, so your brand is discovered no matter where users search."
       },
       {
         "icon": "⛬",
         "title": "Secure & scalable",
-        "body": "Hosted on rock-solid infrastructure that grows with you, and a stack you fully own and control."
+        "body": "Rock-solid infrastructure that scales grows with you, and code you fully own and control."
       }
     ]
   },
@@ -154,31 +169,31 @@
         "no": "01",
         "title": "Plan",
         "tag": "Morning",
-        "body": "A guided questionnaire gets your goals, audience and brand on paper fast. We align on scope and direction together. No guesswork, no long discovery cycle."
+        "body": "Help us understand your goals, audience. Here is where we align on scope and direction. Your vision laid out, we just help refine it."
       },
       {
         "no": "02",
         "title": "Design",
         "tag": "Midday",
-        "body": "We lock in all content and structure: copy, imagery, sitemap and layout. With everything settled up front, AI turns the approved plan into a polished, on-brand build."
+        "body": "Once we lock in content, structure and stylistic inspirations. We present you 3 fully rendered designs of your homepage."
       },
       {
         "no": "03",
         "title": "Launch & Refine",
         "tag": "Sunset",
-        "body": "Your site goes live the same day. Then we measure real behaviour and refine, tuning copy, layout and conversion paths so the site keeps getting sharper."
+        "body": "Your site is delivered the same day. Most teams need another day or two to review & request refinements and we are happy to oblige."
       }
     ]
   },
   "cta": {
     "visible": true,
     "eyebrow": "Website & Ecommerce Development",
-    "heading": "Tell us about your site. We'll build it tomorrow.",
-    "body": "Start with the questionnaire. It takes about 5 minutes and starts your one-day build process.",
+    "heading": "Tell us your vision. We'll build it tomorrow.",
+    "body": "Start with our questionnaire. It takes about 2 minutes and starts your process.",
     "image": "/media/one-day-sunset.jpg",
     "ctaPrimary": {
       "label": "What are you planning?",
-      "url": "#"
+      "url": "#survey"
     },
     "ctaSecondary": {
       "label": "See our work",
@@ -195,7 +210,7 @@
     }
   },
   "footer": {
-    "contact": "hello@wecreativeagency.com  ·  (323) 412-0544",
-    "copyright": "© WE Creative Agency, Los Angeles"
+    "contact": "hello@wedigital.studio  ·  (323) 412-0544",
+    "copyright": "© WE Digital Studio, Los Angeles"
   }
 }

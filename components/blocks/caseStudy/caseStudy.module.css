@@ -131,11 +131,15 @@
 
 .dusk .photo {
   min-height: 420px;
-  background: linear-gradient(160deg, #e88e5c, #8e5e9e);
+  background: #f6e7d6;
 }
 .dusk .photo :global(.imgSlot) {
   min-height: 420px;
-  object-fit: cover;
+  background: #f6e7d6;
+}
+.dusk .photo :global(.imgSlot img) {
+  object-fit: contain;
+  object-position: center;
 }
 
 .dusk .story {
