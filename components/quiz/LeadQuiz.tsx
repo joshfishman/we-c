@@ -236,7 +236,7 @@ export function LeadQuiz({
                 <input
                   type="hidden"
                   name="_subject"
-                  value="New quiz lead, WE Creative Agency"
+                  value="New quiz lead, WE Digital Studio"
                 />
                 {steps.map((s) =>
                   s.key ? (

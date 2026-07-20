@@ -8,7 +8,7 @@ import styles from "./contactForm.module.css";
 /**
  * Contact form — posts to Formspree via the official @formspree/react SDK, so it
  * works on the static/serverless deploy with no backend and no secret key (the
- * form id is public). Notifications are routed to josh@wecreativeagency.com from
+ * form id is public). Notifications are routed to josh@wedigital.studio from
  * the Formspree dashboard. Override the form id with NEXT_PUBLIC_FORMSPREE_ID.
  */
 const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID || "mdarygor";
@@ -57,7 +57,7 @@ export function ContactForm({
       }`}
       onSubmit={handleSubmit}
     >
-      <input type="hidden" name="_subject" value="New enquiry, WE Creative Agency" />
+      <input type="hidden" name="_subject" value="New enquiry, WE Digital Studio" />
       <div className={styles.row}>
         <input
           className={styles.input}

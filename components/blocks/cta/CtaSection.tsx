@@ -56,12 +56,12 @@ export function CtaSection({ data, id = "contact" }: { data: any; id?: string })
 
       <div className={styles.footerBar}>
         <div className={styles.footerTop}>
-          <Link href="/" className={styles.footerBrand} aria-label="WE Creative Agency home">
+          <Link href="/" className={styles.footerBrand} aria-label="WE Digital Studio home">
             <span className={styles.weMark}>WE</span>
             <span className={styles.weSub}>
               Digital
               <br />
-              agency
+              studio
             </span>
           </Link>
 
@@ -72,7 +72,7 @@ export function CtaSection({ data, id = "contact" }: { data: any; id?: string })
         </div>
 
         <p className={styles.copyright}>
-          © {year} WE Creative Agency, Los Angeles
+          © {year} WE Digital Studio, Los Angeles
         </p>
       </div>
       </div>

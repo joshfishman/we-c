@@ -21,7 +21,7 @@ export const SettingsCollection: Collection = {
     {
       type: "string",
       name: "logoSub",
-      label: "Logo sub-label (HTML allowed, e.g. DIGITAL<br>agency)",
+      label: "Logo sub-label (HTML allowed, e.g. DIGITAL<br>studio)",
     },
     {
       type: "string",

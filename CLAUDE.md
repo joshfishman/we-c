@@ -1,6 +1,6 @@
-# WE Creative Agency — site
+# WE Digital Studio — site
 
-Marketing site for WE Creative Agency. Two pages:
+Marketing site for WE Digital Studio. Two pages:
 
 - **Home** (`/`, `app/page.tsx`) — ecommerce-marketing landing. Sunset/dusk theme (same palette as One Day).
 - **One Day** (`/one-day`, `app/one-day/page.tsx`) — "1 Day Website" offer. Sunset/dusk theme, cinematic sky hero.
@@ -24,7 +24,7 @@ When adding new sections/fields, keep them editor-friendly: real Tina fields (st
 - **Next.js 16** (App Router, Turbopack) · **React 19** · **TypeScript**
 - **CSS Modules** per component + design tokens in `styles/tokens.css`. **No Tailwind.**
 - **Self-hosted TinaCMS** (local mode) for content editing.
-- **Formspree** (`@formspree/react`) for the contact form — form id `mdarygor`, public, **no API key**. Notification email is set in the Formspree dashboard (→ josh@wecreativeagency.com).
+- **Formspree** (`@formspree/react`) for the contact form — form id `mdarygor`, public, **no API key**. Notification email is set in the Formspree dashboard (→ josh@wedigital.studio).
 - **Radix Popover** (`@radix-ui/react-popover`) for the Our Work "Read more" case studies.
 
 ## Dev / build / deploy
