@@ -17,10 +17,9 @@ export default defineConfig({
     outputFolder: "admin",
   },
   media: {
-    tina: {
-      mediaRoot: "",
-      publicFolder: "public",
-      static: true,
+    loadCustomStore: async () => {
+      const { LocalMediaStore } = await import("./localMediaStore");
+      return LocalMediaStore;
     },
   },
   schema: {
