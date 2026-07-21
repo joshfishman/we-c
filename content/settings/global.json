@@ -138,7 +138,7 @@
       },
       {
         "key": "budget",
-        "question": "Rough monthly budget?",
+        "question": "Do you have a budget in mind?",
         "help": "So we point you at the right thing, not to screen you out.",
         "type": "single",
         "branch": "any",
