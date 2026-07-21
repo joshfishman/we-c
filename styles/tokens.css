@@ -64,8 +64,14 @@
      :root holds the default (forest).
      ============================================================ */
 
-  /* Page ground */
-  --t-page-bg: var(--page-gradient);
+  /* Page ground.
+     This one token is also read by <body>, which sits outside any page root
+     and so never sees a data-theme. A body background propagates to the
+     canvas — the area past the end of the document you see when overscrolling
+     — so if this defaulted to the forest gradient, every page showed a light
+     green band below the footer regardless of its own theme. It holds the
+     ground the site actually ships; forest opts in below. */
+  --t-page-bg: #eae0cb;
   /* Gradient used for eyebrows / accent words (.gradText) */
   --t-accent-grad: var(--grad-green);
   /* Richer ramp for the hero headline words (reads over the photo) */
@@ -121,6 +127,14 @@
   /* Secondary button fill */
   --t-btn-secondary: var(--grad-secondary);
   --t-btn-secondary-shadow: rgba(31, 110, 90, 0.75);
+}
+
+/* ---- Forest palette ----
+   The rest of the forest tokens live on :root as the default; only the page
+   ground is opted into here, so an unthemed <body> cannot paint it onto the
+   canvas. Set data-theme="forest" on a page root to use the green ground. */
+[data-theme="forest"] {
+  --t-page-bg: var(--page-gradient);
 }
 
 /* ---- Sunset / dusk palette (the One Day look) ---- */
