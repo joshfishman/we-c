@@ -250,8 +250,8 @@ test.describe("Lead quiz", () => {
   test("the service split drives which questions get asked", async ({ page }) => {
     const dialog = await openQuiz(page);
 
-    // "Both" costs one extra question, not a second track.
-    await dialog.getByText("Both", { exact: true }).click();
+    // "All of the above" costs one extra question, not a second track.
+    await dialog.getByText("All of the above", { exact: true }).click();
     const both = await dialog.locator('[class*="progressText"]').textContent();
     await dialog.getByText("Digital Marketing", { exact: true }).click();
     const marketing = await dialog.locator('[class*="progressText"]').textContent();

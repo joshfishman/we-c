@@ -3,6 +3,7 @@ import { defineConfig, LocalAuthProvider } from "tinacms";
 import { PageCollection } from "./collections/page";
 import { SettingsCollection } from "./collections/settings";
 import { OneDayCollection } from "./collections/oneDay";
+import { AiVisibilityCollection } from "./collections/aiVisibility";
 
 export default defineConfig({
   // Editing is local-only (`npm run dev` → /admin), which needs no login: the
@@ -23,6 +24,11 @@ export default defineConfig({
     },
   },
   schema: {
-    collections: [SettingsCollection, PageCollection, OneDayCollection],
+    collections: [
+      SettingsCollection,
+      PageCollection,
+      OneDayCollection,
+      AiVisibilityCollection,
+    ],
   },
 });

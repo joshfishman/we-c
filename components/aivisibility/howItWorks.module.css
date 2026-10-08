@@ -1,0 +1,481 @@
+/* "Everywhere AI looks" (AI Visibility channels), in a full-width
+   night-to-sunset band: heading beside an example AI chat on top,
+   the featured "where we publish" card below, then a small
+   card ("The result") and an optional offer card.
+   Colours come from the --t-* theme tokens; only the neutral chat-window
+   chrome uses fixed greys so it reads like a real AI app. */
+
+/* Full-width colour band, flush with its neighbours, same padding as every
+   other section on the page. */
+.section {
+  padding: 0;
+}
+.panel {
+  background: var(--t-panel-bg);
+  color: var(--t-panel-ink);
+  padding: var(--section-pad-y) clamp(1.25rem, 4vw, 3rem);
+  overflow: hidden;
+}
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ---- Heading (left column of the top) ---- */
+.eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--t-panel-ink-soft);
+}
+.heading {
+  margin: 0;
+  font-weight: 400;
+  font-size: clamp(36px, 5vw, 66px); /* same scale as the hero headline */
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--t-panel-ink);
+}
+.accent {
+  background: var(--t-hero-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.italic {
+  font-style: italic;
+}
+.intro {
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--t-panel-ink-soft);
+}
+
+/* ---- Top: heading beside the example AI chat ---- */
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+  margin-bottom: clamp(36px, 5vw, 56px);
+}
+.topText {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card {
+  margin-bottom: 28px;
+  background: var(--t-card-bg);
+  color: var(--t-card-ink);
+  border-radius: 24px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: var(--shadow-lg);
+  min-width: 0;
+}
+.card {
+  margin-bottom: 0;
+}
+/* Featured: bigger type, more room and a warm ring so it leads the row. */
+.cardFeature {
+  padding: 36px;
+  gap: 22px;
+  box-shadow: 0 30px 70px -30px rgba(20, 10, 30, 0.75); /* no outline ring */
+}
+.cardFeature .cardTitle {
+  /* Same size as the "Real businesses, real growth." section heading. */
+  font-size: clamp(34px, 4.6vw, 52px);
+  line-height: 1.04;
+}
+.cardLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--t-card-label);
+}
+.cardHead {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cardTitle {
+  margin: 0;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.1;
+  color: var(--t-card-ink);
+}
+.cardBody {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--t-soft-ink-soft);
+}
+
+/* ---- Step 1: AI chat window ---- */
+.chat {
+  margin: 0;
+  background: #fff;
+  border: 1px solid rgba(58, 34, 48, 0.12);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px -26px rgba(20, 10, 30, 0.45);
+}
+.chatBar {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) 56px;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid #efe7dd;
+  background: #fbf8f4;
+}
+.chatDots {
+  display: flex;
+  gap: 6px;
+}
+.chatDots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e3d7cb;
+}
+.chatLogos {
+  display: flex;
+  justify-content: center;
+}
+/* Logo stack in the window's title bar. */
+.chatLogos div[role="img"] {
+  margin-bottom: 0;
+}
+.chatLogos div[role="img"] > span {
+  width: 52px;
+  height: 52px;
+  font-size: 25px;
+  margin-left: -10px;
+  border-color: #fbf8f4;
+}
+.chatBody {
+  padding: 22px 24px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.chatAsk {
+  align-self: flex-end;
+  max-width: 75%;
+  background: #f1ece6;
+  color: #2a1d24;
+  border-radius: 20px;
+  padding: 10px 16px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.chatReply {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.chatAvatar {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--t-icon-badge);
+  color: #fff3e0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+.chatReplyText {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #2a1d24;
+}
+.chatName {
+  background: linear-gradient(90deg, #ffe7a0, #ffd38a);
+  color: inherit;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+.chatInputWrap {
+  padding: 14px 18px 18px;
+}
+.chatInput {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e6ddd3;
+  border-radius: 999px;
+  padding: 6px 6px 6px 18px;
+  background: #fff;
+  box-shadow: 0 6px 16px -12px rgba(20, 10, 30, 0.4);
+  font-size: 15px;
+  color: #75656d;
+}
+.chatInput > span:first-child {
+  flex: 1;
+}
+.chatSend {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #2a1d24;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+}
+
+/* ---- Step 2: one tile per channel, each with its logo stack ---- */
+.tiles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.tile {
+  background: #fff;
+  border: 1px solid rgba(58, 34, 48, 0.12);
+  border-radius: 16px;
+  padding: 18px 18px 16px;
+  min-width: 0;
+  text-align: center;
+}
+/* Logo group centred over the title, no extra space below it. */
+.tile div[role="img"] {
+  justify-content: center;
+  margin-bottom: 18px; /* breathing room above the tile title */
+  padding-left: 0;
+}
+.tile div[role="img"] > span {
+  width: 76px; /* double the original 38px */
+  height: 76px;
+  font-size: 34px;
+  margin-left: -14px;
+  border: none; /* no outline ring */
+  /* Super-light cream instead of flat white. */
+  background: linear-gradient(150deg, #fffdf8 0%, #f8efe1 100%);
+}
+.tile div[role="img"] > span:first-child {
+  margin-left: 0; /* no offset, so the group sits truly centred */
+}
+.tileBody {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--t-soft-ink-soft);
+}
+.tileTitle {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--t-card-ink);
+}
+
+/* ---- The result: a small card under the featured one ---- */
+.result {
+  margin: 24px auto 0;
+  max-width: 408px; /* 20% wider than 340px */
+  display: flex;
+  flex-direction: column; /* icon above, everything centred */
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 24px 28px;
+  border-radius: 22px;
+  background: var(--t-card-bg);
+  color: var(--t-card-ink);
+  box-shadow: var(--shadow-lg);
+}
+.resultIcon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--t-icon-badge);
+  color: #fff3e0;
+  font-size: 34px;
+}
+.resultText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.resultTitle {
+  margin: 0;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.15;
+  color: var(--t-card-ink);
+}
+.resultBody {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--t-soft-ink-soft);
+}
+
+.offer {
+  margin: 44px 0 0 88px; /* lines up with the step cards */
+  background: var(--t-cta-bg);
+  border-radius: 28px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+.offerEyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: var(--grad-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.offerHeading {
+  margin: 0;
+  font-weight: 400;
+  font-size: clamp(27px, 3.4vw, 34px);
+  line-height: 1.12;
+  color: var(--t-panel-ink);
+  max-width: 560px;
+}
+.offerCta {
+  margin-top: 6px;
+}
+.offerCta :global(.btn) {
+  font-size: 1.05rem;
+  padding: 0.8rem 2rem;
+}
+.offerNote {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--t-panel-ink-soft);
+  max-width: 460px;
+}
+
+/* ---- Mobile: number above each card, line runs down between them ---- */
+@media (max-width: 900px) {
+  .top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 720px) {
+  .tiles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .result {
+    align-items: flex-start;
+    padding: 20px;
+  }
+  .card {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0;
+    padding: 22px 16px;
+    text-align: center;
+  }
+  .cardTitle {
+    font-size: 28px;
+  }
+  .chat,
+  .tiles {
+    text-align: left;
+  }
+  .chatBar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .chatDots,
+  .chatBar > span:last-child {
+    display: none;
+  }
+  .chatBody {
+    padding: 16px 14px 4px;
+  }
+  .chatAsk {
+    max-width: 85%;
+    font-size: 14px;
+  }
+  .chatReplyText {
+    font-size: 14px;
+  }
+  .tile {
+    padding: 14px 12px 12px;
+  }
+  .tile div[role="img"] > span {
+    width: 60px;
+    height: 60px;
+    font-size: 27px;
+    margin-left: -12px;
+  }
+  .offer {
+    margin: 30px 0 0;
+    padding: 28px 20px;
+  }
+  .offerCta,
+  .offerCta :global(.btn) {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    white-space: nowrap;
+  }
+}
+
+/* "Your answers, everywhere": centred heading and sub-heading. */
+.cardFeature .cardHead {
+  align-items: center;
+  text-align: center;
+}
+
+/* "Your answers, everywhere": a narrower card, centred in the band. */
+.cardFeature {
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+/* Search field: the caption is typed in like a real query (dark text, not
+   the grey "Ask anything" placeholder). */
+.chatInput > span.chatTyped {
+  color: #1f1a1d;
+  font-size: 17px; /* 2px up from the field's 15px */
+  font-weight: 700;
+}
+
+
+/* "The result" label: above the icon, and bigger than the standard label. */
+.result .resultLabel {
+  font-size: 15px;
+  letter-spacing: 0.2em;
+}
+.resultTop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}

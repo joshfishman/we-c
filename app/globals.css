@@ -14,23 +14,27 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-/* Section reveal — a gentle fade + rise as each section enters view.
-   The pending class is added by RevealOnScroll at runtime, so with JS off
-   (or reduced motion) everything simply stays visible. */
-.revealPending {
+/* Scroll reveal, opt-in (RevealOnScroll): sections themselves never move;
+   in a data-reveal="stagger" section the items rise in one at a time, very
+   subtly. The class is added at runtime, so with JS off everything shows. */
+.revealStagger [data-reveal-item] {
   opacity: 0;
-  transform: translateY(24px);
-  will-change: opacity, transform;
+  transform: translateY(10px);
 }
-.revealPending.revealIn {
+.revealStagger.revealIn [data-reveal-item] {
   opacity: 1;
   transform: none;
-  transition: opacity 0.85s cubic-bezier(0.2, 0.7, 0.2, 1),
-    transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--reveal-i, 0) * 110ms);
 }
 @media (prefers-reduced-motion: reduce) {
-  .revealPending,
-  .revealPending.revealIn {
+  .btn,
+  .btn::before {
+    transition: none;
+  }
+  .revealStagger [data-reveal-item],
+  .revealStagger.revealIn [data-reveal-item] {
     opacity: 1;
     transform: none;
     transition: none;
@@ -151,24 +155,55 @@ h4 {
   text-decoration: none;
   background-size: 220% 100%;
   background-position: 0% 50%;
-  transition: background-position 0.45s ease, background 0.35s ease,
-    color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+  /* One easing for the whole hover: gradient, movement, text colour, shadow. */
+  --btn-ease: 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: background-position 0.6s ease, background var(--btn-ease),
+    color var(--btn-ease), box-shadow var(--btn-ease), transform var(--btn-ease),
+    filter var(--btn-ease);
+  /* For the hover gradient layer (::before) below. */
+  position: relative;
+  isolation: isolate;
+}
+/* Gradients can't be transitioned directly, so each gradient button carries its
+   hover gradient on a layer behind the label that fades in: a smooth gradient
+   change on hover instead of a hard swap. */
+.btn--primary::before,
+.btn--dusk::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-size: 220% 100%;
+  opacity: 0;
+  transition: opacity var(--btn-ease);
+  pointer-events: none;
+}
+/* Primary hovers to the brighter sunset (not the deep purple one), so its dark
+   label stays readable and never flips to white. */
+.btn--primary::before {
+  background-image: var(--grad-sunset-bright);
+}
+.btn--dusk::before {
+  inset: -1px; /* cover the 1px border too */
+  background-image: var(--grad-dusk-deep);
+}
+.btn--primary:hover::before,
+.btn--dusk:hover::before {
+  opacity: 1;
 }
 .btn:hover {
   transform: translateY(0.75px);
   box-shadow: none;
 }
 
-/* Primary — sunset gradient ("Let's Grow"); shifts to a deeper sunset on hover */
+/* Primary — sunset gradient ("Let's Grow"); fades to a brighter sunset on
+   hover. The dark label stays dark (no black-to-white flip). */
 .btn--primary {
   color: #2a1520;
   background-image: var(--grad-sunset);
   box-shadow: 0 16px 40px -16px rgba(224, 114, 142, 0.6);
   animation: gradShift 6s ease infinite; /* continuous sunset drift */
-}
-.btn--primary:hover {
-  color: #fff7e9;
-  background-image: var(--grad-sunset-deep);
 }
 
 /* Secondary — green gradient like the "View case" pills, no border. */
@@ -196,7 +231,6 @@ h4 {
 }
 .btn--dusk:hover {
   color: #fff7e9;
-  background-image: var(--grad-dusk-deep);
 }
 
 /* Cream — solid light pill (One Day primary) */

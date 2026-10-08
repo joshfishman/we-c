@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { ReactNode } from "react";
 import { isEditing } from "../../lib/track";
 import styles from "./typewriter.module.css";
@@ -37,17 +37,21 @@ function usePrefersReducedMotion() {
  * - A hidden sizer reserves the final size, so typing never shifts layout.
  * - Disabled (shows full text, no caret) under prefers-reduced-motion and
  *   inside the Tina editor (so editing the headline doesn't re-trigger typing).
+ * - `startOnView`: wait until the text scrolls into view before typing, for
+ *   use below the fold (the AI Visibility chat search field).
  */
 export function Typewriter({
   segments,
   className,
   startDelay = 450,
   speed = 45,
+  startOnView = false,
 }: {
   segments: TWSegment[];
   className?: string;
   startDelay?: number;
   speed?: number;
+  startOnView?: boolean;
 }) {
   const total = segments.reduce(
     (n, s) => n + (s.break ? 0 : s.text?.length || 0),
@@ -58,12 +62,30 @@ export function Typewriter({
   // nothing runs setState synchronously inside the effect.
   const [count, setCount] = useState(0);
   const reduced = usePrefersReducedMotion();
+  const ref = useRef<HTMLSpanElement>(null);
+  const [inView, setInView] = useState(!startOnView);
+
+  useEffect(() => {
+    if (inView || !ref.current) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setInView(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.6 }
+    );
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, [inView]);
 
   useEffect(() => {
     if (reduced || isEditing()) {
       const t = setTimeout(() => setCount(total), 0); // show full text, no typing
       return () => clearTimeout(t);
     }
+    if (!inView) return;
     let n = 0;
     let interval: ReturnType<typeof setInterval> | undefined;
     const timer = setTimeout(() => {
@@ -77,7 +99,7 @@ export function Typewriter({
       clearTimeout(timer);
       if (interval) clearInterval(interval);
     };
-  }, [total, speed, startDelay, reduced]);
+  }, [total, speed, startDelay, reduced, inView]);
 
   const done = count >= total;
 
@@ -117,7 +139,7 @@ export function Typewriter({
   const plain = segments.map((s) => (s.break ? " " : s.text || "")).join("");
 
   return (
-    <span className={`${styles.tw} ${className || ""}`}>
+    <span ref={ref} className={`${styles.tw} ${className || ""}`}>
       <span className={styles.sizer} aria-hidden="true">
         {full}
       </span>

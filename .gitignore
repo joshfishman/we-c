@@ -32,3 +32,6 @@ yarn-error.log*
 # vercel
 /.vercel
 .vercel
+
+# Dev-only snapshots of content saves (instrumentation.ts)
+.content-history/

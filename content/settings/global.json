@@ -11,13 +11,18 @@
         "url": "/one-day"
       },
       {
+        "label": "AI & Search Traffic",
+        "url": "/ai-visibility"
+      },
+      {
         "label": "Ecommerce Marketing",
         "url": "/"
       }
     ],
     "cta": {
       "label": "Start Your Project",
-      "url": "/#contact"
+      "url": "/#contact",
+      "mobileLabel": "Get started"
     }
   },
   "quiz": {
@@ -43,9 +48,19 @@
             "picks": "site"
           },
           {
-            "label": "Both",
-            "value": "Both",
+            "label": "AI & Search Traffic",
+            "value": "AI & Search Traffic",
+            "picks": "marketing"
+          },
+          {
+            "label": "All of the above",
+            "value": "All of the above",
             "picks": "both"
+          },
+          {
+            "label": "Not sure",
+            "value": "Not sure",
+            "picks": ""
           }
         ]
       },
@@ -178,7 +193,7 @@
       "Los Angeles, CA 90036"
     ],
     "email": "hello@wedigital.studio",
-    "phone": "(323) 412-0544",
+    "phone": "",
     "copyright": "© WE Digital Studio, Los Angeles"
   }
 }

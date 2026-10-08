@@ -43,3 +43,7 @@ export function getSettings() {
 export function getOneDay() {
   return readJSON("oneDay/index.json");
 }
+
+export function getAiVisibility() {
+  return readJSON("aiVisibility/index.json");
+}

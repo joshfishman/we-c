@@ -1,4 +1,4 @@
-import { getPage, getOneDay, getSettings } from "./content";
+import { getPage, getOneDay, getAiVisibility, getSettings } from "./content";
 
 /**
  * Content loaders that feed both the rendered site and the Tina editor.
@@ -44,6 +44,22 @@ export async function loadOneDay() {
   }
   return {
     data: { oneDay: getOneDay() },
+    query: "",
+    variables: { relativePath: "index.json" },
+  };
+}
+
+export async function loadAiVisibility() {
+  if (useDatalayer) {
+    const { databaseClient } = await import(
+      "../tina/__generated__/databaseClient"
+    );
+    return plain(
+      await databaseClient.queries.aiVisibility({ relativePath: "index.json" })
+    );
+  }
+  return {
+    data: { aiVisibility: getAiVisibility() },
     query: "",
     variables: { relativePath: "index.json" },
   };

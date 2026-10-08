@@ -28,9 +28,10 @@ const valueOf = (o: QuizOption) => o.value || o.label || "";
  * Which questions this person actually gets.
  *
  * One shared spine with conditional slots rather than parallel tracks: picking
- * "Both" costs one extra question, not a second set of them. Steps with no
- * branch are asked of everyone; a branched step is asked when its service was
- * picked, or when they picked Both.
+ * "All of the above" (picks "both") costs one extra question, not a second set
+ * of them. Steps with no branch are asked of everyone; a branched step is asked
+ * when its service was picked, or for "both". An answer that picks nothing
+ * ("Not sure") gets only the shared steps.
  */
 function stepsFor(all: QuizStep[], service: Picks) {
   return all.filter((s) => {

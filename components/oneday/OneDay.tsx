@@ -5,7 +5,7 @@ import { Cta } from "../ui/Cta";
 import { BgVideo } from "../ui/BgVideo";
 import { Starfield } from "../ui/Starfield";
 import { Squiggle } from "../ui/Squiggle";
-import { Typewriter, type TWSegment } from "../ui/Typewriter";
+import { HeroHeadline, type HeadlineSegment } from "../ui/HeroHeadline";
 import { SiteLayout } from "../site/SiteLayout";
 import { CaseStudy } from "../blocks/caseStudy/CaseStudy";
 import { OurWork } from "../blocks/ourWork/OurWork";
@@ -97,7 +97,7 @@ export function OneDay(props: {
   // Typed hero headline. Each line can lead with an accent phrase that carries
   // the sunset gradient ("Plan", "Go Live"); the rest of the line stays cream.
   // Both are editor fields, so which words glow is content, not markup.
-  const titleSegments: TWSegment[] = [];
+  const titleSegments: HeadlineSegment[] = [];
   const pushLine = (accent?: string, rest?: string) => {
     if (!accent && !rest) return;
     if (titleSegments.length) titleSegments.push({ break: true });
@@ -191,7 +191,7 @@ export function OneDay(props: {
               })}
             </div>
             <h1 className={`serif ${s.heroTitle}`}>
-              <Typewriter segments={titleSegments} />
+              <HeroHeadline segments={titleSegments} />
             </h1>
             <p className={s.heroSub} data-tina-field={tinaField(hero, "subhead")}>
               {hero?.subhead}

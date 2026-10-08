@@ -25,7 +25,9 @@ export function CtaSection({ data, id = "contact" }: { data: any; id?: string })
     <Section
       name="contact"
       id={id}
-      className={`${styles.section} ${data?.theme === "forest" ? styles.forest : ""}`}
+      className={`${styles.section} ${data?.theme === "forest" ? styles.forest : ""} ${
+        data?.flush ? styles.flush : ""
+      }`}
     >
       {/* The dark colour lives on this band, not the section, so the section's
           top padding is cream gap (uniform with the rest) rather than dark. The
@@ -42,12 +44,25 @@ export function CtaSection({ data, id = "contact" }: { data: any; id?: string })
           <p className={styles.body} data-tina-field={tinaField(data, "body")}>
             {data.body}
           </p>
+          {data?.phone ? (
+            <p className={styles.body}>
+              Or call{" "}
+              <a
+                href={`tel:${String(data.phone).replace(/[^\d+]/g, "")}`}
+                data-tina-field={tinaField(data, "phone")}
+              >
+                {data.phone}
+              </a>
+            </p>
+          ) : null}
         </div>
 
         <div className={styles.formCol}>
           <ContactForm
-            buttonLabel="Send message →"
-            location="contact"
+            buttonLabel={data?.buttonLabel || "Send message →"}
+            messageLabel={data?.messageLabel || undefined}
+            messagePlaceholder={data?.messagePlaceholder || undefined}
+            location={data?.location || "contact"}
             dark
             forest={data?.theme === "forest"}
           />
@@ -67,6 +82,7 @@ export function CtaSection({ data, id = "contact" }: { data: any; id?: string })
 
           <nav className={styles.footerNav}>
             <Link href="/one-day">One-Day Websites</Link>
+            <Link href="/ai-visibility">AI &amp; Search Traffic</Link>
             <Link href="/#framework">Ecommerce Marketing</Link>
           </nav>
         </div>

@@ -1,8 +1,9 @@
 # WE Digital Studio — site
 
-Marketing site for WE Digital Studio. Two pages:
+Marketing site for WE Digital Studio. Three pages:
 
 - **Home** (`/`, `app/page.tsx`) — ecommerce-marketing landing. Sunset/dusk theme (same palette as One Day).
+- **AI Visibility** (`/ai-visibility`, `app/ai-visibility/page.tsx`) — landing page for the AI Visibility outreach. Reuses One Day's section styles; content in `content/aiVisibility/index.json`. Result cards marked `placeholder` show in dev only, never in production.
 - **One Day** (`/one-day`, `app/one-day/page.tsx`) — "1 Day Website" offer. Sunset/dusk theme, cinematic sky hero.
 
 ## Golden rule
@@ -64,7 +65,8 @@ Use the preview tools against the running dev server (screenshots can be flaky o
 - **Conversion (GTM/GA4):** `lib/track.ts` pushes `cta_click`, `generate_lead` (primary), `section_view`, `scroll_depth`, `outbound_click`, `form_submit` to the GTM dataLayer (`NEXT_PUBLIC_GTM_ID`). Suppressed in the editor via `isEditing()`.
 - **Behaviour (Microsoft Clarity):** `components/site/Clarity.tsx` loads session replay + heatmaps when `NEXT_PUBLIC_CLARITY_ID` is set; also suppressed in the editor.
 - **Header clearance:** `Header.tsx` publishes `--header-h` (measured, re-measured after `fonts.ready`); both heroes reserve `calc(var(--header-h) + 28px)` so content never sits behind the fixed bar. Header padding is 12px (10px scrolled); the One Day header (`.skyHeader`) is fully transparent (no backing/divider/shadow) in all states.
-- **Hero entrance:** both hero headlines type in via `components/ui/Typewriter.tsx` (SSR-safe: starts empty → caret → types; full text for SR via sr-only + a hidden sizer that prevents reflow; disabled under `prefers-reduced-motion` and inside the Tina editor — so editing the headline doesn't retrigger typing, but the headline is then edited via the sidebar form, not inline). Content fades/rises in on load (`heroRise` keyframe, staggered, `both` fill so it's hidden until its delay — the load shows only the header logo + CTA first).
+- **Hero entrance:** no typing effect. Hero headlines render through `components/ui/HeroHeadline.tsx` (styled runs, so the gradient words stay editor content), and everything fades/rises in on load via the `heroRise` keyframe (12px, 1.1s ease-out, staggered, `both` fill so it's hidden until its delay; off under `prefers-reduced-motion`). The load shows only the header logo + CTA first. The typing effect lives on in `components/ui/Typewriter.tsx`, used only for the AI Visibility chat's search field (`startOnView`: it waits until scrolled into view).
+- **Scroll reveal:** sections do **not** fade/slide in as whole blocks (that read as a sticky bounce, removed). `RevealOnScroll` only animates sections marked `data-reveal="stagger"`: the background stays still and each `[data-reveal-item]` rises 10px and fades in, 110ms apart. Used on the AI Visibility "Everywhere AI looks" section.
 - **Background media:** `components/ui/BgVideo.tsx` renders the poster as an `<img>` layer behind the video (still-frame fallback on every browser), sets `muted` as a property + retries `play()` on mount/`canplay`/`loadeddata` (mobile autoplay), and is `loop`/`playsInline`/no-`controls`/no-PiP so it never shows a play button. Home hero has no video (poster image only); One Day uses `sky-video.mp4`.
 - **Tests:** `npm run lint` (Next + `jsx-a11y`, a11y rules are errors, `no-explicit-any` is a warning for Tina files), `npm test` (Vitest — `lib/`), `npm run test:e2e` (Playwright — render/clearance/form/popover/responsive + `@axe-core` WCAG A/AA gate on both pages, failing on serious/critical). Playwright reuses a running dev server locally; builds+starts in CI.
 - **A11y invariant:** both pages must pass the axe scan — keep accent text/badges above AA contrast (the One Day process badges/tags were deepened for this).
@@ -75,9 +77,14 @@ Use the preview tools against the running dev server (screenshots can be flaky o
   The Supabase login + Upstash datalayer + GitHub PAT that hosted editing needed are gone: it was never switched on, and `tina/database.ts` threw at build time without a datalayer, which broke deploys. Re-adding it means an auth provider, a hosted datalayer and a git provider again — see the commit "Editing is local-only".
 - **Questionnaire page** — the "What are you planning?" CTA links to `#`. The lead quiz below covers the multi-step questionnaire; this CTA still isn't wired to it.
 
+## Content safety (dev)
+
+- **Reload `/admin` after any schema change.** An editor tab opened before a change to `tina/collections/*` keeps the old schema in the browser; saving from it rewrites the JSON in the old shape and silently drops fields (this wiped the AI Visibility "Everywhere AI looks" section once).
+- `instrumentation.ts` (dev only) snapshots the previous version of every content JSON on each save into `.content-history/` (gitignored) and warns in the dev terminal when a save removes fields, with the `cp` command to restore.
+
 ## Lead quiz
 
-The qualifying funnel behind the header **Let's Grow** button, on both pages (`components/quiz/`). One quiz, not two: a first "Digital Marketing / Site Development / Both" question branches the rest, so **Both costs one extra question, not a second track**. Content is a Tina global (Site Settings → Lead quiz): questions, answers, branch, copy and the confirmation are all editor fields, and unchecking `visible` drops the button back to its plain `href`.
+The qualifying funnel behind the header **Let's Grow** button, on both pages (`components/quiz/`). One quiz, not two: a first "Digital Marketing / Site Development / AI & Search Traffic / All of the above / Not sure" question branches the rest (AI & Search Traffic takes the marketing branch; Not sure gets only the shared steps), so **All of the above costs one extra question, not a second track**. Content is a Tina global (Site Settings → Lead quiz): questions, answers, branch, copy and the confirmation are all editor fields, and unchecking `visible` drops the button back to its plain `href`.
 
 - **Trigger** — `QuizProvider` (context) lets any CTA call `useQuiz().open()`; the modal renders once in `SiteLayout`. Header renders a real `<button>` (it opens a dialog, it doesn't navigate).
 - **Theme** — Radix portals the dialog to `<body>`, *outside* the themed root, so `SiteLayout` takes a `theme` prop that gets stamped on `Dialog.Content` as `data-theme`. Without it the `--t-*` tokens fall back to `:root` (forest) and the modal renders green. The panel uses `--t-card-bg`, **not** `--t-panel-bg-reverse` — that ramp goes dark navy at the foot, under dark ink.

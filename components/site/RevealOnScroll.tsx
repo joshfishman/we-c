@@ -3,12 +3,16 @@
 import { useEffect } from "react";
 
 /**
- * Elegant load: each section fades up gently as it comes into view.
+ * Subtle scroll reveal, opt-in per section.
  *
- * The hidden state is applied from JS (not CSS), so with JS disabled every
- * section stays visible — nothing can get stranded at opacity 0. Heroes are
- * skipped: they run their own staggered entrance on load, and fading the
- * whole section would fade its background image/video too.
+ * Sections no longer fade/slide in as whole blocks (that 24px rise read as a
+ * sticky "bounce" while scrolling). Only a section marked
+ * `data-reveal="stagger"` animates: its background stays still and each
+ * `[data-reveal-item]` inside rises in one after another (index →
+ * `--reveal-i`, which sets the transition delay).
+ *
+ * The hidden state is applied from JS (not CSS), so with JS disabled nothing
+ * is ever hidden, and a failsafe shows everything if the observer never runs.
  */
 export function RevealOnScroll() {
   useEffect(() => {
@@ -20,12 +24,18 @@ export function RevealOnScroll() {
     }
 
     const els = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-section]")
-    ).filter((el) => !/hero$/i.test(el.dataset.section || ""));
+      document.querySelectorAll<HTMLElement>('[data-reveal="stagger"]')
+    );
+    if (!els.length) return;
 
-    const show = () => els.forEach((el) => el.classList.remove("revealPending"));
+    const show = () => els.forEach((el) => el.classList.remove("revealStagger"));
 
-    els.forEach((el) => el.classList.add("revealPending"));
+    els.forEach((el) => {
+      el.classList.add("revealStagger");
+      el.querySelectorAll<HTMLElement>("[data-reveal-item]").forEach((item, i) =>
+        item.style.setProperty("--reveal-i", String(i))
+      );
+    });
 
     let observerReported = false;
     const io = new IntersectionObserver(

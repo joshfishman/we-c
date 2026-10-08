@@ -63,7 +63,18 @@
   font-size: 14px;
 }
 
+/* Header button label: full on larger screens, short on phones. */
+.ctaShort {
+  display: none;
+}
+
 @media (max-width: 720px) {
+  .ctaFull {
+    display: none;
+  }
+  .ctaShort {
+    display: inline;
+  }
   .header {
     padding: 8px 1rem;
   }
@@ -71,15 +82,10 @@
     gap: 14px;
     flex-wrap: nowrap;
   }
-  /* Cross-page link: two centered lines, sized so the longest word
-     ("Ecommerce") fits and the text never slides under the CTA button. */
+  /* Phones: just the logo and the button. The page links live in the
+     footer; there's no room for them next to the logo. */
   .link {
-    white-space: normal;
-    max-width: 6.5em;
-    line-height: 1.08;
-    text-align: center;
-    font-size: 12px;
-    flex-shrink: 1;
+    display: none;
   }
   .headerCta {
     flex-shrink: 0;

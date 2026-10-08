@@ -52,6 +52,12 @@ export const SettingsCollection: Collection = {
           label: "Header button",
           fields: [
             { type: "string", name: "label", label: "Label" },
+            {
+              type: "string",
+              name: "mobileLabel",
+              label: "Short label on phones (e.g. Get started)",
+              description: "Shown instead of the label on small screens. Leave empty to use the label.",
+            },
             { type: "string", name: "url", label: "URL" },
           ],
         },
@@ -146,10 +152,10 @@ export const SettingsCollection: Collection = {
                   description:
                     "On the service question, what this answer selects.",
                   options: [
-                    { value: "", label: "—" },
+                    { value: "", label: "None (skips service-specific questions)" },
                     { value: "marketing", label: "Digital Marketing" },
                     { value: "site", label: "Site Development" },
-                    { value: "both", label: "Both" },
+                    { value: "both", label: "All of the above (asks every question)" },
                   ],
                 },
               ],

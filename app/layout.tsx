@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Spectral } from "next/font/google";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { Clarity } from "../components/site/Clarity";
+import { DevContentReload } from "../components/site/DevContentReload";
 import { siteUrl, siteName } from "../lib/site";
 
 const bricolage = Bricolage_Grotesque({
@@ -32,7 +33,6 @@ const organizationJsonLd = {
   description: defaultDescription,
   foundingDate: "2011",
   email: "hello@wedigital.studio",
-  telephone: "+1-323-412-0544",
   address: {
     "@type": "PostalAddress",
     streetAddress: "268 S. Orange Dr",
@@ -87,6 +87,7 @@ export default function RootLayout({
           }}
         />
         {children}
+        {process.env.NODE_ENV === "development" ? <DevContentReload /> : null}
       </body>
     </html>
   );

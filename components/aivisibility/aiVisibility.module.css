@@ -1,0 +1,373 @@
+/* AI-specific pieces of the AI Visibility page. Everything else reuses the One
+   Day page's sections (oneday.module.css). */
+
+/* ---- Example AI answer (sits in the sunset panel's right column) ---- */
+.chat {
+  background: rgba(251, 247, 239, 0.96);
+  color: #11333b;
+  border-radius: 22px;
+  padding: 26px 26px 22px;
+  box-shadow: 0 26px 60px -30px rgba(10, 10, 30, 0.7);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.chatTag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9a4318; /* AA on the cream card */
+  margin-bottom: 14px;
+}
+.chatAsk {
+  margin-left: auto;
+  width: fit-content;
+  max-width: 88%;
+  background: #2b3766;
+  color: #fcefe2;
+  border-radius: 16px 16px 4px 16px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+.chatAnswer {
+  background: #fff;
+  border: 1px solid rgba(17, 51, 59, 0.1);
+  border-radius: 16px 16px 16px 4px;
+  padding: 14px 16px;
+}
+.chatList {
+  margin: 10px 0 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 8px;
+}
+.chatName {
+  display: block;
+  font-weight: 600;
+}
+.chatNote {
+  display: block;
+  font-size: 13px;
+  color: #5a7178;
+}
+.chatMissing {
+  margin-top: 14px;
+  font-weight: 600;
+  color: #9b2c3a; /* AA on the cream card */
+}
+
+/* ---- How it works: horizontal grid (One Day keeps its vertical squiggle) ---- */
+/* How it works: one vertical column of steps, centred. */
+.stepGrid,
+.stepGrid[data-cols="2"] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+/* Doubled class: outranks One Day's .stepCard (width: 90%), which loads after. */
+.stepGridCard.stepGridCard {
+  width: 100%;
+  /* Two columns: tag chip + number on the left, title + description right. */
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  gap: 28px;
+  padding: 26px 30px;
+}
+/* Tag chip, then number badge, on one row, vertically centred. */
+.stepGridTop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.stepGridTag {
+  white-space: nowrap; /* long tags stay beside the number */
+}
+/* Doubled class: outranks One Day's .stepBadge (90px), which loads after. */
+.stepGridBadge.stepGridBadge {
+  width: 45px; /* half of the 90px badge */
+  height: 45px;
+  font-size: 21px;
+  box-shadow: 0 0 0 3px rgba(230, 132, 156, 0.2);
+}
+@media (max-width: 900px) {
+  .stepGrid,
+  .stepGrid[data-cols="2"] {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+  }
+}
+
+/* ---- Results ---- */
+.resultImage {
+  display: block;
+  width: calc(100% + 56px);
+  max-width: none; /* bleed past the card's 28px padding to its edges */
+  margin: -28px -28px 20px;
+  aspect-ratio: 1000 / 560;
+  object-fit: cover;
+  border-radius: 20px 20px 0 0;
+}
+/* Big number and label share one line. */
+.resultTop {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.resultLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #5a7178;
+}
+.resultMetric {
+  font-size: 28px; /* 30% smaller than the original 40px */
+  line-height: 1;
+  color: #9a4318;
+}
+.resultTitle {
+  line-height: 1.6;
+}
+/* Editor-only scaffolding; never rendered in production. */
+.placeholder {
+  border: 2px dashed #c0623a;
+  background: repeating-linear-gradient(
+    -45deg,
+    #fbf7ef,
+    #fbf7ef 12px,
+    #f6ecdc 12px,
+    #f6ecdc 24px
+  );
+}
+
+/* ---- FAQ ---- */
+/* Always open: every answer shows under its question. */
+.faqHead.faqHead {
+  margin-inline: auto;
+  text-align: center;
+}
+.faq {
+  display: grid;
+  gap: 12px;
+  max-width: 820px;
+  margin-inline: auto;
+}
+.faqItem {
+  background: #fbf7ef;
+  border: 1px solid rgba(17, 51, 59, 0.08);
+  border-radius: 16px;
+  padding: 20px 26px 20px 30px;
+}
+.faqQ {
+  font-size: 18px;
+  font-weight: 600;
+  color: #11333b;
+}
+.faqA {
+  padding-top: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4d6268;
+  white-space: pre-line;
+}
+
+/* ---- Alternating section styles ----
+   Open cream sections alternate with full-width colour bands, like Home and
+   One Day: night sky (How it works) → cream (Results) → daylight band
+   (Channels) → cream (FAQ) → dark contact. Same structure as the process
+   band: the section's padding is cream gap, the colour is a full-bleed band. */
+/* Bands run edge to edge into their neighbours (no cream gutter), so every
+   section boundary is the same --section-pad-y on each side. */
+.bandSection {
+  padding-block: 0;
+}
+.band {
+  width: 100%;
+  padding: var(--section-pad-y) clamp(1.25rem, 4vw, 3rem);
+}
+.bandInner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.bandDay {
+  background: var(--t-soft-bg);
+  color: var(--t-soft-ink);
+}
+.eyebrowOnDay {
+  color: var(--t-eyebrow-on-light); /* AA on the daylight gradient */
+}
+
+/* Problem: open cream section with the example chat beside the copy. */
+.problemGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.problemBody {
+  margin-top: 20px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #4d6268;
+  max-width: 520px;
+  white-space: pre-line;
+}
+@media (max-width: 820px) {
+  .problemGrid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+/* With the stats strip hidden there's nothing floating over the hero's foot,
+   so drop the room reserved for it and butt the night panel up to the hero. */
+/* Doubled class: outranks One Day's .heroContent / .process padding, which
+   load after this module and would otherwise win at equal specificity. */
+.heroNoStrip.heroNoStrip {
+  padding-bottom: 40px;
+}
+.bandFlush.bandFlush {
+  padding-block: 0;
+}
+
+/* Hero sub-headline: wide enough to sit on one line on large screens
+   (One Day keeps its narrower 560px measure). */
+.heroSubWide {
+  max-width: 820px;
+}
+
+/* Mobile hero: shorter than One Day's 86vh, with the copy sitting low over the
+   clear band of sky instead of on the busy clouds at the top of the photo. */
+@media (max-width: 720px) {
+  /* Doubled class: outranks One Day's mobile .hero rule, which loads after. */
+  .heroAi.heroAi {
+    min-height: 0;
+    height: auto;
+    justify-content: flex-end;
+    padding-top: calc(var(--header-h, 92px) + 120px);
+  }
+  .heroAi img,
+  .heroAi video {
+    object-position: 50% 30%;
+  }
+}
+
+/* ---- Channel cards: overlapping stack of platform logos ---- */
+.iconStack {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-left: 6px; /* room for the first chip's overlap ring */
+}
+.iconChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-left: -8px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #fbf7ef; /* matches the card, so chips read as cut out */
+  box-shadow: 0 6px 14px -8px rgba(20, 10, 30, 0.45);
+  font-size: 22px;
+}
+.iconChip:first-child {
+  margin-left: -6px;
+}
+
+/* Hero sub-headline over bright clouds: tight dark edge + soft glow. Scoped
+   under .heroAi so it outranks One Day's .heroSub shadow. */
+.heroAi .heroSubWide {
+  text-shadow:
+    0 1px 2px rgba(8, 26, 36, 0.65),
+    0 2px 16px rgba(8, 26, 36, 0.8);
+}
+
+/* Hero headline: smaller than One Day's so each line fits on one line on
+   desktop. Doubled class outranks One Day's .heroTitle (loads after). */
+.heroTitleAi.heroTitleAi {
+  font-size: clamp(36px, 5vw, 66px);
+  line-height: 1.02;
+}
+@media (min-width: 900px) {
+  .heroTitleAi.heroTitleAi {
+    white-space: nowrap;
+  }
+}
+/* "WE" in the headline, set like the logo wordmark. */
+.heroWe {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* How it works: left column (tag chip above the number), right column (text). */
+.stepGridCard .stepGridTop {
+  flex: none;
+  width: 150px;
+  flex-direction: column;
+  gap: 10px;
+}
+.stepGridText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.processHeadCenter.processHeadCenter {
+  margin-inline: auto;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .stepGridCard.stepGridCard {
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+  .stepGridCard .stepGridTop {
+    width: auto;
+  }
+}
+
+/* FAQ questions: 70% of the section width, centred (full width on phones). */
+.faq.faq {
+  width: 70%;
+  max-width: 580px; /* 30% narrower than before (~829px) */
+}
+@media (max-width: 720px) {
+  .faq.faq {
+    width: 100%;
+  }
+}
+
+/* Card titles in Results ("Dental clinic…") and How it works ("Free AI
+   Research…") share one style: the result-card size, in the serif.
+   `> h3` outranks One Day's .qualityTitle / .stepTitle, which load after. */
+.resultTitle.resultTitle,
+.stepGridText > h3 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+/* Every logo the same size, dead centre in its circle: the SVG is a fixed
+   block box (no inline baseline gap), 46% of the chip. */
+.iconChip svg {
+  display: block;
+  width: 46%;
+  height: 46%;
+  flex: none;
+}
+/* Line icons (newspaper, pen, chart…) are drawn inside a padded 24px box, so
+   they read ~20% smaller than the edge-to-edge brand marks; scale them up. */
+.iconChip svg.iconLine {
+  transform: scale(1.2);
+}

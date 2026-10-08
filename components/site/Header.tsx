@@ -114,7 +114,14 @@ export function Header({
               quiz.open();
             }}
           >
-            {header.cta.label}
+            {header.cta.mobileLabel ? (
+              <>
+                <span className={styles.ctaFull}>{header.cta.label}</span>
+                <span className={styles.ctaShort}>{header.cta.mobileLabel}</span>
+              </>
+            ) : (
+              header.cta.label
+            )}
           </button>
         ) : (
           <Cta

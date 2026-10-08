@@ -1,0 +1,206 @@
+{
+  "title": "Get Recommended by AI | WE Digital Studio",
+  "description": "When people ask AI who's best, make sure it's you. WE Digital Studio gets your business cited across AI assistants,  and Google.",
+  "hero": {
+    "visible": true,
+    "bgImage": "/media/sky-poster.jpg",
+    "headlineLine1Accent": "",
+    "headlineLine1": "WE get your *business found*",
+    "headlineLine2Accent": "",
+    "headlineLine2": "*everywhere* customers search",
+    "subhead": "Free traffic for any product or brand. Ramp up your sales.",
+    "ctaPrimary": {
+      "label": "Get my business found →",
+      "url": "#contact"
+    },
+    "ctaSecondary": {
+      "label": "How do you do it?",
+      "url": "#process"
+    }
+  },
+  "proof": {
+    "visible": false,
+    "stats": [
+      {
+        "value": "2011",
+        "label": "Growing businesses online since"
+      },
+      {
+        "value": "$6.7M+",
+        "label": "Revenue earned for clients"
+      },
+      {
+        "value": "77+",
+        "label": "Sites launched"
+      }
+    ]
+  },
+  "problem": {
+    "visible": false,
+    "eyebrow": "The new front page",
+    "heading": "Search changed. Most businesses haven't noticed.",
+    "body": "People used to scroll ten blue links. Now they ask an AI and get three or four names back. If you're not one of them, you never get the call, even with great reviews.\n\nThe AI picks the businesses it sees talked about across the web: news, articles, podcasts, video. That's what we build for you.",
+    "prompt": "Who's the best cosmetic dentist in Redondo Beach?",
+    "answerIntro": "Here are a few highly rated options in the area:",
+    "answers": [
+      {
+        "name": "A competitor down the street",
+        "note": "4.9 ★ · cited in local news"
+      },
+      {
+        "name": "Another competitor",
+        "note": "5.0 ★ · featured on a podcast"
+      },
+      {
+        "name": "A third competitor",
+        "note": "4.8 ★ · lots of articles"
+      }
+    ],
+    "missingLabel": "Your business: not mentioned."
+  },
+  "channels": {
+    "visible": true,
+    "eyebrow": "Get Published",
+    "headingAccent": "Everywhere",
+    "heading": "AI looks",
+    "intro": "Your business as the answer in content published across the web.",
+    "goal": {
+      "iconSet": "ai",
+      "caption": "Your customers are searching for you",
+      "prompt": "Who's the best cosmetic dentist in Redondo Beach?",
+      "answerLead": "A top pick is",
+      "businessName": "Your Business",
+      "answerRest": ", known for great results and recently featured in local news."
+    },
+    "publish": {
+      "title": "Your Content in all Formats",
+      "body": "We create and distribute content that AI + Search engines trust and cite.",
+      "cards": [
+        {
+          "iconSet": "news",
+          "title": "Google News & media sites",
+          "body": "Articles about your business are distributed to hundreds of news and media sites, sources AI trusts most."
+        },
+        {
+          "iconSet": "media",
+          "title": "YouTube, Spotify & podcasts",
+          "body": "Each topic becomes video and audioe, so you show up on YouTube, Spotify and Apple Podcasts."
+        },
+        {
+          "iconSet": "social",
+          "title": "Social feeds",
+          "body": "Short posts for Facebook, Instagram, LinkedIn, TikTok and Pinterest, all pointing back to you."
+        },
+        {
+          "iconSet": "blog",
+          "title": "Managed Content",
+          "body": "Long-form blog posts and infographics published to your blog, so your expertise lives on your domain."
+        }
+      ]
+    },
+    "measure": {
+      "label": "The result",
+      "title": "New customers find you online.",
+      "body": "Growth happens month over month and earned traffic will not stop when the work does."
+    },
+    "offer": {
+      "visible": false,
+      "eyebrow": "Free AI health check",
+      "heading": "Find out who AI recommends in your market",
+      "buttonLabel": "Get my free AI health check →",
+      "buttonUrl": "#contact",
+      "note": "We ask ChatGPT, Google AI and Perplexity the questions your customers ask, and show you exactly who they recommend. Free, no strings."
+    }
+  },
+  "process": {
+    "visible": true,
+    "eyebrow": "Ready to Start?",
+    "heading": "How it works",
+    "steps": [
+      {
+        "no": "01",
+        "title": "Free AI Research",
+        "tag": "Start Today",
+        "body": "Find out what questions your customers ask, and who is getting recommended."
+      },
+      {
+        "no": "02",
+        "title": "Plan and publish",
+        "tag": "Content is King",
+        "body": "We turn one topic into articles, podcasts, video and social posts, published across hundreds of sites. You approve, we handle the rest."
+      },
+      {
+        "no": "03",
+        "title": "Measure and grow",
+        "tag": "Rinse & Repeat",
+        "body": " Incoming traffic will grow month over month. We trrck progress and continue to publish content to get you ahead of every question your customers ask."
+      }
+    ]
+  },
+  "results": {
+    "visible": true,
+    "eyebrow": "Why work with us",
+    "heading": "Real businesses, real growth.",
+    "cards": [
+      {
+        "placeholder": false,
+        "image": "/media/case-dental-clinic.png",
+        "imageAlt": "Smiling dentist in a bright dental office",
+        "label": "More Calls",
+        "metric": "2×",
+        "title": "Dental clinic doubles its organic traffic",
+        "body": "Organic traffic doubled after six monthly content campaigns."
+      },
+      {
+        "placeholder": false,
+        "image": "/media/case-roofing-company.png",
+        "imageAlt": "Roofers working on a house roof",
+        "label": "Free Traffic",
+        "metric": "Page 1",
+        "title": "Texas roofing contractor gets 500+ visitors a month",
+        "body": "Multiple page 1 Google rankings within three months of publishing."
+      },
+      {
+        "placeholder": false,
+        "image": "/media/case-beauty-salon.png",
+        "imageAlt": "Woman smiling with a bouquet of pink peonies",
+        "label": "Increase Bookings",
+        "metric": "+31%",
+        "title": "Seattle beauty salon grows its organic traffic",
+        "body": "A steady monthly content plan drove a 31% increase in organic traffic."
+      }
+    ]
+  },
+  "faq": {
+    "visible": true,
+    "eyebrow": "",
+    "heading": "Frequently asked questions.",
+    "items": [
+      {
+        "q": "Do I have to write anything?",
+        "a": "No. A short call to start, then a quick approval each month.  We write, produce and publish everything."
+      },
+      {
+        "q": "Is this the same as SEO?",
+        "a": "Our goal is creating content that gets you ranked in AI, The answered questions in the content and inbound links are a factor in SEO as well as AI visibility. This is how AI assistants and Search engines decide who to recommend so you will see results in both."
+      },
+      {
+        "q": "How long until I see results?",
+        "a": "Content is created and goes live in the first 2-3 weeks. How you rank depends on a few factors, including competition and your brands current authority. AI answers update over time, so we check every month and show you how much traffic you are getting."
+      },
+      {
+        "q": "Is the content written by AI?",
+        "a": "We use AI to sharpen and speed up the work, but it's 100% driven by real human experience: your story, your expertise, reviewed by people."
+      }
+    ]
+  },
+  "contact": {
+    "visible": true,
+    "heading": "Find out who AI recommends in your market",
+    "body": "Tell us your business and city. We'll show you how you are ranking in AI. Free, no strings.",
+    "phone": "",
+    "messageLabel": "Your business name and city",
+    "messagePlaceholder": "Your business name and city",
+    "buttonLabel": "Send me my AI check →"
+  }
+}

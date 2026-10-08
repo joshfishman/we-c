@@ -58,7 +58,7 @@ test("lead quiz modal has no serious or critical a11y violations", async ({
   };
 
   await scan("first question");
-  await dialog.getByText("Both", { exact: true }).click();
+  await dialog.getByText("All of the above", { exact: true }).click();
   await dialog.getByRole("button", { name: /Next/ }).click();
   await scan("branched question");
 });

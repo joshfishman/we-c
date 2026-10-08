@@ -202,3 +202,19 @@ a.detail:hover {
     background-position: 0% 50%;
   }
 }
+
+/* Optional "Or call …" line under the body (AI Visibility page). */
+.body + .body {
+  margin-top: 12px;
+}
+.body a {
+  color: #fcefe2;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Opt-in: no cream gutter above the band, for pages whose colour bands run
+   edge to edge (AI Visibility). */
+.flush.flush {
+  padding-top: 0;
+}

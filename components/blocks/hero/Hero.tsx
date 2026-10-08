@@ -5,12 +5,12 @@ import { Section } from "../../ui/Section";
 import { Cta } from "../../ui/Cta";
 import { BgVideo } from "../../ui/BgVideo";
 import { BgSlideshow } from "../../ui/BgSlideshow";
-import { Typewriter, type TWSegment } from "../../ui/Typewriter";
+import { HeroHeadline, type HeadlineSegment } from "../../ui/HeroHeadline";
 import styles from "./hero.module.css";
 
 export function Hero({ data }: { data: any }) {
   // Build the typed headline: gradient lead + italic accent + gradient tail.
-  const headline: TWSegment[] = [];
+  const headline: HeadlineSegment[] = [];
   if (data.headlineLead)
     headline.push({ text: data.headlineLead, className: styles.gradWord });
   if (data.headlineAccent) {
@@ -62,7 +62,7 @@ export function Hero({ data }: { data: any }) {
         ) : null}
 
         <h1 className={`serif ${styles.headline}`}>
-          <Typewriter segments={headline} />
+          <HeroHeadline segments={headline} />
         </h1>
 
         <p className={styles.subhead} data-tina-field={tinaField(data, "subhead")}>
