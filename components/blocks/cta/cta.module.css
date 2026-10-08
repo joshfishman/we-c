@@ -144,10 +144,13 @@ a.detail:hover {
   -webkit-text-fill-color: transparent;
 }
 
+/* Footer links stacked one per line (right-aligned beside the logo; left
+   under it on phones). */
 .footerNav {
   display: flex;
-  align-items: center;
-  gap: 28px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
 }
 .footerNav a {
   font-size: 14px;
@@ -181,6 +184,9 @@ a.detail:hover {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+  }
+  .footerNav {
+    align-items: flex-start;
   }
 }
 
