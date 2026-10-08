@@ -294,11 +294,8 @@
 .heroTitleAi.heroTitleAi {
   font-size: clamp(36px, 5vw, 66px);
   line-height: 1.02;
-}
-@media (min-width: 900px) {
-  .heroTitleAi.heroTitleAi {
-    white-space: nowrap;
-  }
+  /* One sentence that wraps into evenly balanced lines at every width. */
+  text-wrap: balance;
 }
 /* "WE" in the headline, set like the logo wordmark. */
 .heroWe {
