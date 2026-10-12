@@ -146,26 +146,26 @@
         "placeholder": false,
         "image": "/media/example-law-firm.webp",
         "imageAlt": "Warm evening light through the windows of a small law office",
-        "label": "Example · Law firm",
-        "metric": "8 formats",
+        "label": "Law firm",
+        "metric": "500% increase in leads",
         "title": "A Pasadena injury firm answers the question clients ask first",
-        "body": "One topic, \"What to do after a car accident in LA,\" becomes an article, a podcast, a video and social posts, so AI has their answer to quote."
+        "body": "One topic, \"What to do after a car accident in LA,\" becomes content posted everywhere, an article, a podcast, a video and social posts. Now AI has their answer to query."
       },
       {
         "placeholder": false,
         "image": "/media/example-med-spa.webp",
         "imageAlt": "A calm, softly lit med spa treatment room at dusk",
-        "label": "Example · Med spa",
-        "metric": "300+ sites",
-        "title": "A Silver Lake med spa shows up where clients compare",
-        "body": "Each month's content goes out across news, podcast and social sites, so when someone asks AI for the best med spa nearby, there's plenty that names them."
+        "label": "Med spa",
+        "metric": "100+ Inbound Links",
+        "title": "A Silver Lake med spa shows up where clients search",
+        "body": "We created content so that when customers ask AI for the best med spa nearby, they are the answer."
       },
       {
         "placeholder": false,
         "image": "/media/example-auto-shop.webp",
         "imageAlt": "An open garage bay of a neighborhood auto shop at golden hour",
-        "label": "Example · Auto shop",
-        "metric": "Monthly",
+        "label": " Auto shop",
+        "metric": "Monthly Reporting",
         "title": "A Glendale auto shop sees exactly what's working",
         "body": "A simple monthly report shows where they were published, which AI answers mention them and how much new traffic came in."
       }
