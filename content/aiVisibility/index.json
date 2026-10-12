@@ -139,35 +139,35 @@
   },
   "results": {
     "visible": true,
-    "eyebrow": "Why work with us",
-    "heading": "Real businesses, real growth.",
+    "eyebrow": "How it plays out",
+    "heading": "What it looks like for a business like yours.",
     "cards": [
       {
         "placeholder": false,
-        "image": "/media/case-dental-clinic.png",
-        "imageAlt": "Smiling dentist in a bright dental office",
-        "label": "More Calls",
-        "metric": "2×",
-        "title": "Dental clinic doubles its organic traffic",
-        "body": "Organic traffic doubled after six monthly content campaigns."
+        "image": "/media/example-law-firm.webp",
+        "imageAlt": "Warm evening light through the windows of a small law office",
+        "label": "Example · Law firm",
+        "metric": "8 formats",
+        "title": "A Pasadena injury firm answers the question clients ask first",
+        "body": "One topic, \"What to do after a car accident in LA,\" becomes an article, a podcast, a video and social posts, so AI has their answer to quote."
       },
       {
         "placeholder": false,
-        "image": "/media/case-roofing-company.png",
-        "imageAlt": "Roofers working on a house roof",
-        "label": "Free Traffic",
-        "metric": "Page 1",
-        "title": "Texas roofing contractor gets 500+ visitors a month",
-        "body": "Multiple page 1 Google rankings within three months of publishing."
+        "image": "/media/example-med-spa.webp",
+        "imageAlt": "A calm, softly lit med spa treatment room at dusk",
+        "label": "Example · Med spa",
+        "metric": "300+ sites",
+        "title": "A Silver Lake med spa shows up where clients compare",
+        "body": "Each month's content goes out across news, podcast and social sites, so when someone asks AI for the best med spa nearby, there's plenty that names them."
       },
       {
         "placeholder": false,
-        "image": "/media/case-beauty-salon.png",
-        "imageAlt": "Woman smiling with a bouquet of pink peonies",
-        "label": "Increase Bookings",
-        "metric": "+31%",
-        "title": "Seattle beauty salon grows its organic traffic",
-        "body": "A steady monthly content plan drove a 31% increase in organic traffic."
+        "image": "/media/example-auto-shop.webp",
+        "imageAlt": "An open garage bay of a neighborhood auto shop at golden hour",
+        "label": "Example · Auto shop",
+        "metric": "Monthly",
+        "title": "A Glendale auto shop sees exactly what's working",
+        "body": "A simple monthly report shows where they were published, which AI answers mention them and how much new traffic came in."
       }
     ]
   },
