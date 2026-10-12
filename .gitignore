@@ -23,6 +23,7 @@ tsconfig.tsbuildinfo
 .env
 .env.local
 .idea
+/biz/
 
 # debug
 npm-debug.log*
